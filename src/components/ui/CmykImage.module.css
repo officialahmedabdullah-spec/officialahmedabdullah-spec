@@ -1,0 +1,92 @@
+.frame {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  isolation: isolate;
+}
+
+.plate {
+  position: absolute;
+  inset: -14px;
+  width: calc(100% + 28px);
+  max-width: none;
+  height: calc(100% + 28px);
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  will-change: transform;
+}
+
+.c { filter: url(#plate-c); }
+.m { filter: url(#plate-m); }
+.y { filter: url(#plate-y); }
+
+.halftone {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(circle, rgb(26 24 20 / .9) 0 28%, transparent 31%) 0 0 / 7px 7px;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity .5s var(--ease-out);
+  pointer-events: none;
+}
+
+.reg {
+  position: absolute;
+  z-index: 3;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity .4s;
+}
+
+.reg::before,
+.reg::after {
+  content: "";
+  position: absolute;
+  background: var(--ink);
+}
+
+.reg::before { left: 50%; top: -6px; bottom: -6px; width: 1px; }
+.reg::after { top: 50%; left: -6px; right: -6px; height: 1px; }
+
+.regA { top: 12px; left: 12px; }
+.regB { right: 12px; bottom: 12px; }
+
+.inks {
+  position: absolute;
+  z-index: 3;
+  left: 12px;
+  bottom: 12px;
+  display: flex;
+  gap: 3px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .4s, transform .5s var(--ease-out);
+}
+
+.inks i {
+  width: 14px;
+  height: 14px;
+}
+
+:global([data-cmyk-group]:hover) .halftone,
+:global([data-cmyk-group]:focus-visible) .halftone,
+.frame:hover .halftone {
+  opacity: .2;
+}
+
+:global([data-cmyk-group]:hover) .reg,
+:global([data-cmyk-group]:focus-visible) .reg,
+.frame:hover .reg {
+  opacity: .8;
+}
+
+:global([data-cmyk-group]:hover) .inks,
+:global([data-cmyk-group]:focus-visible) .inks,
+.frame:hover .inks {
+  opacity: 1;
+  transform: none;
+}

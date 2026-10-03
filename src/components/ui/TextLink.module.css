@@ -1,0 +1,27 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+  font: 600 .95rem/1.2 var(--f-display);
+  text-decoration: none;
+}
+
+.text {
+  background: linear-gradient(currentColor, currentColor) no-repeat left bottom / 0 1.5px;
+  padding-bottom: 3px;
+  transition: background-size .5s var(--ease-out);
+}
+
+.link:hover .text,
+.link:focus-visible .text {
+  background-size: 100% 1.5px;
+}
+
+.arrow {
+  transition: transform .5s var(--ease-out);
+}
+
+.link:hover .arrow {
+  transform: translate(2px, -2px);
+}

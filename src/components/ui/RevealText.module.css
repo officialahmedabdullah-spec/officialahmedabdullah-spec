@@ -1,0 +1,19 @@
+.word {
+  display: inline-block;
+  overflow: clip;
+  overflow-clip-margin: .08em;
+  vertical-align: top;
+  padding-bottom: .1em;
+  margin-bottom: -.1em;
+}
+
+/* elements such as a selection box draw outside their box */
+.element {
+  overflow: visible;
+}
+
+.inner {
+  display: inline-block;
+  transform-origin: 0 100%;
+  will-change: transform;
+}

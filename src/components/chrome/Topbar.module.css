@@ -1,0 +1,247 @@
+.bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--z-chrome);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--bar-h);
+  padding: 0 12px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+
+/* the Design Dynamo mark on its brand tile (lime/black, or burgundy/cream) */
+.app {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 9px;
+  background: var(--mark-tile);
+  color: var(--mark);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: transform .5s var(--ease-spring), background-color .4s, color .4s;
+}
+
+.app:hover {
+  transform: rotate(-8deg) scale(1.06);
+}
+
+.mark {
+  width: 20px;
+  height: 20px;
+  transition: transform .6s var(--ease-spring);
+}
+
+/* the two halves "open" like wings on hover */
+.app:hover .mark {
+  transform: scaleX(1.12);
+}
+
+.menu {
+  display: flex;
+  gap: 2px;
+}
+
+.menuLink {
+  position: relative;
+  padding: 7px 10px;
+  border-radius: 6px;
+  color: var(--text-dim);
+  font-size: .82rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .2s, color .2s;
+}
+
+.menuLink:hover {
+  background: var(--panel-2);
+  color: var(--text);
+}
+
+.menuLink[aria-current="page"] {
+  color: var(--text);
+}
+
+.menuLink[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--blue);
+}
+
+/* the open document tab sits on the workspace, like a Photoshop tab */
+.doc {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-end;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 8px 8px 0 0;
+  background: var(--ws);
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.docMeta,
+.docX {
+  color: var(--text-dim);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 12px;
+  flex: none;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  white-space: nowrap;
+  transition: background .2s, border-color .2s, color .2s;
+}
+
+.chip:hover {
+  background: var(--panel-2);
+}
+
+.chip[aria-pressed="true"] {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.chipText {
+  font: 500 .66rem/1 var(--f-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: var(--signal);
+  color: var(--ink);
+  font-size: .82rem;
+  font-weight: 650;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform .4s var(--ease-spring), background .2s;
+}
+
+.cta:hover {
+  background: #ff7448;
+  transform: translateY(-1px);
+}
+
+.layersBtn,
+.menuBtn {
+  display: none;
+}
+
+/* ---------- mobile menu sheet ---------------------------------- */
+
+.sheet {
+  position: fixed;
+  inset: var(--bar-h) 0 0 0;
+  z-index: var(--z-chrome);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 28px 20px 32px;
+  overflow-y: auto;
+  background: var(--panel);
+}
+
+.sheetList {
+  display: grid;
+  gap: 4px;
+}
+
+.sheetLink {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  font: 780 clamp(2.2rem, 11vw, 3.4rem)/1 var(--f-display);
+  letter-spacing: -.04em;
+  text-decoration: none;
+}
+
+.sheetLink span {
+  order: 2;
+  color: var(--text-dim);
+}
+
+.sheetLink[aria-current="page"] {
+  color: var(--blue);
+}
+
+.sheetControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sheetMail {
+  margin-top: auto;
+  color: var(--text-dim);
+  font: 500 .9rem var(--f-mono);
+}
+
+@media (max-width: 1180px) {
+  .layersBtn {
+    display: inline-flex;
+  }
+  .docMeta {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .menu {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .controls,
+  .layersBtn,
+  .doc {
+    display: none;
+  }
+  .menuBtn {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+  }
+  .cta {
+    height: 40px;
+  }
+}

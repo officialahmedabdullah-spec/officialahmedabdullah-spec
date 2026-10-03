@@ -1,0 +1,633 @@
+/* ============================================================
+   Reviews — rating summary, comment-thread cards, live ticker,
+   the review form and its dialog.
+   ============================================================ */
+
+/* ---------- stars ---------------------------------------------- */
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--brand-orange);
+}
+
+.starInput {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.starOption {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  color: var(--ink-line);
+  cursor: pointer;
+  transition: color .15s, transform .4s var(--ease-spring);
+}
+
+.starOption svg {
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+  stroke: rgb(26 24 20 / .25);
+  stroke-width: 1;
+}
+
+.starOn {
+  color: var(--brand-orange);
+}
+
+.starOn svg {
+  stroke: transparent;
+}
+
+.starOption:hover {
+  transform: scale(1.15) rotate(-6deg);
+}
+
+.starPicked {
+  animation: pop .45s var(--ease-spring);
+}
+
+@keyframes pop {
+  40% { transform: scale(1.35) rotate(8deg); }
+}
+
+.starOption:focus-within {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.starLabel {
+  margin-left: 10px;
+  color: var(--ink-dim);
+}
+
+.starInvalid .starOption svg {
+  stroke: var(--signal);
+}
+
+/* ---------- section head --------------------------------------- */
+
+.sectionHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px 40px;
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+
+.sectionHead > div {
+  max-width: 760px;
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 12px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgb(61 220 132 / .14);
+  color: #1d7a45;
+}
+
+.live i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3ddc84;
+  animation: blink 1.6s ease-in-out infinite;
+}
+
+@keyframes blink {
+  50% { opacity: .3; }
+}
+
+.note {
+  color: var(--ink-dim);
+}
+
+.projectTitle {
+  margin-bottom: 32px;
+}
+
+/* ---------- summary -------------------------------------------- */
+
+.summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 64px);
+  align-items: center;
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: 14px;
+  background: var(--ink);
+  color: var(--art);
+}
+
+.average {
+  font: 800 clamp(3.4rem, 7vw, 5.4rem)/.9 var(--f-display);
+  letter-spacing: -.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.average small {
+  margin-left: 4px;
+  font-size: .35em;
+  letter-spacing: 0;
+  opacity: .5;
+}
+
+.summaryStars {
+  margin-top: 10px;
+}
+
+.count {
+  margin-top: 10px;
+  color: rgb(245 241 232 / .6);
+}
+
+.bars {
+  display: grid;
+  gap: 8px;
+}
+
+.bars li {
+  display: grid;
+  grid-template-columns: 28px 1fr 28px;
+  align-items: center;
+  gap: 12px;
+  color: rgb(245 241 232 / .7);
+}
+
+.barTrack {
+  height: 8px;
+  border-radius: 8px;
+  background: rgb(245 241 232 / .12);
+  overflow: hidden;
+}
+
+.barFill {
+  display: block;
+  height: 100%;
+  border-radius: 8px;
+  background: var(--brand-orange);
+  transform-origin: left;
+  transition: transform .9s var(--ease-out);
+}
+
+.barN {
+  text-align: right;
+}
+
+/* ---------- ticker --------------------------------------------- */
+
+.ticker {
+  margin: 24px 0 36px;
+  padding: 14px 0;
+  overflow: hidden;
+  border-top: 1px solid var(--ink-line);
+  border-bottom: 1px solid var(--ink-line);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.tickerTrack {
+  display: flex;
+  width: max-content;
+}
+
+.tickerRow {
+  display: flex;
+  flex: none;
+}
+
+.tickerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 48px;
+  white-space: nowrap;
+}
+
+.tickerItem q {
+  font: italic 400 1.05rem/1.3 var(--f-serif);
+}
+
+.tickerItem .mono {
+  color: var(--ink-dim);
+}
+
+/* ---------- comment cards -------------------------------------- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 28px 22px;
+  align-items: start;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  padding: 20px 20px 18px;
+  border-radius: 4px 18px 18px 18px;
+  background: #fff;
+  box-shadow: 0 22px 40px -28px rgb(0 0 0 / .45);
+  rotate: var(--tilt);
+  transition: rotate .5s var(--ease-spring), box-shadow .4s;
+}
+
+.card:hover {
+  rotate: 0deg;
+  box-shadow: 0 26px 44px -26px rgb(0 0 0 / .5);
+}
+
+/* new arrivals glow blue for a moment */
+.fresh {
+  box-shadow: 0 0 0 2px var(--blue), 0 22px 40px -28px rgb(0 0 0 / .45);
+}
+
+/* numbered pin, like Photoshop / Figma comments */
+.pin {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--art);
+  border-radius: 50% 50% 50% 4px;
+  background: var(--blue);
+  color: #06121d;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.cardHead {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.cardHead time,
+.cardHead > .mono {
+  color: var(--ink-dim);
+  font-size: .58rem;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--brand-lime);
+  font: 700 .85rem/1 var(--f-display);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.who {
+  display: grid;
+  min-width: 0;
+}
+
+.who strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.who span {
+  overflow: hidden;
+  color: var(--ink-dim);
+  font-size: .82rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.badge {
+  justify-self: end;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #06121d;
+  font-size: .55rem;
+}
+
+.body {
+  font: 400 1.02rem/1.55 var(--f-serif);
+  white-space: pre-line;
+}
+
+.for {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--ink-line);
+  color: var(--ink-dim);
+}
+
+.for > * {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--art-2);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.for a:hover {
+  background: var(--ink);
+  color: var(--art);
+}
+
+.more {
+  display: block;
+  margin: 32px auto 0;
+  padding: 10px 18px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: 600 .9rem/1 var(--f-display);
+}
+
+.more:hover {
+  background: var(--ink);
+  color: var(--art);
+}
+
+.empty {
+  padding: clamp(24px, 4vw, 40px);
+  border: 1.5px dashed var(--ink-line);
+  border-radius: 16px;
+  font: 400 1.05rem/1.5 var(--f-serif);
+  color: var(--ink-dim);
+}
+
+.emptyTitle {
+  margin-bottom: 6px;
+  color: var(--ink);
+  font: 720 1.4rem/1.2 var(--f-display);
+}
+
+/* ---------- form ----------------------------------------------- */
+
+.form {
+  display: grid;
+  gap: 22px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.field {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.label {
+  color: var(--ink-dim);
+}
+
+.input {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1.5px solid var(--ink-line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  font: 400 1rem/1.4 var(--f-display);
+  resize: vertical;
+  transition: border-color .25s, box-shadow .25s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgb(49 168 255 / .2);
+}
+
+.input[aria-invalid="true"] {
+  border-color: var(--signal);
+}
+
+.counter {
+  justify-self: end;
+  color: var(--ink-dim);
+  font-size: .58rem;
+}
+
+.fieldError {
+  color: #b23a12;
+  font-size: .85rem;
+}
+
+.photoRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.photoPreview {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  border: 1.5px dashed var(--ink-line);
+  border-radius: 50%;
+  color: var(--ink-dim);
+}
+
+.photoPreview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photoButton {
+  padding: 9px 14px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  font: 600 .88rem/1 var(--f-display);
+  cursor: pointer;
+}
+
+.photoButton:hover {
+  background: var(--ink);
+  color: var(--art);
+}
+
+:global(input[type="file"]:focus-visible) + .photoButton {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.linkButton {
+  padding: 0 0 2px;
+  border: 0;
+  border-bottom: 1.5px solid currentColor;
+  background: none;
+  color: inherit;
+  font: 600 .92rem/1.2 var(--f-display);
+}
+
+.trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.formError {
+  padding: 12px 16px;
+  border-left: 3px solid var(--signal);
+  background: rgb(255 91 46 / .08);
+}
+
+.submitRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+}
+
+.small {
+  color: var(--ink-dim);
+}
+
+.thanks {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: 16px;
+  background: var(--ink);
+  color: var(--art);
+}
+
+.thanks h3 {
+  font: 760 1.8rem/1.1 var(--f-display);
+  letter-spacing: -.03em;
+}
+
+.thanks p {
+  max-width: 34rem;
+  font: 400 1.05rem/1.5 var(--f-serif);
+  color: rgb(245 241 232 / .75);
+}
+
+.thanksTick {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--brand-lime);
+  color: var(--ink);
+}
+
+.thanks .linkButton {
+  color: var(--brand-lime);
+}
+
+/* ---------- dialog --------------------------------------------- */
+
+.dialog {
+  width: min(720px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  border-radius: 18px;
+  background: var(--art);
+  color: var(--ink);
+  box-shadow: 0 40px 100px -30px rgb(0 0 0 / .7);
+}
+
+.dialog::backdrop {
+  background: rgb(18 17 15 / .7);
+  backdrop-filter: blur(4px);
+}
+
+.dialog[open] {
+  animation: rise .45s var(--ease-out);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(.98);
+  }
+}
+
+.dialogPanel {
+  padding: clamp(20px, 4vw, 36px);
+}
+
+.dialogHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.dialogHead .mono {
+  color: var(--blue);
+}
+
+.dialogHead h2 {
+  margin-top: 6px;
+  font: 780 clamp(1.8rem, 4vw, 2.6rem)/1 var(--f-display);
+  letter-spacing: -.035em;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1.5px solid var(--ink-line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+}
+
+.close:hover {
+  background: var(--ink);
+  color: var(--art);
+}
+
+@media (max-width: 700px) {
+  .summary,
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}

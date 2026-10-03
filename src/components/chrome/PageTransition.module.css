@@ -1,0 +1,28 @@
+.page {
+  min-height: 60vh;
+}
+
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-curtain);
+  display: grid;
+  place-items: center;
+  background: var(--panel);
+  clip-path: inset(100% 0 0 0);
+  pointer-events: none;
+}
+
+.curtainLabel {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  color: var(--text);
+  font: 800 clamp(2.6rem, 8vw, 6.5rem)/.9 var(--f-display);
+  letter-spacing: -.04em;
+}
+
+.curtainLabel span {
+  color: var(--blue);
+  letter-spacing: .08em;
+}

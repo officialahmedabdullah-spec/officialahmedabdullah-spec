@@ -1,0 +1,23 @@
+.header {
+  display: grid;
+  gap: clamp(28px, 4vw, 56px);
+}
+
+.withAside {
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr);
+  align-items: end;
+}
+
+.title {
+  max-width: 14ch;
+}
+
+.lede {
+  margin-top: 28px;
+}
+
+@media (max-width: 860px) {
+  .withAside {
+    grid-template-columns: 1fr;
+  }
+}

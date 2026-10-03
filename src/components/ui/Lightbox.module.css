@@ -1,0 +1,102 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--art);
+}
+
+.dialog::backdrop {
+  background: rgb(18 17 15 / .92);
+  backdrop-filter: blur(6px);
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px clamp(16px, 3vw, 32px);
+  color: rgb(245 241 232 / .7);
+}
+
+.figure {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0 clamp(16px, 7vw, 96px);
+}
+
+.image {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100dvh - 160px);
+  object-fit: contain;
+  box-shadow: 0 30px 80px -30px rgb(0 0 0 / .8);
+}
+
+.caption {
+  padding: 14px 20px 24px;
+  font: 400 1.15rem/1.3 var(--f-serif);
+  text-align: center;
+}
+
+.round {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex: none;
+  padding: 0;
+  border: 1px solid rgb(245 241 232 / .25);
+  border-radius: 50%;
+  background: rgb(26 24 20 / .5);
+  color: var(--art);
+  transition: background .25s, color .25s;
+}
+
+.round:hover {
+  background: var(--art);
+  color: var(--ink);
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.prev { left: clamp(8px, 2vw, 28px); }
+.next { right: clamp(8px, 2vw, 28px); }
+
+@media (max-width: 600px) {
+  .prev,
+  .next {
+    top: auto;
+    bottom: 8px;
+    transform: none;
+  }
+}

@@ -1,0 +1,144 @@
+.facts {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.facts > div {
+  padding-top: 12px;
+  border-top: 1px solid var(--ink-line);
+}
+
+.facts dt {
+  color: var(--ink-dim);
+}
+
+.facts dd {
+  margin: 4px 0 0;
+  font-weight: 600;
+}
+
+.back {
+  margin-top: 28px;
+}
+
+.coverSheet {
+  padding: clamp(10px, 1.6vw, 20px);
+}
+
+.story {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 56px);
+}
+
+.chapter {
+  padding-top: 18px;
+  border-top: 3px solid var(--accent, var(--signal));
+}
+
+.chapterN {
+  margin-bottom: 14px;
+  color: var(--ink-dim);
+}
+
+.chapterText {
+  margin-top: 14px;
+  font: 400 1.08rem/1.6 var(--f-serif);
+  color: var(--ink-dim);
+}
+
+.compareTitle {
+  margin-bottom: 32px;
+}
+
+/* key brand pieces: large, one per row, alternating a little narrower */
+.features {
+  display: grid;
+  gap: clamp(32px, 5vw, 64px);
+}
+
+.feature:nth-child(even) {
+  width: min(100%, 86%);
+  margin-left: auto;
+}
+
+.featureCaption {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 14px;
+  font: 400 1.05rem/1.45 var(--f-serif);
+  color: var(--ink-dim);
+}
+
+.featureCaption .mono {
+  color: var(--accent, var(--ink));
+}
+
+.gallery {
+  columns: 3 260px;
+  column-gap: 16px;
+}
+
+.gallery li {
+  break-inside: avoid;
+  margin-bottom: 16px;
+}
+
+.single {
+  columns: 1;
+}
+
+.tile {
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: var(--art-2);
+}
+
+.tile img {
+  width: 100%;
+  height: auto;
+  transition: transform .9s var(--ease-out);
+}
+
+.tile:hover img {
+  transform: scale(1.04);
+}
+
+.next {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .8fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.nextTitle {
+  transition: color .3s;
+}
+
+.next:hover .nextTitle {
+  color: var(--signal);
+}
+
+.nextSub {
+  margin-top: 12px;
+  font: 400 1.1rem/1.4 var(--f-serif);
+  opacity: .7;
+}
+
+.nextCta {
+  margin-top: 36px;
+}
+
+@media (max-width: 860px) {
+  .story,
+  .next {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,42 @@
+import { archiveCategories, imageTitles } from "./portfolioData";
+
+/* Web versions written by `npm run images` (see scripts/optimize-images.mjs).
+   A key is the path below full/ without extension, e.g.
+   "canvas-design/02/mockup". */
+const full = import.meta.glob("../assets/projects/full/**/*.webp", { eager: true, query: "?url", import: "default" });
+const thumb = import.meta.glob("../assets/projects/thumb/**/*.webp", { eager: true, query: "?url", import: "default" });
+
+const keyOf = (path, dir) => path.slice(path.indexOf(`/${dir}/`) + dir.length + 2).replace(/\.webp$/, "");
+const byKey = (a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+
+const thumbs = Object.fromEntries(Object.entries(thumb).map(([path, url]) => [keyOf(path, "thumb"), url]));
+
+// "recent-projects/poster-designs-5" -> "Poster designs 5" (or the override in imageTitles)
+const titleOf = (key) => {
+  if (imageTitles[key]) return imageTitles[key];
+  const name = key.slice(key.lastIndexOf("/") + 1).replace(/-/g, " ").trim();
+  return name.charAt(0).toUpperCase() + name.slice(1);
+};
+
+const images = Object.entries(full)
+  .map(([path, url]) => {
+    const key = keyOf(path, "full");
+    return { key, src: url, thumb: thumbs[key] ?? url, title: titleOf(key), folder: key.split("/")[0] };
+  })
+  .sort((a, b) => byKey(a.key, b.key));
+
+const index = new Map(images.map((image) => [image.key, image]));
+
+export const projectImage = (key) => index.get(key);
+
+export const folderImages = (folder) => images.filter((image) => image.folder === folder);
+
+// grouped for the archive, in archiveCategories order
+export const archive = archiveCategories
+  .map((category) => ({
+    ...category,
+    items: folderImages(category.id).map((image) => ({ ...image, category: category.title })),
+  }))
+  .filter((category) => category.items.length > 0);
+
+export const archiveCount = archive.reduce((sum, category) => sum + category.items.length, 0);

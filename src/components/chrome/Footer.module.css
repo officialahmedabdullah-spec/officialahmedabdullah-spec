@@ -1,0 +1,186 @@
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.headline {
+  max-width: 12ch;
+}
+
+.accent {
+  color: var(--signal);
+}
+
+.cta {
+  padding-bottom: 8px;
+}
+
+.mail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 48px;
+  padding: 26px 0;
+  border-top: 1px solid rgb(245 241 232 / .14);
+  border-bottom: 1px solid rgb(245 241 232 / .14);
+}
+
+.mailLink {
+  font: 400 clamp(1.4rem, 3.4vw, 2.6rem)/1.1 var(--f-serif);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  background: linear-gradient(var(--signal), var(--signal)) no-repeat left bottom / 0 2px;
+  transition: background-size .6s var(--ease-out);
+}
+
+.mailLink:hover {
+  background-size: 100% 2px;
+}
+
+.copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgb(245 241 232 / .25);
+  border-radius: 999px;
+  background: none;
+}
+
+.copy:hover {
+  background: rgb(245 241 232 / .08);
+}
+
+.eggRow {
+  margin-top: 48px;
+  padding: clamp(24px, 4vw, 44px);
+  border: 1.5px dashed rgb(245 241 232 / .22);
+  border-radius: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.title {
+  margin-bottom: 14px;
+  color: rgb(245 241 232 / .5);
+}
+
+.list {
+  display: grid;
+  gap: 8px;
+}
+
+.list a,
+.meta a {
+  text-decoration: none;
+  transition: color .25s;
+}
+
+.list a:hover,
+.meta a:hover {
+  color: var(--signal);
+}
+
+.meta {
+  line-height: 1.7;
+}
+
+/* Design Dynamo: the DD mark + the night (white / lime) wordmark */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 40px);
+  margin-top: 64px;
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 11vw, 132px);
+  aspect-ratio: 1;
+  flex: none;
+  border-radius: 22%;
+  background: var(--brand-black);
+  color: var(--brand-lime);
+  transition: transform .8s var(--ease-spring);
+}
+
+.brandMark svg {
+  width: 62%;
+  transition: transform .8s var(--ease-spring);
+}
+
+.brand:hover .brandMark {
+  transform: rotate(-8deg);
+}
+
+.brand:hover .brandMark svg {
+  transform: scaleX(1.14);
+}
+
+.wordmark {
+  flex: 1;
+  min-width: 0;
+  height: auto;
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgb(245 241 232 / .14);
+  color: rgb(245 241 232 / .55);
+}
+
+.legalLinks {
+  display: flex;
+  gap: 20px;
+}
+
+.legalLinks a {
+  text-decoration: none;
+}
+
+.legalLinks a:hover,
+.top2:hover {
+  color: var(--art);
+}
+
+.top2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

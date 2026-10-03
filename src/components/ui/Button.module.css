@@ -1,0 +1,85 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 8px 0 24px;
+  border: 0;
+  border-radius: 999px;
+  font: 650 .95rem/1 var(--f-display);
+  letter-spacing: -.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color .3s, color .3s, box-shadow .3s;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgb(26 24 20 / .12);
+  overflow: hidden;
+}
+
+.icon svg {
+  transition: transform .5s var(--ease-out);
+}
+
+.button:hover .icon svg {
+  transform: translateX(2px) rotate(-45deg);
+}
+
+.button:disabled {
+  cursor: progress;
+  opacity: .85;
+}
+
+.primary {
+  background: var(--signal);
+  color: var(--ink);
+}
+
+.primary:hover {
+  background: #ff7448;
+}
+
+.dark {
+  background: var(--ink);
+  color: var(--art);
+}
+
+.dark .icon {
+  background: rgb(245 241 232 / .14);
+}
+
+.light {
+  background: var(--art);
+  color: var(--ink);
+}
+
+.ghost {
+  background: transparent;
+  color: currentColor;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+
+.ghost .icon {
+  background: transparent;
+}
+
+.ghost:not(:has(.icon)) {
+  padding-right: 24px;
+}
+
+.sm {
+  height: 40px;
+  padding-left: 18px;
+  font-size: .85rem;
+}
+
+.sm .icon {
+  width: 28px;
+  height: 28px;
+}

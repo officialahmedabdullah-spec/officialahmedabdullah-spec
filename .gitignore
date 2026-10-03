@@ -1,0 +1,6 @@
+node_modules
+dist
+*.local
+.DS_Store
+# full-resolution originals (several hundred MB); run `npm run images` to rebuild web versions
+media-source

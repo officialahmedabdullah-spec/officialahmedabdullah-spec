@@ -1,0 +1,54 @@
+/* Type scale (perfect fourth, 1.333) used across artboards.
+   Bricolage = loud, Fraunces = literate, Plex Mono = technical. */
+
+.h-xl {
+  font: 800 clamp(2.9rem, 7.4vw, 7.4rem)/.9 var(--f-display);
+  letter-spacing: -.04em;
+  font-variation-settings: "opsz" 96;
+}
+
+.h-lg {
+  font: 760 clamp(2.1rem, 4.6vw, 4rem)/.96 var(--f-display);
+  letter-spacing: -.035em;
+}
+
+.h-md {
+  font: 720 clamp(1.5rem, 2.6vw, 2.2rem)/1.05 var(--f-display);
+  letter-spacing: -.025em;
+}
+
+.lede {
+  max-width: 36rem;
+  font: 400 clamp(1.05rem, 1.5vw, 1.32rem)/1.5 var(--f-serif);
+  color: var(--ink-dim);
+}
+
+.body {
+  max-width: 40rem;
+  font: 400 1rem/1.65 var(--f-display);
+  color: var(--ink-dim);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: var(--ink-dim);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--signal);
+}
+
+/* on ink sheets */
+.on-ink .lede,
+.on-ink .body,
+.on-ink .eyebrow {
+  color: rgb(245 241 232 / .72);
+}

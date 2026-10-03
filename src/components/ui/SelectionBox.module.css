@@ -1,0 +1,69 @@
+.sel {
+  position: relative;
+  display: inline-block;
+}
+
+.ants {
+  position: absolute;
+  inset: -.08em -.12em;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, var(--blue) 50%, transparent 0) repeat-x top / 10px 1.5px,
+    linear-gradient(90deg, var(--blue) 50%, transparent 0) repeat-x bottom / 10px 1.5px,
+    linear-gradient(0deg, var(--blue) 50%, transparent 0) repeat-y left / 1.5px 10px,
+    linear-gradient(0deg, var(--blue) 50%, transparent 0) repeat-y right / 1.5px 10px;
+  opacity: 0;
+  transition: opacity .4s;
+  animation: ants .6s linear infinite;
+}
+
+@keyframes ants {
+  to { background-position: 10px 0, -10px 100%, 0 -10px, 100% 10px; }
+}
+
+.handle {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: #fff;
+  border: 1.5px solid var(--blue);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform .45s var(--ease-spring);
+  transition-delay: var(--d);
+}
+
+.nw { left: -.12em; top: -.08em; }
+.n { left: 50%; top: -.08em; }
+.ne { left: calc(100% + .12em); top: -.08em; }
+.e { left: calc(100% + .12em); top: 50%; }
+.se { left: calc(100% + .12em); top: calc(100% + .08em); }
+.s { left: 50%; top: calc(100% + .08em); }
+.sw { left: -.12em; top: calc(100% + .08em); }
+.w { left: -.12em; top: 50%; }
+
+.tag {
+  position: absolute;
+  left: -.12em;
+  bottom: calc(100% + .08em + 8px);
+  padding: 3px 7px;
+  border-radius: 3px;
+  background: var(--blue);
+  color: var(--on-blue);
+  font-size: 10px;
+  letter-spacing: .04em;
+  text-transform: none;
+  line-height: 1.3;
+  white-space: nowrap;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .5s var(--ease-out) .25s;
+}
+
+/* small screens: the tag would cover the line above */
+@media (max-width: 600px) {
+  .tag { display: none; }
+}
+
+.on .ants { opacity: 1; }
+.on .handle { transform: translate(-50%, -50%) scale(1); }
+.on .tag { transform: none; }

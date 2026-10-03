@@ -1,0 +1,17 @@
+/* the scrollable canvas between the fixed chrome */
+.canvas {
+  display: block;
+  padding:
+    calc(var(--bar-h) + var(--ruler) + 56px)
+    calc(var(--layers-w) + var(--gutter))
+    calc(var(--status-h) + 72px)
+    calc(var(--tools-w) + var(--ruler) + var(--gutter));
+  overflow-x: clip;
+}
+
+@media (max-width: 860px) {
+  .canvas {
+    padding-top: calc(var(--bar-h) + 32px);
+    padding-bottom: 40px;
+  }
+}

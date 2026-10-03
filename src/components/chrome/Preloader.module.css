@@ -1,0 +1,63 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  display: grid;
+  place-items: center;
+  background: var(--ws);
+  color: var(--text);
+  clip-path: inset(0 0 0% 0);
+}
+
+.box {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  color: var(--text-dim);
+}
+
+.logo {
+  width: 120px;
+  height: 120px;
+  overflow: visible;
+}
+
+/* lime in the dark workspace, burgundy in the light one */
+.mark {
+  fill: var(--mark);
+  fill-opacity: 0;
+  fill-rule: evenodd;
+  stroke: var(--mark);
+  stroke-width: 14;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.count {
+  color: var(--text);
+  font: 800 3.6rem/1 var(--f-display);
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.count small {
+  margin-left: 3px;
+  font-size: .45em;
+  color: var(--text-dim);
+}
+
+.skip {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: none;
+  color: var(--text);
+  font: 500 .66rem/1 var(--f-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}

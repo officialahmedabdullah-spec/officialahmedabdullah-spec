@@ -1,0 +1,35 @@
+.body {
+  max-width: 44rem;
+  font: 400 1.05rem/1.7 var(--f-serif);
+  color: var(--ink-dim);
+}
+
+.title {
+  margin-bottom: 18px;
+  color: var(--ink);
+}
+
+.body p + p {
+  margin-top: 14px;
+}
+
+.body ul {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.body li {
+  position: relative;
+  padding-left: 20px;
+}
+
+.body li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .75em;
+  width: 10px;
+  height: 2px;
+  background: var(--signal);
+}

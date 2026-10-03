@@ -1,0 +1,125 @@
+.egg {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 56px);
+  align-items: center;
+}
+
+.stage {
+  display: grid;
+  justify-items: start;
+  gap: 18px;
+}
+
+/* ---------- the button: a quiet dashed pill ------------------- */
+
+.button {
+  height: 40px;
+  padding: 0 16px;
+  border: 1.5px dashed rgb(245 241 232 / .4);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: 600 .82rem/1 var(--f-display);
+  transition: border-color .3s, background .3s;
+  will-change: transform;
+}
+
+.button:hover {
+  border-color: var(--signal);
+  background: rgb(255 91 46 / .1);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* ---------- ink pressure meter (anticipation) ------------------ */
+
+.meter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgb(245 241 232 / .55);
+}
+
+.meter .mono {
+  margin-left: 6px;
+  font-size: .6rem;
+}
+
+.cell {
+  width: 14px;
+  height: 18px;
+  border: 1.5px solid rgb(245 241 232 / .35);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  transition: background .3s, border-color .3s, transform .5s var(--ease-spring);
+}
+
+.full {
+  border-color: var(--fill);
+  background: var(--fill);
+  transform: scale(1.15);
+}
+
+/* ---------- the message ---------------------------------------- */
+
+.messageBox {
+  min-height: 2.6em;
+  font-size: clamp(1.5rem, 3.2vw, 2.6rem);
+}
+
+.message {
+  font: italic 500 1em/1.15 var(--f-serif);
+  letter-spacing: -.01em;
+  text-wrap: balance;
+}
+
+/* ---------- full-screen paint layer + finale -------------------- */
+
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 96;
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.finale {
+  position: fixed;
+  z-index: 97;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 8px;
+  margin: 0;
+  pointer-events: none;
+  text-align: center;
+}
+
+.finaleWord {
+  color: var(--brand-lime);
+  font: 800 clamp(4.5rem, 16vw, 13rem)/.85 var(--f-display);
+  letter-spacing: -.05em;
+  /* print misregistration: burgundy and orange plates slip out from under */
+  text-shadow: 6px 6px 0 var(--brand-burgundy), -5px 3px 0 var(--brand-orange);
+}
+
+.finaleSub {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--brand-black);
+  color: var(--brand-cream);
+  font: italic 500 clamp(1rem, 2.2vw, 1.5rem)/1.2 var(--f-serif);
+}
+
+@media (max-width: 700px) {
+  .egg {
+    grid-template-columns: 1fr;
+  }
+}
+

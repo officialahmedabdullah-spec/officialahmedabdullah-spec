@@ -1,0 +1,122 @@
+.cursor {
+  position: fixed;
+  z-index: var(--z-cursor);
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.cursor[data-visible="true"] {
+  opacity: 1;
+}
+
+.dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 2px rgb(255 255 255 / .85);
+  transition: width .35s var(--ease-out), height .35s var(--ease-out), margin .35s var(--ease-out), background-color .2s, transform .2s;
+}
+
+.cursor[data-down="true"] .dot {
+  transform: scale(.7);
+}
+
+/* over links and buttons: a hollow ring */
+.cursor[data-kind="link"] .dot {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--blue);
+}
+
+/* tools: the dot shrinks to a hotspot and the tool icon appears */
+.icon {
+  position: absolute;
+  left: 1px;
+  top: -24px;
+  width: 22px;
+  height: 22px;
+  color: var(--ink);
+  filter: drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px #fff);
+}
+
+.glyph {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(.5) rotate(-20deg);
+  transition: opacity .2s, transform .35s var(--ease-spring);
+}
+
+.icon[data-icon="pen"] .glyph[data-for="pen"],
+.icon[data-icon="eyedropper"] .glyph[data-for="eyedropper"],
+.icon[data-icon="hand"] .glyph[data-for="hand"],
+.icon[data-icon="drag"] .glyph[data-for="drag"],
+.icon[data-icon="type"] .glyph[data-for="type"] {
+  opacity: 1;
+  transform: none;
+}
+
+.cursor[data-kind="pen"] .dot,
+.cursor[data-kind="eyedropper"] .dot,
+.cursor[data-kind="hand"] .dot,
+.cursor[data-kind="drag"] .dot,
+.cursor[data-kind="text"] .dot {
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+}
+
+/* eyedropper: the dot becomes a big swatch of the sampled colour */
+.cursor[data-kind="eyedropper"] .dot {
+  width: 22px;
+  height: 22px;
+  margin: 6px 0 0 6px;
+  box-shadow: 0 0 0 2px #fff, 0 4px 10px rgb(0 0 0 / .3);
+}
+
+.label {
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--blue);
+  color: var(--on-blue);
+  font-size: 10px;
+  letter-spacing: .04em;
+  white-space: nowrap;
+  transform: scale(0);
+  transform-origin: left top;
+  transition: transform .3s var(--ease-out);
+}
+
+.cursor[data-has-label="true"] .label {
+  transform: none;
+}
+
+/* projects: a big signal disc that says "View" */
+.cursor[data-kind="view"] .dot {
+  width: 88px;
+  height: 88px;
+  margin: -44px 0 0 -44px;
+  background: var(--signal);
+  box-shadow: none;
+}
+
+.cursor[data-kind="view"] .label {
+  left: 0;
+  top: 0;
+  background: none;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 600;
+  transform: translate(-50%, -50%);
+}

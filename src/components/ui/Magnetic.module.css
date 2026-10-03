@@ -1,0 +1,4 @@
+.magnetic {
+  display: inline-flex;
+  will-change: transform;
+}
