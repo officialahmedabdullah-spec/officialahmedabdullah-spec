@@ -25,6 +25,11 @@ create index if not exists reviews_approved_created_idx on public.reviews (appro
 
 alter table public.reviews enable row level security;
 
+-- the website may only read and add (works even when "automatically
+-- expose new tables" is off); the policies below narrow this further
+revoke all on public.reviews from anon, authenticated;
+grant select, insert on public.reviews to anon, authenticated;
+
 -- visitors see approved reviews only
 drop policy if exists "read approved reviews" on public.reviews;
 create policy "read approved reviews" on public.reviews
