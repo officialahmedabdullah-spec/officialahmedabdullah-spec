@@ -1,6 +1,7 @@
 import { useLocation } from "react-router";
 import { getService } from "@/data/portfolioData";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { t } from "@/i18n";
 import PageHeader from "@/components/sections/PageHeader";
 import Button from "@/components/ui/Button";
 
@@ -25,19 +26,19 @@ export function legacyTarget(pathname) {
 
 export default function NotFoundPage() {
   const { pathname } = useLocation();
-  useDocumentTitle("Layer not found");
+  useDocumentTitle(t("notFound.title"));
 
   return (
     <PageHeader
       id="not-found"
-      name="Not found"
+      name={t("layer.notFound")}
       file="missing-layer.psd"
-      eyebrow="Error 404"
-      title="Could not complete your request — layer not found."
-      lede={`Nothing lives at ${pathname}. It may have been flattened, renamed or never existed.`}
+      eyebrow={t("notFound.eyebrow")}
+      title={t("notFound.headline")}
+      lede={t("notFound.lede", { path: pathname })}
     >
       <div style={{ marginTop: 32 }}>
-        <Button to="/">Back to the canvas</Button>
+        <Button to="/">{t("notFound.back")}</Button>
       </div>
     </PageHeader>
   );

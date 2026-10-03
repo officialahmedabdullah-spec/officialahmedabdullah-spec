@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { logoBuild } from "@/data/portfolioData";
+import { t } from "@/i18n";
 import { MARK_ANCHORS, MARK_CIRCLES, MARK_COUNTERS, MARK_HANDLES, MARK_OUTER, MARK_PATH, MARK_SIZE } from "@/lib/brand";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cx, pad } from "@/lib/utils";
@@ -75,12 +76,12 @@ export default function LogoBuild() {
   );
 
   return (
-    <Artboard id="logo-build" name="Logo build" file="design-dynamo-mark.ai" pinned>
+    <Artboard id="logo-build" name={t("layer.logoBuild")} file="design-dynamo-mark.ai" pinned>
       <div ref={ref} className={styles.build}>
         <div>
-          <p className={cx("eyebrow", "mono")}>My own mark · scroll to build</p>
+          <p className={cx("eyebrow", "mono")}>{t("logoBuild.eyebrow")}</p>
           <RevealText className="h-lg" data-cursor="pen">
-            Watch the mark get made.
+            {t("logoBuild.title")}
           </RevealText>
           <ol className={styles.steps}>
             {logoBuild.map((item, i) => (
@@ -95,7 +96,7 @@ export default function LogoBuild() {
           </ol>
         </div>
 
-        <svg className={styles.svg} viewBox="-120 -120 1650 1650" role="img" aria-label="The Design Dynamo mark being constructed on a grid">
+        <svg className={styles.svg} viewBox="-120 -120 1650 1650" role="img" aria-label={t("logoBuild.svg")}>
           <g data-grid stroke="var(--blue)" strokeWidth="2.5" opacity=".55">
             {GRID.map((v) => (
               <line key={`v${v}`} data-gv x1={v} y1="-60" x2={v} y2={MARK_SIZE + 60} />

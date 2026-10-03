@@ -4,6 +4,7 @@ import { useLocation, useOutlet } from "react-router";
 import { useLayers } from "@/context/LayersContext";
 import { useSmoothScroll } from "@/context/SmoothScrollContext";
 import { useSound } from "@/context/SoundContext";
+import { t } from "@/i18n";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { cx, reducedMotion } from "@/lib/utils";
 import { currentFile } from "./Topbar";
@@ -66,7 +67,7 @@ export default function PageTransition() {
       </AnimatePresence>
       <div ref={curtain} className={styles.curtain} aria-hidden="true">
         <p className={cx(styles.curtainLabel)}>
-          <span className="mono">opening</span>
+          <span className="mono">{t("transition.opening")}</span>
           {label}
         </p>
       </div>

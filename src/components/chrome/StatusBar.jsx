@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useLayers } from "@/context/LayersContext";
 import { site } from "@/data/portfolioData";
+import { t } from "@/i18n";
 import { ScrollTrigger } from "@/lib/gsap";
 import { cx } from "@/lib/utils";
 import styles from "./StatusBar.module.css";
@@ -38,19 +39,19 @@ export default function StatusBar() {
   }, []);
 
   return (
-    <footer className={cx(styles.status, "mono")} aria-label="Status">
+    <footer className={cx(styles.status, "mono")} aria-label={t("status.label")}>
       <span className={styles.item}>
         <i className={styles.dot} aria-hidden="true" />
         <b>{site.availability}</b>
       </span>
       <span className={cx(styles.item, styles.wide)}>
-        Zoom <b>100%</b>
+        {t("status.zoom")} <b>100%</b>
       </span>
       <span className={cx(styles.item, styles.wide)} aria-hidden="true">
         X <b ref={xRef}>0</b> Y <b ref={yRef}>0</b>
       </span>
       <span className={styles.item}>
-        Layer <b>{activeName}</b>
+        {t("status.layer")} <b>{activeName}</b>
       </span>
       <span className={styles.spacer} />
       <span className={styles.track} aria-hidden="true">

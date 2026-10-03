@@ -1,6 +1,7 @@
 import { AnimatePresence } from "motion/react";
 import { useState } from "react";
 import { useReviews } from "@/context/ReviewsContext";
+import { t } from "@/i18n";
 import { cx } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
 import RevealText from "@/components/ui/RevealText";
@@ -19,16 +20,16 @@ export default function ProjectReviews({ slug, client }) {
   const mine = reviews.filter((review) => review.project === slug);
 
   return (
-    <Artboard id="project-reviews" name="Client review" file="client-review.psd">
+    <Artboard id="project-reviews" name={t("layer.clientReview")} file="client-review.psd">
       <p className={cx("eyebrow", "mono")}>
-        What {client} said
+        {t("reviews.projectEyebrow", { client })}
         <span className={styles.live}>
-          <i aria-hidden="true" /> Live
+          <i aria-hidden="true" /> {t("common.live")}
         </span>
       </p>
       {mine.length > 0 ? (
         <>
-          <RevealText className={cx("h-lg", styles.projectTitle)}>In the client's words.</RevealText>
+          <RevealText className={cx("h-lg", styles.projectTitle)}>{t("reviews.projectTitle")}</RevealText>
           {mine.length > 1 && <RatingSummary reviews={mine} />}
           <ul className={styles.cards}>
             <AnimatePresence initial={false}>
@@ -40,11 +41,11 @@ export default function ProjectReviews({ slug, client }) {
         </>
       ) : (
         <div className={styles.empty}>
-          <p className={styles.emptyTitle}>No review for this project yet.</p>
+          <p className={styles.emptyTitle}>{t("reviews.projectEmpty")}</p>
           <p>
-            Are you from {client}?{" "}
+            {t("reviews.areYouFrom", { client })}{" "}
             <button type="button" className={styles.linkButton} onClick={() => setOpen(true)}>
-              Leave a review
+              {t("reviews.leave")}
             </button>
           </p>
         </div>

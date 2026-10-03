@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useSmoothScroll } from "@/context/SmoothScrollContext";
+import { t } from "@/i18n";
 import { Icon } from "@/components/ui/Icon";
 import ReviewForm from "./ReviewForm";
 import styles from "./Reviews.module.css";
@@ -24,10 +25,10 @@ export default function ReviewDialog({ open, onClose, initialProject }) {
       <div className={styles.dialogPanel}>
         <div className={styles.dialogHead}>
           <div>
-            <p className="mono">review.psd · new comment</p>
-            <h2 id="review-dialog-title">Leave a review</h2>
+            <p className="mono">{t("reviews.dialogFile")}</p>
+            <h2 id="review-dialog-title">{t("reviews.leave")}</h2>
           </div>
-          <button type="button" className={styles.close} onClick={onClose} aria-label="Close">
+          <button type="button" className={styles.close} onClick={onClose} aria-label={t("common.close")}>
             <Icon name="close" size={20} />
           </button>
         </div>

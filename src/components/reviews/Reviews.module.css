@@ -65,7 +65,7 @@
 }
 
 .starLabel {
-  margin-left: 10px;
+  margin-inline-start: 10px;
   color: var(--ink-dim);
 }
 
@@ -92,7 +92,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-left: 12px;
+  margin-inline-start: 12px;
   padding: 3px 8px;
   border-radius: 999px;
   background: rgb(61 220 132 / .14);
@@ -139,7 +139,7 @@
 }
 
 .average small {
-  margin-left: 4px;
+  margin-inline-start: 4px;
   font-size: .35em;
   letter-spacing: 0;
   opacity: .5;
@@ -184,7 +184,7 @@
 }
 
 .barN {
-  text-align: right;
+  text-align: end;
 }
 
 /* ---------- ticker --------------------------------------------- */
@@ -259,7 +259,7 @@
 .pin {
   position: absolute;
   top: -12px;
-  left: -12px;
+  inset-inline-start: -12px;
   display: grid;
   place-items: center;
   width: 26px;
@@ -505,7 +505,7 @@
 
 .formError {
   padding: 12px 16px;
-  border-left: 3px solid var(--signal);
+  border-inline-start: 3px solid var(--signal);
   background: rgb(255 91 46 / .08);
 }
 

@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Link, useParams } from "react-router";
 import { getService, mailto } from "@/data/portfolioData";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { isRtl, t } from "@/i18n";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { asset, cx, pad, reducedMotion } from "@/lib/utils";
 import PageHeader from "@/components/sections/PageHeader";
@@ -21,7 +22,7 @@ function Deliverables({ items }) {
     () => {
       if (reducedMotion()) return;
       gsap.from(`.${styles.deliverable}`, {
-        x: -30,
+        x: isRtl() ? 30 : -30, // slide in from the reading start
         opacity: 0,
         stagger: 0.08,
         duration: 0.9,
@@ -46,7 +47,7 @@ function Deliverables({ items }) {
 export default function ServiceDetailPage() {
   const { slug } = useParams();
   const service = getService(slug);
-  useDocumentTitle(service?.title ?? "Not found");
+  useDocumentTitle(service?.title ?? t("common.notFound"));
 
   if (!service) return <NotFoundPage />;
 
@@ -54,42 +55,42 @@ export default function ServiceDetailPage() {
     <>
       <PageHeader
         file={`${service.slug}.ai`}
-        eyebrow={`Service ${service.number} / ${service.total} · ${service.group}`}
+        eyebrow={t("service.eyebrow", { n: service.number, total: service.total, group: service.group })}
         title={service.heading.join(" ")}
         lede={service.lead}
         aside={
-          <div data-cmyk-group data-cursor="view" data-cursor-label="Hover · CMYK">
-            <CmykImage src={asset(service.image)} alt={`${service.title} — sample of the work`} ratio="4 / 5" />
+          <div data-cmyk-group data-cursor="view" data-cursor-label={t("caseStudy.cmyk")}>
+            <CmykImage src={asset(service.image)} alt={t("service.sampleAlt", { title: service.title })} ratio="4 / 5" />
             <p className={cx(styles.caption, "mono")}>{service.caption}</p>
           </div>
         }
       >
         <div className={styles.actions}>
-          <Button to="/contact">Start this project</Button>
+          <Button to="/contact">{t("service.startThis")}</Button>
           <TextLink to={service.secondary.to}>{service.secondary.label}</TextLink>
         </div>
         <p className={styles.promise}>
-          <span className="mono">Promise</span>
+          <span className="mono">{t("service.promise")}</span>
           {service.promise}
         </p>
       </PageHeader>
 
-      <Artboard id="deliverables" name="Deliverables" file="deliverables.psd" tone="ink" sheetClassName="on-ink">
-        <p className={cx("eyebrow", "mono")}>What lands in your folder</p>
-        <RevealText className="h-lg">What you receive.</RevealText>
+      <Artboard id="deliverables" name={t("layer.deliverables")} file="deliverables.psd" tone="ink" sheetClassName="on-ink">
+        <p className={cx("eyebrow", "mono")}>{t("service.deliverablesEyebrow")}</p>
+        <RevealText className="h-lg">{t("service.deliverablesTitle")}</RevealText>
         <Deliverables items={service.deliverables} />
       </Artboard>
 
-      <Steps title="Four steps, no surprises." steps={service.steps} />
+      <Steps title={t("service.stepsTitle")} steps={service.steps} />
 
       {service.pieces && (
-        <Artboard id="pieces" name="Pieces" file="pieces.psd">
-          <p className={cx("eyebrow", "mono")}>Selected pieces</p>
-          <RevealText className={cx("h-lg", styles.piecesTitle)}>Made for the wall it lives on.</RevealText>
+        <Artboard id="pieces" name={t("layer.pieces")} file="pieces.psd">
+          <p className={cx("eyebrow", "mono")}>{t("service.piecesEyebrow")}</p>
+          <RevealText className={cx("h-lg", styles.piecesTitle)}>{t("service.piecesTitle")}</RevealText>
           <ul className={styles.pieces}>
             {service.pieces.map((piece) => (
               <li key={piece.title}>
-                <a href={mailto(piece.subject)} className={styles.piece} data-cmyk-group data-cursor="view" data-cursor-label="Ask">
+                <a href={mailto(piece.subject)} className={styles.piece} data-cmyk-group data-cursor="view" data-cursor-label={t("service.ask")}>
                   <CmykImage src={asset(piece.image)} alt={piece.alt} ratio="1" />
                   <strong>{piece.title}</strong>
                   <span className="mono">{piece.sub}</span>
@@ -100,23 +101,23 @@ export default function ServiceDetailPage() {
         </Artboard>
       )}
 
-      <Artboard id="next-step" name="Next step" file="next-step.psd" tone="signal">
+      <Artboard id="next-step" name={t("layer.nextStep")} file="next-step.psd" tone="signal">
         <div className={styles.cta}>
           <RevealText className="h-xl">{service.cta.title.join(" ")}</RevealText>
           <p className={styles.ctaText}>{service.cta.text}</p>
           <div className={styles.actions}>
             <Button to="/contact" variant="dark">
-              Start a project
+              {t("common.startProject")}
             </Button>
-            <Button href={mailto(`${service.title} enquiry`)} variant="ghost" icon={null}>
-              Email directly
+            <Button href={mailto(t("service.enquiry", { title: service.title }))} variant="ghost" icon={null}>
+              {t("service.emailDirectly")}
             </Button>
           </div>
         </div>
       </Artboard>
 
-      <Artboard id="related" name="Related" file="related.psd">
-        <p className={cx("eyebrow", "mono")}>Pairs well with</p>
+      <Artboard id="related" name={t("layer.related")} file="related.psd">
+        <p className={cx("eyebrow", "mono")}>{t("service.pairs")}</p>
         <p className={styles.relatedNote}>{service.otherNote}</p>
         <ul className={styles.related}>
           {service.related.map((relatedSlug) => {

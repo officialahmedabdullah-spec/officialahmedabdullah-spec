@@ -70,16 +70,21 @@
 }
 
 .ghost:not(:has(.icon)) {
-  padding-right: 24px;
+  padding-inline-end: 24px;
 }
 
 .sm {
   height: 40px;
-  padding-left: 18px;
+  padding-inline-start: 18px;
   font-size: .85rem;
 }
 
 .sm .icon {
   width: 28px;
   height: 28px;
+}
+
+/* right-to-left: the arrow points the reading way, then tilts up */
+:global(:root[dir="rtl"]) .button:hover .icon svg {
+  transform: scaleX(-1) translateX(2px) rotate(-45deg);
 }

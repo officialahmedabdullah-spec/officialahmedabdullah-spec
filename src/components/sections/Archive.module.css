@@ -91,7 +91,7 @@
   background: var(--art);
   color: var(--ink);
   font-size: 9.5px;
-  text-align: left;
+  text-align: start;
   text-overflow: ellipsis;
   white-space: nowrap;
   opacity: 0;

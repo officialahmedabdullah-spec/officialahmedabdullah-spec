@@ -5,9 +5,12 @@ import { useSmoothScroll } from "@/context/SmoothScrollContext";
 import { useSound } from "@/context/SoundContext";
 import { useTheme } from "@/context/ThemeContext";
 import { pages, site } from "@/data/portfolioData";
+import { t } from "@/i18n";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { cx } from "@/lib/utils";
 import BrandMark from "@/components/ui/BrandMark";
 import { Icon } from "@/components/ui/Icon";
+import SearchDialog, { shortcutLabel, useSearchShortcut } from "./SearchDialog";
 import styles from "./Topbar.module.css";
 
 export function currentFile(pathname) {
@@ -33,7 +36,15 @@ export default function Topbar({ layersOpen, onToggleLayers }) {
   const { theme, toggleTheme } = useTheme();
   const sound = useSound();
   const { stop: stopScroll, start: startScroll } = useSmoothScroll();
+  const { toggle: toggleLanguage } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const openSearch = () => {
+    setMenuOpen(false);
+    setSearchOpen(true);
+    sound.play("pop");
+  };
+  useSearchShortcut(openSearch);
 
   useEffect(() => setMenuOpen(false), [pathname]);
 
@@ -55,32 +66,32 @@ export default function Topbar({ layersOpen, onToggleLayers }) {
     <>
       <ChromeButton
         icon={sound.enabled ? "soundOn" : "soundOff"}
-        label={sound.enabled ? "Turn sound off" : "Turn sound on"}
+        label={sound.enabled ? t("topbar.turnSoundOff") : t("topbar.turnSoundOn")}
         pressed={sound.enabled}
         onClick={sound.toggle}
       >
-        {sound.enabled ? "Sound on" : "Sound off"}
+        {sound.enabled ? t("topbar.soundOn") : t("topbar.soundOff")}
       </ChromeButton>
       <ChromeButton
         icon={theme === "dark" ? "sun" : "moon"}
-        label={theme === "dark" ? "Switch to light UI" : "Switch to dark UI"}
+        label={theme === "dark" ? t("topbar.toLight") : t("topbar.toDark")}
         onClick={() => {
           toggleTheme();
           sound.play("toggle");
         }}
       >
-        {theme === "dark" ? "Light UI" : "Dark UI"}
+        {theme === "dark" ? t("topbar.lightUi") : t("topbar.darkUi")}
       </ChromeButton>
     </>
   );
 
   return (
     <header className={styles.bar}>
-      <Link to="/" className={styles.app} aria-label={`${site.name} — home`}>
+      <Link to="/" className={styles.app} aria-label={t("topbar.home", { name: site.name })}>
         <BrandMark className={styles.mark} />
       </Link>
 
-      <nav className={styles.menu} aria-label="Main">
+      <nav className={styles.menu} aria-label={t("topbar.main")}>
         {pages.map((page) => (
           <NavLink key={page.to} to={page.to} end={page.to === "/"} className={styles.menuLink}>
             {page.label}
@@ -95,10 +106,20 @@ export default function Topbar({ layersOpen, onToggleLayers }) {
 
       <span className={styles.spacer} />
 
+      <button type="button" className={cx(styles.chip, styles.search)} onClick={openSearch} aria-label={t("search.open")} aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K /">
+        <Icon name="zoom" size={15} />
+        <span className={styles.searchText}>{t("search.button")}</span>
+        <kbd className={cx(styles.kbd, "mono")}>{shortcutLabel()}</kbd>
+      </button>
+
       <div className={styles.controls}>{controls}</div>
 
+      <button type="button" className={cx(styles.chip, styles.lang)} onClick={toggleLanguage} aria-label={t("topbar.languageLabel")} title={t("topbar.languageLabel")} lang={t("topbar.language") === "English" ? "en" : "ar"}>
+        {t("topbar.language")}
+      </button>
+
       <Link to="/contact" className={styles.cta}>
-        Let's talk
+        {t("common.letsTalk")}
       </Link>
 
       <button
@@ -109,7 +130,7 @@ export default function Topbar({ layersOpen, onToggleLayers }) {
         onClick={onToggleLayers}
       >
         <Icon name="layers" size={15} />
-        <span className={styles.chipText}>Layers</span>
+        <span className={styles.chipText}>{t("topbar.layers")}</span>
       </button>
 
       <button
@@ -117,7 +138,7 @@ export default function Topbar({ layersOpen, onToggleLayers }) {
         className={cx(styles.chip, styles.menuBtn)}
         aria-expanded={menuOpen}
         aria-controls="mobile-menu"
-        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-label={menuOpen ? t("topbar.closeMenu") : t("topbar.openMenu")}
         onClick={() => setMenuOpen((open) => !open)}
       >
         <Icon name={menuOpen ? "close" : "menu"} size={18} />
@@ -132,7 +153,7 @@ export default function Topbar({ layersOpen, onToggleLayers }) {
             animate={{ clipPath: "inset(0 0 0% 0)", transition: { duration: 0.6, ease: [0.65, 0, 0.35, 1] } }}
             exit={{ clipPath: "inset(0 0 100% 0)", transition: { duration: 0.4, ease: [0.65, 0, 0.35, 1] } }}
           >
-            <nav aria-label="Mobile">
+            <nav aria-label={t("topbar.mobile")}>
               <ol className={styles.sheetList}>
                 {pages.map((page, i) => (
                   <motion.li
@@ -155,6 +176,8 @@ export default function Topbar({ layersOpen, onToggleLayers }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

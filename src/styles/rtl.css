@@ -1,0 +1,30 @@
+/* ============================================================
+   Arabic + right-to-left.
+   <html lang="ar" dir="rtl"> is set by src/i18n. Content flows
+   right-to-left; the Photoshop-style chrome (tools on the left,
+   layers on the right, rulers) keeps its place like a real app.
+   ============================================================ */
+
+/* Arabic letters join, so tracking tears words apart */
+:root[lang="ar"] body * {
+  letter-spacing: normal !important;
+}
+
+/* Arabic needs taller lines than Latin display type */
+:root[lang="ar"] :is(h1, h2, h3, .h-xl, .h-lg, .h-md) {
+  line-height: 1.28;
+}
+
+:root[lang="ar"] :is(.lede, .body, p) {
+  line-height: 1.75;
+}
+
+/* arrows point the way you read */
+:root[dir="rtl"] svg:is([data-icon="arrow"], [data-icon="arrowUpRight"]) {
+  transform: scaleX(-1);
+}
+
+/* uppercase labels have no meaning in Arabic, and mono is too narrow */
+:root[lang="ar"] .mono {
+  text-transform: none;
+}

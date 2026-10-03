@@ -1,4 +1,5 @@
 import { summarize } from "@/context/ReviewsContext";
+import { t } from "@/i18n";
 import { cx } from "@/lib/utils";
 import CountUp from "@/components/ui/CountUp";
 import Stars from "./Stars";
@@ -19,21 +20,21 @@ export default function RatingSummary({ reviews }) {
               <small>/5</small>
             </>
           ) : (
-            "New"
+            t("reviews.new")
           )}
         </p>
         <Stars value={average} size={22} className={styles.summaryStars} />
         <p className={cx(styles.count, "mono")}>
           {count ? (
             <>
-              <CountUp value={count} /> verified {count === 1 ? "review" : "reviews"}
+              <CountUp value={count} /> {t("reviews.verified", { n: count })}
             </>
           ) : (
-            "No reviews yet"
+            t("reviews.noneYet")
           )}
         </p>
       </div>
-      <ul className={styles.bars} aria-label="Rating breakdown">
+      <ul className={styles.bars} aria-label={t("reviews.breakdown")}>
         {counts.map(({ stars, n }) => (
           <li key={stars}>
             <span className="mono">{stars}★</span>
@@ -42,7 +43,7 @@ export default function RatingSummary({ reviews }) {
             </span>
             <span className={cx(styles.barN, "mono")}>
               {n}
-              <span className="sr-only"> reviews with {stars} stars</span>
+              <span className="sr-only"> {t("reviews.withStars", { n, s: stars })}</span>
             </span>
           </li>
         ))}

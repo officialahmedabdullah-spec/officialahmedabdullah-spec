@@ -97,7 +97,7 @@
   background: none;
   color: var(--text);
   font-size: .82rem;
-  text-align: left;
+  text-align: start;
 }
 
 .go small {

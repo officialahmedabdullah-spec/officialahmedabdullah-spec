@@ -1,16 +1,17 @@
 import { legal } from "@/data/portfolioData";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { t } from "@/i18n";
 import { cx } from "@/lib/utils";
 import PageHeader from "@/components/sections/PageHeader";
 import Artboard from "@/components/ui/Artboard";
 import styles from "./LegalPage.module.css";
 
 export default function LegalPage() {
-  useDocumentTitle("Privacy, terms & cookies");
+  useDocumentTitle(t("legalPage.title"));
 
   return (
     <>
-      <PageHeader file="legal.txt" eyebrow={`Last updated ${legal.updated}`} title="The small print, written plainly." />
+      <PageHeader file="legal.txt" eyebrow={t("legalPage.eyebrow", { date: legal.updated })} title={t("legalPage.headline")} />
       {legal.sections.map((section) => (
         <Artboard key={section.id} id={section.id} name={section.title} file={`${section.id}.txt`}>
           <div className={styles.body}>

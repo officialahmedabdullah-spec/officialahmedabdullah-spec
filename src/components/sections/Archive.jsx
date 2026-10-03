@@ -1,7 +1,8 @@
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { useCallback, useMemo, useState } from "react";
 import { useSound } from "@/context/SoundContext";
-import { archive, archiveCount } from "@/data/projectImages";
+import { archiveCount, getArchive } from "@/data/projectImages";
+import { t } from "@/i18n";
 import { ScrollTrigger } from "@/lib/gsap";
 import { cx } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
@@ -19,28 +20,29 @@ export default function Archive() {
   const [filter, setFilter] = useState(ALL);
   const [open, setOpen] = useState(null);
   const { play } = useSound();
+  const archive = useMemo(getArchive, []);
 
   const items = useMemo(
     () => (filter === ALL ? archive.flatMap((c) => c.items) : archive.find((c) => c.id === filter)?.items ?? []),
-    [filter]
+    [filter, archive]
   );
 
-  const filters = [{ id: ALL, title: "All", count: archiveCount }, ...archive.map((c) => ({ id: c.id, title: c.title, count: c.items.length }))];
+  const filters = [{ id: ALL, title: t("archive.all"), count: archiveCount }, ...archive.map((c) => ({ id: c.id, title: c.title, count: c.items.length }))];
 
   const step = useCallback((dir) => setOpen((i) => (i == null ? i : (i + dir + items.length) % items.length)), [items.length]);
   const close = useCallback(() => setOpen(null), []);
 
   return (
-    <Artboard id="archive" name="Archive" file="archive.psd">
+    <Artboard id="archive" name={t("layer.archive")} file="archive.psd">
       <div className={styles.head}>
         <div>
-          <p className={cx("eyebrow", "mono")}>The archive · {archiveCount} pieces</p>
-          <RevealText className="h-lg">Everything else, unfiltered. Or filtered.</RevealText>
+          <p className={cx("eyebrow", "mono")}>{t("archive.eyebrow", { n: archiveCount })}</p>
+          <RevealText className="h-lg">{t("archive.title")}</RevealText>
         </div>
       </div>
 
       <LayoutGroup>
-        <div className={styles.filters} role="group" aria-label="Filter by category">
+        <div className={styles.filters} role="group" aria-label={t("archive.filter")}>
           {filters.map((item) => (
             <button
               key={item.id}
@@ -60,7 +62,7 @@ export default function Archive() {
         </div>
       </LayoutGroup>
       <p className="sr-only" aria-live="polite">
-        {items.length} images shown
+        {t("archive.shown", { n: items.length })}
       </p>
 
       <motion.ul layout className={styles.grid} onLayoutAnimationComplete={() => ScrollTrigger.refresh()}>
@@ -74,7 +76,7 @@ export default function Archive() {
               exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
               transition={{ layout: { duration: 0.6, ease } }}
             >
-              <button type="button" className={styles.thumb} onClick={() => setOpen(i)} data-cursor="view" data-cursor-label="Zoom">
+              <button type="button" className={styles.thumb} onClick={() => setOpen(i)} data-cursor="view" data-cursor-label={t("common.zoom")}>
                 <img src={item.thumb} alt={`${item.category}: ${item.title}`} loading="lazy" decoding="async" />
                 <span className={cx(styles.caption, "mono")}>{item.title}</span>
               </button>

@@ -2,7 +2,8 @@ import { archiveCategories, imageTitles } from "./portfolioData";
 
 /* Web versions written by `npm run images` (see scripts/optimize-images.mjs).
    A key is the path below full/ without extension, e.g.
-   "canvas-design/02/mockup". */
+   "canvas-design/02/mockup". Titles and category names are looked up when
+   asked for, so they follow the current language. */
 const full = import.meta.glob("../assets/projects/full/**/*.webp", { eager: true, query: "?url", import: "default" });
 const thumb = import.meta.glob("../assets/projects/thumb/**/*.webp", { eager: true, query: "?url", import: "default" });
 
@@ -21,22 +22,24 @@ const titleOf = (key) => {
 const images = Object.entries(full)
   .map(([path, url]) => {
     const key = keyOf(path, "full");
-    return { key, src: url, thumb: thumbs[key] ?? url, title: titleOf(key), folder: key.split("/")[0] };
+    return { key, src: url, thumb: thumbs[key] ?? url, folder: key.split("/")[0] };
   })
   .sort((a, b) => byKey(a.key, b.key));
 
 const index = new Map(images.map((image) => [image.key, image]));
+const withTitle = (image) => image && { ...image, title: titleOf(image.key) };
 
-export const projectImage = (key) => index.get(key);
+export const projectImage = (key) => withTitle(index.get(key));
 
-export const folderImages = (folder) => images.filter((image) => image.folder === folder);
+export const folderImages = (folder) => images.filter((image) => image.folder === folder).map(withTitle);
 
 // grouped for the archive, in archiveCategories order
-export const archive = archiveCategories
-  .map((category) => ({
-    ...category,
-    items: folderImages(category.id).map((image) => ({ ...image, category: category.title })),
-  }))
-  .filter((category) => category.items.length > 0);
+export const getArchive = () =>
+  archiveCategories
+    .map((category) => ({
+      ...category,
+      items: folderImages(category.id).map((image) => ({ ...image, category: category.title })),
+    }))
+    .filter((category) => category.items.length > 0);
 
-export const archiveCount = archive.reduce((sum, category) => sum + category.items.length, 0);
+export const archiveCount = images.filter((image) => archiveCategories.some((c) => c.id === image.folder)).length;

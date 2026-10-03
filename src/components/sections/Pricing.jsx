@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useId, useRef, useState } from "react";
 import { useSound } from "@/context/SoundContext";
 import { packages, site } from "@/data/portfolioData";
+import { t } from "@/i18n";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cx, reducedMotion } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
@@ -47,16 +48,16 @@ export default function Pricing() {
   };
 
   return (
-    <Artboard id="pricing" name="Pricing" file="pricing.psd">
+    <Artboard id="pricing" name={t("layer.pricing")} file="pricing.psd">
       <div className={styles.layout}>
         <div>
-          <p className={cx("eyebrow", "mono")}>Monthly plans</p>
-          <RevealText className="h-lg">Slide to how much design you need.</RevealText>
+          <p className={cx("eyebrow", "mono")}>{t("pricing.eyebrow")}</p>
+          <RevealText className="h-lg">{t("pricing.title")}</RevealText>
           <p className={cx("lede", styles.lede)}>{packages.note}</p>
 
           <div className={styles.lever}>
             <label htmlFor={id} className="sr-only">
-              Plan
+              {t("pricing.plan")}
             </label>
             <input
               id={id}
@@ -66,7 +67,7 @@ export default function Pricing() {
               step="1"
               value={index}
               onChange={(event) => choose(Number(event.target.value))}
-              aria-valuetext={`${plan.name}, $${plan.min} to $${plan.max} a month`}
+              aria-valuetext={t("pricing.valueText", { name: plan.name, min: plan.min, max: plan.max })}
               className={styles.range}
               style={{ "--fill": `${(index / (packages.plans.length - 1)) * 100}%` }}
             />
@@ -83,13 +84,16 @@ export default function Pricing() {
         <div className={styles.card}>
           <p className={cx(styles.tier, "mono")}>
             {plan.tier}
-            {plan.popular && <span className={styles.badge}>Most picked</span>}
+            {plan.popular && <span className={styles.badge}>{t("pricing.popular")}</span>}
           </p>
           <p className={styles.price} aria-live="polite">
-            {/* numbers are written by the count tween, not by React */}
-            $<span ref={minRef} />
-            <span className={styles.dash}>–</span>$<span ref={maxRef} />
-            <small className="mono">/month</small>
+            {/* numbers are written by the count tween, not by React; the
+                range reads left to right in both languages */}
+            <span dir="ltr">
+              $<span ref={minRef} />
+              <span className={styles.dash}>–</span>$<span ref={maxRef} />
+            </span>
+            <small className="mono">{t("pricing.perMonth")}</small>
           </p>
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
@@ -108,9 +112,9 @@ export default function Pricing() {
             </motion.div>
           </AnimatePresence>
           <Button href={site.fiverrUrl} external>
-            Order {plan.name} on Fiverr
+            {t("pricing.order", { name: plan.name })}
           </Button>
-          <p className={cx(styles.small, "mono")}>No contracts · pause or cancel anytime</p>
+          <p className={cx(styles.small, "mono")}>{t("pricing.small")}</p>
         </div>
       </div>
     </Artboard>

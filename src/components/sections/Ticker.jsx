@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { ticker } from "@/data/portfolioData";
+import { getLang, t } from "@/i18n";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { reducedMotion } from "@/lib/utils";
 import { Icon } from "@/components/ui/Icon";
@@ -43,8 +44,9 @@ export default function Ticker() {
 
   return (
     <div ref={ref} className={styles.ticker}>
-      <p className="sr-only">Services: {ticker.join(", ")}</p>
-      <div className={styles.track} aria-hidden="true">
+      <p className="sr-only">{t("ticker.label", { list: ticker.join(getLang() === "ar" ? "، " : ", ") })}</p>
+      {/* the marquee moves in screen direction regardless of language */}
+      <div className={styles.track} aria-hidden="true" dir="ltr">
         {[0, 1].map(row)}
       </div>
     </div>

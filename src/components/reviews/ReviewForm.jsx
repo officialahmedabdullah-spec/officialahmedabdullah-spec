@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useId, useRef, useState } from "react";
 import { useSound } from "@/context/SoundContext";
 import { caseStudies, services } from "@/data/portfolioData";
+import { t } from "@/i18n";
 import { submitReview } from "@/lib/reviews";
 import { cx } from "@/lib/utils";
 import Button from "@/components/ui/Button";
@@ -44,11 +45,11 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
   const pickPhoto = (file) => {
     if (!file) return;
     if (!file.type.startsWith("image/")) {
-      setErrors((e) => ({ ...e, photo: "Please choose an image file." }));
+      setErrors((e) => ({ ...e, photo: t("reviews.form.errors.photoType") }));
       return;
     }
     if (file.size > 15 * 1024 * 1024) {
-      setErrors((e) => ({ ...e, photo: "That image is over 15 MB." }));
+      setErrors((e) => ({ ...e, photo: t("reviews.form.errors.photoSize") }));
       return;
     }
     setErrors(({ photo: _, ...rest }) => rest);
@@ -57,9 +58,9 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
 
   const validate = () => {
     const next = {};
-    if (!rating) next.rating = "Pick a star rating.";
-    if (name.trim().length < 2) next.name = "Add your name.";
-    if (body.trim().length < 10) next.body = "Write at least a sentence (10+ characters).";
+    if (!rating) next.rating = t("reviews.form.errors.rating");
+    if (name.trim().length < 2) next.name = t("reviews.form.errors.name");
+    if (body.trim().length < 10) next.body = t("reviews.form.errors.body");
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -82,9 +83,9 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
       await submitReview({ name, role, service, project, rating, body, photo });
       setStatus("sent");
       play("pop");
-    } catch (err) {
+    } catch {
       setStatus("failed");
-      setFormError(err.message || "Something went wrong. Please try again.");
+      setFormError(t("reviews.form.errors.failed"));
       play("nope");
     }
   };
@@ -100,11 +101,11 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
         >
           <Icon name="check" size={28} strokeWidth={2.4} />
         </motion.span>
-        <h3>Thank you{name.trim() ? `, ${name.trim().split(" ")[0]}` : ""}!</h3>
-        <p>Your review is in. It will appear on the site as soon as I've approved it — usually the same day.</p>
+        <h3>{t("reviews.form.thanks", { first: name.trim().split(" ")[0] })}</h3>
+        <p>{t("reviews.form.thanksText")}</p>
         {onDone && (
           <button type="button" className={styles.linkButton} onClick={onDone}>
-            Close
+            {t("common.close")}
           </button>
         )}
       </motion.div>
@@ -125,7 +126,7 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
   return (
     <form className={styles.form} onSubmit={submit} noValidate>
       <div className={styles.field}>
-        <span className={cx(styles.label, "mono")}>How was it? *</span>
+        <span className={cx(styles.label, "mono")}>{t("reviews.form.howWas")}</span>
         <StarInput value={rating} onChange={(n) => { setRating(n); play("tick", 0.8 + n * 0.1); setErrors(({ rating: _, ...rest }) => rest); }} invalid={Boolean(errors.rating)} />
         {errorText("rating")}
       </div>
@@ -133,7 +134,7 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
       <div className={styles.formRow}>
         <div className={styles.field}>
           <label className={cx(styles.label, "mono")} htmlFor={`${id}-name`}>
-            Your name *
+            {t("reviews.form.name")}
           </label>
           <input id={`${id}-name`} className={styles.input} value={name} onChange={(e) => {
               setName(e.target.value);
@@ -143,19 +144,19 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
         </div>
         <div className={styles.field}>
           <label className={cx(styles.label, "mono")} htmlFor={`${id}-role`}>
-            Role / company
+            {t("reviews.form.role")}
           </label>
-          <input id={`${id}-role`} className={styles.input} value={role} onChange={(e) => setRole(e.target.value)} autoComplete="organization-title" placeholder="e.g. Founder, CodeSpark Solutions" maxLength={100} />
+          <input id={`${id}-role`} className={styles.input} value={role} onChange={(e) => setRole(e.target.value)} autoComplete="organization-title" placeholder={t("reviews.form.rolePlaceholder")} maxLength={100} />
         </div>
       </div>
 
       <div className={styles.formRow}>
         <div className={styles.field}>
           <label className={cx(styles.label, "mono")} htmlFor={`${id}-service`}>
-            Which service?
+            {t("reviews.form.service")}
           </label>
           <select id={`${id}-service`} className={styles.input} value={service} onChange={(e) => setService(e.target.value)}>
-            <option value="">Choose one (optional)</option>
+            <option value="">{t("reviews.form.serviceNone")}</option>
             {services.map((item) => (
               <option key={item.slug} value={item.slug}>
                 {item.title}
@@ -165,10 +166,10 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
         </div>
         <div className={styles.field}>
           <label className={cx(styles.label, "mono")} htmlFor={`${id}-project`}>
-            Which project?
+            {t("reviews.form.project")}
           </label>
           <select id={`${id}-project`} className={styles.input} value={project} onChange={(e) => setProject(e.target.value)}>
-            <option value="">Not listed / other</option>
+            <option value="">{t("reviews.form.projectNone")}</option>
             {caseStudies.map((item) => (
               <option key={item.slug} value={item.slug}>
                 {item.client}
@@ -180,7 +181,7 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
 
       <div className={styles.field}>
         <label className={cx(styles.label, "mono")} htmlFor={`${id}-body`}>
-          Your review *
+          {t("reviews.form.body")}
         </label>
         <textarea
           id={`${id}-body`}
@@ -191,7 +192,8 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
             setBody(e.target.value.slice(0, MAX));
             if (e.target.value.trim().length >= 10) clearError("body");
           }}
-          placeholder="What did you need, how did it go, what changed afterwards?"
+          placeholder={t("reviews.form.bodyPlaceholder")}
+          dir="auto"
           {...field("body")}
         />
         <span className={cx(styles.counter, "mono")} aria-live="polite">
@@ -201,14 +203,14 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
       </div>
 
       <div className={styles.field}>
-        <span className={cx(styles.label, "mono")}>Photo (optional)</span>
+        <span className={cx(styles.label, "mono")}>{t("reviews.form.photo")}</span>
         <div className={styles.photoRow}>
           <span className={styles.photoPreview} aria-hidden="true">
             {preview ? <img src={preview} alt="" /> : <Icon name="camera" size={22} />}
           </span>
           <input ref={fileRef} type="file" accept="image/*" className="sr-only" id={`${id}-photo`} onChange={(e) => pickPhoto(e.target.files?.[0])} />
           <label htmlFor={`${id}-photo`} className={styles.photoButton}>
-            {photo ? "Change photo" : "Add a photo"}
+            {photo ? t("reviews.form.changePhoto") : t("reviews.form.addPhoto")}
           </label>
           {photo && (
             <button
@@ -219,7 +221,7 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
                 if (fileRef.current) fileRef.current.value = "";
               }}
             >
-              Remove
+              {t("reviews.form.remove")}
             </button>
           )}
         </div>
@@ -228,7 +230,7 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
 
       {/* spam trap: hidden from people, filled in by bots */}
       <label className={styles.trap} aria-hidden="true">
-        Leave this empty
+        {t("common.leaveEmpty")}
         <input type="text" tabIndex={-1} autoComplete="off" value={trap} onChange={(e) => setTrap(e.target.value)} />
       </label>
 
@@ -242,9 +244,9 @@ export default function ReviewForm({ initialService = "", initialProject = "", o
 
       <div className={styles.submitRow}>
         <Button type="submit" icon={status === "sending" ? null : "arrow"} disabled={status === "sending"} aria-busy={status === "sending"}>
-          {status === "sending" ? "Sending…" : status === "failed" ? "Try again" : "Post my review"}
+          {status === "sending" ? t("brief.sending") : status === "failed" ? t("brief.tryAgain") : t("reviews.form.post")}
         </Button>
-        <p className={cx(styles.small, "mono")}>Appears after approval · your email isn't asked for</p>
+        <p className={cx(styles.small, "mono")}>{t("reviews.form.small")}</p>
       </div>
     </form>
   );

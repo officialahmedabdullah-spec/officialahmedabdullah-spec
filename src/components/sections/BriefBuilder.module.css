@@ -96,7 +96,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding-right: 16px;
+  padding-inline-end: 16px;
 }
 
 .spinner {
@@ -176,7 +176,7 @@
 
 .error {
   padding: 12px 16px;
-  border-left: 3px solid var(--signal);
+  border-inline-start: 3px solid var(--signal);
   background: rgb(255 91 46 / .08);
   color: var(--ink);
 }

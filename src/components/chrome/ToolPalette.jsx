@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { useSound } from "@/context/SoundContext";
 import { pages } from "@/data/portfolioData";
+import { t } from "@/i18n";
 import { useActiveTool } from "@/lib/cursorStore";
 import { cx } from "@/lib/utils";
 import { Icon } from "@/components/ui/Icon";
@@ -30,7 +31,7 @@ export default function ToolPalette() {
   }, [navigate, play]);
 
   return (
-    <nav className={styles.palette} aria-label="Tools — each opens a page">
+    <nav className={styles.palette} aria-label={t("tools.label")}>
       {pages.map((page) => (
         <NavLink
           key={page.to}

@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useSound } from "@/context/SoundContext";
+import { t } from "@/i18n";
 import { gsap } from "@/lib/gsap";
 import { cx, reducedMotion } from "@/lib/utils";
 import styles from "./EasterEgg.module.css";
@@ -9,14 +10,9 @@ import styles from "./EasterEgg.module.css";
 // brand + process inks
 const INKS = ["#c1ee04", "#ff6d00", "#7c1034", "#fff2e2", "#00a3e0", "#e4007c"];
 
-// each press says something, in a colour that reads on the ink footer
-const LINES = [
-  { text: "This button does absolutely nothing.", color: "var(--art)" },
-  { text: "Okay… that was just a drip.", color: "#c1ee04" },
-  { text: "Stop. You'll get ink everywhere.", color: "#ff6d00" },
-  { text: "Last warning — the ink is loaded.", color: "#ff5ab4" },
-  { text: "Fine. You asked for it.", color: "#c1ee04" },
-];
+// each press says something (text in strings.js → egg.lines), in a colour
+// that reads on the ink footer
+const LINE_COLORS = ["var(--art)", "#c1ee04", "#ff6d00", "#ff5ab4", "#c1ee04"];
 
 // how hard each press splashes: [drops, power]
 const PRESSES = [null, [10, 0.8], [18, 1], [28, 1.2], [46, 1.6]];
@@ -126,20 +122,20 @@ export default function EasterEgg() {
     }
   };
 
-  const line = LINES[pokes];
+  const line = { text: t("egg.lines")[pokes], color: LINE_COLORS[pokes] };
 
   return (
     <div className={styles.egg}>
       <div className={styles.stage}>
-        <button ref={buttonRef} type="button" className={styles.button} onClick={press} data-cursor="drag" data-cursor-label="Don't.">
-          Don't press this
+        <button ref={buttonRef} type="button" className={styles.button} onClick={press} data-cursor="drag" data-cursor-label={t("egg.cursor")}>
+          {t("egg.button")}
         </button>
 
         <div className={styles.meter} aria-hidden="true">
           {Array.from({ length: FINALE }, (_, i) => (
             <i key={i} className={cx(styles.cell, i < pokes && styles.full)} style={{ "--fill": INKS[i] }} />
           ))}
-          <span className="mono">ink pressure</span>
+          <span className="mono">{t("egg.meter")}</span>
         </div>
       </div>
 
@@ -180,8 +176,8 @@ export default function EasterEgg() {
                 animate={{ opacity: 1, scale: 1, rotate: -4, transition: { type: "spring", stiffness: 300, damping: 12 } }}
                 exit={{ opacity: 0, scale: 1.25, filter: "blur(12px)", transition: { duration: 0.45 } }}
               >
-                <span className={styles.finaleWord}>Splash!</span>
-                <span className={styles.finaleSub}>Told you it does nothing.</span>
+                <span className={styles.finaleWord}>{t("egg.splash")}</span>
+                <span className={styles.finaleSub}>{t("egg.splashSub")}</span>
               </motion.p>
             )}
           </AnimatePresence>

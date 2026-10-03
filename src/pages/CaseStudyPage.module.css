@@ -60,7 +60,7 @@
 
 .feature:nth-child(even) {
   width: min(100%, 86%);
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 .featureCaption {

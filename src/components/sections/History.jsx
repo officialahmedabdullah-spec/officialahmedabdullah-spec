@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { useSound } from "@/context/SoundContext";
 import { achievements, history } from "@/data/portfolioData";
+import { t } from "@/i18n";
 import { cx } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
 import { Icon } from "@/components/ui/Icon";
@@ -18,13 +19,13 @@ export default function History({ showAchievements = true }) {
   const currentIndex = history.indexOf(item);
 
   return (
-    <Artboard id="history" name="Experience" file="history.psd">
-      <p className={cx("eyebrow", "mono")}>Experience & education</p>
-      <RevealText className={cx("h-lg", styles.title)}>Every step is saved in the history panel.</RevealText>
+    <Artboard id="history" name={t("layer.experience")} file="history.psd">
+      <p className={cx("eyebrow", "mono")}>{t("history.eyebrow")}</p>
+      <RevealText className={cx("h-lg", styles.title)}>{t("history.title")}</RevealText>
 
       <div className={styles.layout}>
         <div className={styles.panel}>
-          <p className={cx(styles.panelHead, "mono")}>History</p>
+          <p className={cx(styles.panelHead, "mono")}>{t("history.panel")}</p>
           <ol>
             {history.map((state, i) => (
               <li key={state.id}>
@@ -71,7 +72,7 @@ export default function History({ showAchievements = true }) {
 
       {showAchievements && (
         <div className={styles.achievements}>
-          <p className={cx("eyebrow", "mono")}>Achievements</p>
+          <p className={cx("eyebrow", "mono")}>{t("history.achievements")}</p>
           <ol className={styles.wins}>
             {achievements.map((text, i) => (
               <li key={text}>

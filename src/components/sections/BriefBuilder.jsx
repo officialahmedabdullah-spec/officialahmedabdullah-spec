@@ -2,7 +2,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { useId, useRef, useState } from "react";
 import { useSound } from "@/context/SoundContext";
 import { contact, mailto, site } from "@/data/portfolioData";
-import { formConfigured, sendBrief } from "@/lib/contactForm";
+import { getLang, t } from "@/i18n";
+import { sendBrief } from "@/lib/contactForm";
 import { cx } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
 import Button from "@/components/ui/Button";
@@ -32,8 +33,9 @@ function ChipGroup({ legend, options, value, onToggle, multiple }) {
 }
 
 /* brief.psd — tap through a short brief instead of a long form. "Send"
-   delivers it straight to the inbox (see src/lib/contactForm.js); the
-   visitor never leaves the page. */
+   posts it to this site's own server (api/brief.js), which saves it and
+   emails it to the inbox; the visitor never leaves the page and no mail
+   app opens. */
 export default function BriefBuilder() {
   const [needs, setNeeds] = useState([]);
   const [budget, setBudget] = useState("");
@@ -69,36 +71,20 @@ export default function BriefBuilder() {
 
     if (!EMAIL.test(email.trim())) {
       setEmailInvalid(true);
-      setError("Add your email so I can reply to you.");
+      setError(t("brief.errors.emailMissing"));
       play("nope");
       emailRef.current?.focus();
       return;
     }
     if (needs.length === 0 && !message.trim()) {
-      setError("Pick at least one thing you need, or write a line about the project.");
+      setError(t("brief.errors.empty"));
       play("nope");
       return;
     }
     setEmailInvalid(false);
     setError("");
 
-    const brief = { name: name.trim(), email: email.trim(), needs, budget, timeline, message: message.trim(), botcheck };
-
-    // no key configured yet: fall back to the visitor's mail app
-    if (!formConfigured) {
-      const body = [
-        brief.name && `Hi Ahmad, I'm ${brief.name}.`,
-        needs.length && `I need: ${needs.join(", ")}.`,
-        budget && `Budget: ${budget}.`,
-        timeline && `Timeline: ${timeline}.`,
-        brief.message && `\n${brief.message}`,
-        `\nReply to: ${brief.email}`,
-      ]
-        .filter(Boolean)
-        .join("\n");
-      window.location.href = mailto(`Project brief${needs.length ? ` — ${needs[0]}` : ""}`, body);
-      return;
-    }
+    const brief = { name: name.trim(), email: email.trim(), needs, budget, timeline, message: message.trim(), botcheck, lang: getLang() };
 
     setStatus("sending");
     try {
@@ -107,15 +93,16 @@ export default function BriefBuilder() {
       play("pop");
     } catch (err) {
       setStatus("failed");
-      setError(err.message || "Something went wrong.");
+      const known = ["invalid_email", "empty", "rate_limited", "network"];
+      setError(known.includes(err.code) ? t(`brief.errors.${err.code}`) : t("brief.errors.generic"));
       play("nope");
     }
   };
 
   return (
-    <Artboard id="brief" name="Brief" file="brief.psd">
-      <p className={cx("eyebrow", "mono")}>Start here · 30 seconds</p>
-      <RevealText className={cx("h-lg", styles.title)}>Build your brief in a few taps.</RevealText>
+    <Artboard id="brief" name={t("layer.brief")} file="brief.psd">
+      <p className={cx("eyebrow", "mono")}>{t("brief.eyebrow")}</p>
+      <RevealText className={cx("h-lg", styles.title)}>{t("brief.title")}</RevealText>
 
       <AnimatePresence mode="wait" initial={false}>
         {status === "sent" ? (
@@ -136,12 +123,12 @@ export default function BriefBuilder() {
               <Icon name="check" size={30} strokeWidth={2.4} />
             </motion.span>
             <div>
-              <h3 className={styles.sentTitle}>Brief received. Thank you{name.trim() ? `, ${name.trim().split(" ")[0]}` : ""}!</h3>
+              <h3 className={styles.sentTitle}>{t("brief.sentTitle", { first: name.trim().split(" ")[0] })}</h3>
               <p className={styles.sentText}>
-                It's in my inbox now. I'll reply to <strong>{email.trim()}</strong> — usually within a day.
+                {t("brief.sentBefore")} <strong dir="ltr">{email.trim()}</strong> {t("brief.sentAfter")}
               </p>
               <button type="button" className={styles.again} onClick={reset}>
-                Send another brief
+                {t("brief.another")}
               </button>
             </div>
           </motion.div>
@@ -156,10 +143,10 @@ export default function BriefBuilder() {
             animate={{ opacity: 1, transition: { duration: 0.4 } }}
             exit={{ opacity: 0, y: -12, transition: { duration: 0.2 } }}
           >
-            <ChipGroup legend="What do you need?" options={contact.needs} value={needs} onToggle={toggleNeed} multiple />
+            <ChipGroup legend={t("brief.needs")} options={contact.needs} value={needs} onToggle={toggleNeed} multiple />
             <div className={styles.row}>
               <ChipGroup
-                legend="Budget"
+                legend={t("brief.budget")}
                 options={contact.budgets}
                 value={budget}
                 onToggle={(v) => {
@@ -168,7 +155,7 @@ export default function BriefBuilder() {
                 }}
               />
               <ChipGroup
-                legend="When"
+                legend={t("brief.when")}
                 options={contact.timelines}
                 value={timeline}
                 onToggle={(v) => {
@@ -181,7 +168,7 @@ export default function BriefBuilder() {
             <div className={styles.row}>
               <div className={styles.field}>
                 <label htmlFor={ids.name} className={cx(styles.legend, "mono")}>
-                  Your name
+                  {t("brief.name")}
                 </label>
                 <input
                   id={ids.name}
@@ -189,12 +176,12 @@ export default function BriefBuilder() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   autoComplete="name"
-                  placeholder="Optional"
+                  placeholder={t("brief.optional")}
                 />
               </div>
               <div className={styles.field}>
                 <label htmlFor={ids.email} className={cx(styles.legend, "mono")}>
-                  Your email <span className={styles.required}>· required</span>
+                  {t("brief.email")} <span className={styles.required}>{t("brief.required")}</span>
                 </label>
                 <input
                   ref={emailRef}
@@ -208,20 +195,21 @@ export default function BriefBuilder() {
                     if (emailInvalid && EMAIL.test(e.target.value.trim())) setEmailInvalid(false);
                   }}
                   autoComplete="email"
-                  placeholder="you@company.com"
+                  placeholder={t("brief.emailPlaceholder")}
+                  dir="ltr"
                   required
                   aria-invalid={emailInvalid}
                   aria-describedby={ids.emailHint}
                 />
                 <span id={ids.emailHint} className={cx(styles.fieldHint, "mono")}>
-                  So I can reply — never shared
+                  {t("brief.emailHint")}
                 </span>
               </div>
             </div>
 
             <div className={styles.field}>
               <label htmlFor={ids.message} className={cx(styles.legend, "mono")}>
-                Anything else?
+                {t("brief.message")}
               </label>
               <textarea
                 id={ids.message}
@@ -229,13 +217,13 @@ export default function BriefBuilder() {
                 rows={4}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Brand, audience, deadline, links…"
+                placeholder={t("brief.messagePlaceholder")}
               />
             </div>
 
             {/* spam trap: hidden from people, filled in by bots */}
             <label className={styles.trap} aria-hidden="true">
-              Leave this empty
+              {t("common.leaveEmpty")}
               <input type="text" tabIndex={-1} autoComplete="off" value={botcheck} onChange={(e) => setBotcheck(e.target.value)} />
             </label>
 
@@ -245,7 +233,11 @@ export default function BriefBuilder() {
                 {status === "failed" && (
                   <>
                     {" "}
-                    Try again, or email me at <a href={mailto("Project brief")}>{site.email}</a>.
+                    {t("brief.tryAgainOr")}{" "}
+                    <a href={mailto(t("brief.subject"))} dir="ltr">
+                      {site.email}
+                    </a>
+                    .
                   </>
                 )}
               </p>
@@ -256,17 +248,15 @@ export default function BriefBuilder() {
                 {status === "sending" ? (
                   <span className={styles.sending}>
                     <i className={styles.spinner} aria-hidden="true" />
-                    Sending…
+                    {t("brief.sending")}
                   </span>
                 ) : status === "failed" ? (
-                  "Try again"
+                  t("brief.tryAgain")
                 ) : (
-                  "Send brief"
+                  t("brief.send")
                 )}
               </Button>
-              <p className={cx(styles.hint, "mono")}>
-                {formConfigured ? "Goes straight to my inbox · I reply within a day" : "Opens your mail app · nothing is stored here"}
-              </p>
+              <p className={cx(styles.hint, "mono")}>{t("brief.hint")}</p>
             </div>
           </motion.form>
         )}

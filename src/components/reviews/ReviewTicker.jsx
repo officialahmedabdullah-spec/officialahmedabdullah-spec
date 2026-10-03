@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { t } from "@/i18n";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cx, reducedMotion } from "@/lib/utils";
 import Stars from "./Stars";
@@ -36,9 +37,9 @@ export default function ReviewTicker({ reviews, freshIds }) {
     <ul className={styles.tickerRow} key={copy} aria-hidden={copy > 0 || undefined}>
       {items.map((review) => (
         <li key={review.id} className={styles.tickerItem}>
-          {freshIds.has(review.id) && <span className={cx(styles.badge, "mono")}>Just now</span>}
+          {freshIds.has(review.id) && <span className={cx(styles.badge, "mono")}>{t("common.justNow")}</span>}
           <Stars value={review.rating} size={13} />
-          <q>{clip(review.body)}</q>
+          <q dir="auto">{clip(review.body)}</q>
           <span className="mono">— {review.name}</span>
         </li>
       ))}
@@ -47,7 +48,9 @@ export default function ReviewTicker({ reviews, freshIds }) {
 
   return (
     <div ref={ref} className={styles.ticker}>
-      <div className={styles.tickerTrack}>{[0, 1].map(row)}</div>
+      <div className={styles.tickerTrack} dir="ltr">
+        {[0, 1].map(row)}
+      </div>
     </div>
   );
 }

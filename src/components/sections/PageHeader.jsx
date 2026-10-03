@@ -1,11 +1,12 @@
 import { useIntro } from "@/context/IntroContext";
+import { t } from "@/i18n";
 import { cx } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
 import RevealText from "@/components/ui/RevealText";
 import styles from "./PageHeader.module.css";
 
 /* The first artboard of an inner page: eyebrow, big h1, lede, optional aside. */
-export default function PageHeader({ id = "intro", name = "Intro", file, eyebrow, title, lede, aside, children }) {
+export default function PageHeader({ id = "intro", name = t("layer.intro"), file, eyebrow, title, lede, aside, children }) {
   const { ready } = useIntro();
   return (
     <Artboard id={id} name={name} file={file}>

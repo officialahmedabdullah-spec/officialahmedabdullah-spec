@@ -1,4 +1,5 @@
 import { caseStudies } from "@/data/portfolioData";
+import { t } from "@/i18n";
 import { cx } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
 import CaseStudyCard from "@/components/ui/CaseStudyCard";
@@ -11,13 +12,13 @@ export default function FeaturedWork({ limit = caseStudies.length }) {
   const [first, ...rest] = caseStudies.slice(0, limit);
 
   return (
-    <Artboard id="work" name="Selected work" file="selected-work.psd">
+    <Artboard id="work" name={t("layer.selectedWork")} file="selected-work.psd">
       <div className={styles.head}>
         <div>
-          <p className={cx("eyebrow", "mono")}>Selected work · hover to misregister</p>
-          <RevealText className="h-lg">Work that makes people ask who made it.</RevealText>
+          <p className={cx("eyebrow", "mono")}>{t("featured.eyebrow")}</p>
+          <RevealText className="h-lg">{t("featured.title")}</RevealText>
         </div>
-        <TextLink to="/work">All work + archive</TextLink>
+        <TextLink to="/work">{t("featured.all")}</TextLink>
       </div>
 
       <div className={styles.grid}>

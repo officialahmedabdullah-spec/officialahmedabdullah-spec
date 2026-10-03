@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { t } from "@/i18n";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cx, pad, reducedMotion } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
@@ -6,7 +7,7 @@ import RevealText from "@/components/ui/RevealText";
 import styles from "./Steps.module.css";
 
 /* Four numbered steps on a line that draws itself as you scroll. */
-export default function Steps({ id = "process", file = "process.psd", eyebrow = "The way it runs", title, steps }) {
+export default function Steps({ id = "process", file = "process.psd", eyebrow = t("steps.eyebrow"), title, steps }) {
   const ref = useRef(null);
 
   useGSAP(
@@ -29,7 +30,7 @@ export default function Steps({ id = "process", file = "process.psd", eyebrow = 
   );
 
   return (
-    <Artboard id={id} name="Process" file={file}>
+    <Artboard id={id} name={t("layer.process")} file={file}>
       <p className={cx("eyebrow", "mono")}>{eyebrow}</p>
       <RevealText className="h-lg">{title}</RevealText>
       <div ref={ref} className={styles.wrap}>

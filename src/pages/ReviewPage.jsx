@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router";
 import { useReviews } from "@/context/ReviewsContext";
 import { getCaseStudy, getService } from "@/data/portfolioData";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { t } from "@/i18n";
 import PageHeader from "@/components/sections/PageHeader";
 import ReviewForm from "@/components/reviews/ReviewForm";
 import Artboard from "@/components/ui/Artboard";
@@ -11,7 +12,7 @@ import Button from "@/components/ui/Button";
      /review?project=codespark-solutions
      /review?service=logo-design */
 export default function ReviewPage() {
-  useDocumentTitle("Leave a review");
+  useDocumentTitle(t("reviewPage.title"));
   const { configured } = useReviews();
   const [params] = useSearchParams();
   const project = getCaseStudy(params.get("project") ?? "") ? params.get("project") : "";
@@ -22,18 +23,18 @@ export default function ReviewPage() {
     <>
       <PageHeader
         file="review.psd"
-        eyebrow="Leave a review"
-        title={study ? `How was working on ${study.client}?` : "How was working together?"}
-        lede="Two minutes, honest words. Your review appears on the portfolio once I've approved it — and it genuinely helps the next client decide."
+        eyebrow={t("reviewPage.title")}
+        title={study ? t("reviewPage.headlineProject", { client: study.client }) : t("reviewPage.headline")}
+        lede={t("reviewPage.lede")}
       />
-      <Artboard id="review-form" name="Review form" file="new-comment.psd">
+      <Artboard id="review-form" name={t("layer.reviewForm")} file="new-comment.psd">
         {configured ? (
           <ReviewForm initialProject={project} initialService={service} />
         ) : (
           <div>
-            <p className="lede">Reviews aren't open just yet. Send your thoughts by email instead — thank you!</p>
+            <p className="lede">{t("reviewPage.closed")}</p>
             <div style={{ marginTop: 24 }}>
-              <Button to="/contact">Contact me</Button>
+              <Button to="/contact">{t("common.contactMe")}</Button>
             </div>
           </div>
         )}

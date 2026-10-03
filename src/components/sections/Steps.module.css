@@ -13,6 +13,10 @@
   transform-origin: left;
 }
 
+:root[dir="rtl"] .line {
+  transform-origin: right;
+}
+
 .steps {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -27,7 +31,7 @@
 .dot {
   position: absolute;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   width: 16px;
   height: 16px;
   border: 3px solid var(--art);

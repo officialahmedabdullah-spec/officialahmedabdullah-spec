@@ -143,6 +143,7 @@ export function Icon({ name, size = 18, strokeWidth = 1.7, className, ...props }
       strokeLinejoin="round"
       aria-hidden="true"
       focusable="false"
+      data-icon={name}
       {...props}
     >
       {PATHS[name]}

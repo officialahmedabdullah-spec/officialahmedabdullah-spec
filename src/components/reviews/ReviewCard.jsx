@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Link } from "react-router";
 import { getCaseStudy, getService } from "@/data/portfolioData";
+import { t } from "@/i18n";
 import { cx, timeAgo } from "@/lib/utils";
 import Stars from "./Stars";
 import styles from "./Reviews.module.css";
@@ -37,10 +38,13 @@ export default function ReviewCard({ review, index, fresh }) {
           <strong>{review.name}</strong>
           {review.role && <span>{review.role}</span>}
         </div>
-        {fresh ? <span className={cx(styles.badge, "mono")}>Just now</span> : <time className="mono" dateTime={review.created_at}>{timeAgo(review.created_at)}</time>}
+        {fresh ? <span className={cx(styles.badge, "mono")}>{t("common.justNow")}</span> : <time className="mono" dateTime={review.created_at}>{timeAgo(review.created_at)}</time>}
       </div>
       <Stars value={review.rating} />
-      <blockquote className={styles.body}>{review.body}</blockquote>
+      {/* reviews are written in either language: let the browser pick the direction */}
+      <blockquote className={styles.body} dir="auto">
+        {review.body}
+      </blockquote>
       {(service || project) && (
         <p className={cx(styles.for, "mono")}>
           {service && <span>{service.title}</span>}

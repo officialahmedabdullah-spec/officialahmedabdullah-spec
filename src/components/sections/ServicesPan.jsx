@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router";
 import { serviceFrames } from "@/data/portfolioData";
+import { t } from "@/i18n";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cx, pad } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
@@ -50,20 +51,22 @@ export default function ServicesPan() {
   );
 
   return (
-    <Artboard id="services-pan" name="Services" file="services.psd" pinned sheetClassName={styles.sheet}>
+    <Artboard id="services-pan" name={t("layer.services")} file="services.psd" pinned sheetClassName={styles.sheet}>
       <div ref={ref} className={styles.pan}>
         <div className={styles.head}>
-          <p className={cx("eyebrow", "mono")}>What I make · scroll to pan</p>
-          <RevealText className="h-lg">Five kinds of making, one canvas.</RevealText>
+          <p className={cx("eyebrow", "mono")}>{t("servicesPan.eyebrow")}</p>
+          <RevealText className="h-lg">{t("servicesPan.title")}</RevealText>
         </div>
-        <div className={styles.viewport} data-cursor="hand" data-cursor-label="Scroll to pan">
+        {/* the pan scrolls in screen direction (left → right) in both languages;
+            each frame keeps the page's reading direction */}
+        <div className={styles.viewport} data-cursor="hand" data-cursor-label={t("servicesPan.cursor")} dir="ltr">
           <ol className={styles.track}>
             {serviceFrames.map((frame, i) => (
-              <li key={frame.title} className={styles.frame}>
+              <li key={frame.title} className={styles.frame} dir={document.documentElement.dir}>
                 <p className={cx(styles.frameLabel, "mono")}>
-                  frame {pad(i + 1)} · {frame.file}
+                  {t("servicesPan.frame")} {pad(i + 1)} · {frame.file}
                 </p>
-                <Link to={frame.to} className={styles.body} style={{ "--frame": frame.color }} data-cursor="view" data-cursor-label="Open">
+                <Link to={frame.to} className={styles.body} style={{ "--frame": frame.color }} data-cursor="view" data-cursor-label={t("common.open")}>
                   <h3 className={styles.title}>{frame.title}</h3>
                   <p className={styles.text}>{frame.text}</p>
                   <ul className={styles.tags}>

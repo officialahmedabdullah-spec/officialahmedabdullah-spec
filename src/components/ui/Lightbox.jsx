@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef } from "react";
 import { useSmoothScroll } from "@/context/SmoothScrollContext";
 import { useSound } from "@/context/SoundContext";
+import { t } from "@/i18n";
 import { Icon } from "./Icon";
 import styles from "./Lightbox.module.css";
 
@@ -45,7 +46,7 @@ export default function Lightbox({ items, index, onNavigate, onClose }) {
     <dialog
       ref={dialogRef}
       className={styles.dialog}
-      aria-label={item ? item.title : "Image viewer"}
+      aria-label={item ? item.title : t("lightbox.viewer")}
       onClose={onClose}
       onClick={closeOnBackdrop}
       onTouchStart={(event) => (touchX.current = event.touches[0].clientX)}
@@ -63,7 +64,7 @@ export default function Lightbox({ items, index, onNavigate, onClose }) {
               {item.category && <span>{item.category} · </span>}
               {index + 1} / {items.length}
             </p>
-            <button type="button" className={styles.round} onClick={onClose} aria-label="Close viewer">
+            <button type="button" className={styles.round} onClick={onClose} aria-label={t("lightbox.close")}>
               <Icon name="close" size={20} />
             </button>
           </header>
@@ -84,10 +85,10 @@ export default function Lightbox({ items, index, onNavigate, onClose }) {
               </AnimatePresence>
               {items.length > 1 && (
                 <>
-                  <button type="button" className={`${styles.round} ${styles.prev}`} onClick={() => onNavigate(-1)} aria-label="Previous image">
+                  <button type="button" className={`${styles.round} ${styles.prev}`} onClick={() => onNavigate(-1)} aria-label={t("lightbox.prev")}>
                     <Icon name="chevLeft" size={20} />
                   </button>
-                  <button type="button" className={`${styles.round} ${styles.next}`} onClick={() => onNavigate(1)} aria-label="Next image">
+                  <button type="button" className={`${styles.round} ${styles.next}`} onClick={() => onNavigate(1)} aria-label={t("lightbox.next")}>
                     <Icon name="chevRight" size={20} />
                   </button>
                 </>

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLayers } from "@/context/LayersContext";
 import { useSmoothScroll } from "@/context/SmoothScrollContext";
 import { useSound } from "@/context/SoundContext";
+import { t } from "@/i18n";
 import { ScrollTrigger } from "@/lib/gsap";
 import { cx, pad } from "@/lib/utils";
 import { Icon } from "@/components/ui/Icon";
@@ -33,10 +34,10 @@ export default function LayersPanel({ open, onClose }) {
   }, [open, onClose]);
 
   return (
-    <aside id="layers-panel" className={cx(styles.panel, open && styles.open)} aria-label="Layers">
+    <aside id="layers-panel" className={cx(styles.panel, open && styles.open)} aria-label={t("layersPanel.title")}>
       <div className={styles.head}>
-        <strong>Layers</strong>
-        <span className="mono">{sorted.length} artboards</span>
+        <strong>{t("layersPanel.title")}</strong>
+        <span className="mono">{t("layersPanel.count", { n: sorted.length })}</span>
       </div>
 
       <ol className={styles.list}>
@@ -48,7 +49,7 @@ export default function LayersPanel({ open, onClose }) {
                 type="button"
                 className={styles.eye}
                 aria-pressed={!isHidden}
-                aria-label={`${isHidden ? "Show" : "Hide"} ${layer.name}`}
+                aria-label={t(isHidden ? "common.show" : "common.hide", { name: layer.name })}
                 onClick={() => {
                   toggleHidden(layer.id);
                   play(isHidden ? "pop" : "nope");
@@ -75,7 +76,7 @@ export default function LayersPanel({ open, onClose }) {
         })}
       </ol>
 
-      <p className={cx(styles.foot, "mono")}>Shortcuts: V H P T I open pages</p>
+      <p className={cx(styles.foot, "mono")}>{t("layersPanel.shortcuts")}</p>
     </aside>
   );
 }

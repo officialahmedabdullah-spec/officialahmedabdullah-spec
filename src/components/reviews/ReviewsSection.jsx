@@ -2,6 +2,7 @@ import { AnimatePresence } from "motion/react";
 import { useState } from "react";
 import { useReviews } from "@/context/ReviewsContext";
 import { useSound } from "@/context/SoundContext";
+import { t } from "@/i18n";
 import { cx } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
 import Button from "@/components/ui/Button";
@@ -27,16 +28,16 @@ export default function ReviewsSection() {
   const visible = showAll ? reviews : reviews.slice(0, FIRST);
 
   return (
-    <Artboard id="reviews" name="Reviews" file="reviews.psd">
+    <Artboard id="reviews" name={t("layer.reviews")} file="reviews.psd">
       <div className={styles.sectionHead}>
         <div>
           <p className={cx("eyebrow", "mono")}>
-            Client reviews
+            {t("reviews.eyebrow")}
             <span className={styles.live}>
-              <i aria-hidden="true" /> Live
+              <i aria-hidden="true" /> {t("common.live")}
             </span>
           </p>
-          <RevealText className="h-lg">Comments left on the artboard.</RevealText>
+          <RevealText className="h-lg">{t("reviews.title")}</RevealText>
         </div>
         <Button
           onClick={() => {
@@ -44,12 +45,12 @@ export default function ReviewsSection() {
             play("pop");
           }}
         >
-          Leave a review
+          {t("reviews.leave")}
         </Button>
       </div>
 
-      {status === "loading" && <p className={cx(styles.note, "mono")}>Loading reviews…</p>}
-      {status === "error" && <p className={cx(styles.note, "mono")}>Reviews couldn't load right now.</p>}
+      {status === "loading" && <p className={cx(styles.note, "mono")}>{t("reviews.loading")}</p>}
+      {status === "error" && <p className={cx(styles.note, "mono")}>{t("reviews.error")}</p>}
 
       {status === "ready" && (
         <>
@@ -58,8 +59,8 @@ export default function ReviewsSection() {
 
           {reviews.length === 0 ? (
             <div className={styles.empty}>
-              <p className={styles.emptyTitle}>No reviews yet.</p>
-              <p>Worked with me? Yours could be the first comment on this artboard.</p>
+              <p className={styles.emptyTitle}>{t("reviews.emptyTitle")}</p>
+              <p>{t("reviews.emptyText")}</p>
             </div>
           ) : (
             <ul className={styles.cards}>
@@ -73,7 +74,7 @@ export default function ReviewsSection() {
 
           {reviews.length > FIRST && (
             <button type="button" className={styles.more} onClick={() => setShowAll((all) => !all)}>
-              {showAll ? "Show fewer" : `Show all ${reviews.length} reviews`}
+              {showAll ? t("reviews.showFewer") : t("reviews.showAll", { n: reviews.length })}
             </button>
           )}
         </>

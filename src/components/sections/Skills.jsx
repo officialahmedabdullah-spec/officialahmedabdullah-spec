@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useSound } from "@/context/SoundContext";
 import { skills } from "@/data/portfolioData";
+import { t } from "@/i18n";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cx, reducedMotion } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
@@ -49,13 +50,13 @@ export default function Skills({ showAttributes = true }) {
   };
 
   return (
-    <Artboard id="skills" name="Skills" file="skills.psd">
+    <Artboard id="skills" name={t("layer.skills")} file="skills.psd">
       <div ref={ref} className={styles.wrap}>
         <div className={styles.intro}>
-          <p className={cx("eyebrow", "mono")}>Skills & tools</p>
-          <RevealText className="h-lg">Every skill is a layer. Opacity tells you how strong.</RevealText>
+          <p className={cx("eyebrow", "mono")}>{t("skills.eyebrow")}</p>
+          <RevealText className="h-lg">{t("skills.title")}</RevealText>
 
-          <p className={cx(styles.subhead, "mono")}>Software</p>
+          <p className={cx(styles.subhead, "mono")}>{t("skills.software")}</p>
           <ul className={styles.apps}>
             {skills.software.map((app) => (
               <li key={app.id} className={styles.app} style={{ background: app.bg, color: app.fg }} title={app.name}>
@@ -65,7 +66,7 @@ export default function Skills({ showAttributes = true }) {
             ))}
           </ul>
 
-          <p className={cx(styles.subhead, "mono")}>Languages</p>
+          <p className={cx(styles.subhead, "mono")}>{t("skills.languages")}</p>
           <ul className={styles.langs}>
             {skills.languages.map((language) => (
               <li key={language.name}>
@@ -76,10 +77,10 @@ export default function Skills({ showAttributes = true }) {
           </ul>
         </div>
 
-        <div className={styles.panel} role="group" aria-label="Skill levels">
+        <div className={styles.panel} role="group" aria-label={t("skills.levels")}>
           <div className={cx(styles.panelHead, "mono")}>
-            <span>Layers</span>
-            <span>Opacity</span>
+            <span>{t("skills.layers")}</span>
+            <span>{t("skills.opacity")}</span>
           </div>
           <ul>
             {skills.layers.map((layer) => {
@@ -90,7 +91,7 @@ export default function Skills({ showAttributes = true }) {
                     type="button"
                     className={styles.eye}
                     aria-pressed={!hidden}
-                    aria-label={`${hidden ? "Show" : "Hide"} ${layer.name}`}
+                    aria-label={t(hidden ? "common.show" : "common.hide", { name: layer.name })}
                     onClick={() => toggle(layer.name)}
                   >
                     <Icon name={hidden ? "eyeOff" : "eye"} size={15} />

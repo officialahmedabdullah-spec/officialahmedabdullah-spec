@@ -21,13 +21,13 @@
 
 .body li {
   position: relative;
-  padding-left: 20px;
+  padding-inline-start: 20px;
 }
 
 .body li::before {
   content: "";
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   top: .75em;
   width: 10px;
   height: 2px;

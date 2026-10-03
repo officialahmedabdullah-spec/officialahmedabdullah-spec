@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { statement } from "@/data/portfolioData";
+import { t } from "@/i18n";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cx, reducedMotion } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
@@ -30,9 +31,9 @@ export default function Statement() {
   );
 
   return (
-    <Artboard id="statement" name="Statement" file="statement.txt">
+    <Artboard id="statement" name={t("layer.statement")} file="statement.txt">
       <div ref={ref}>
-        <p className={cx("eyebrow", "mono")}>What's up</p>
+        <p className={cx("eyebrow", "mono")}>{t("statement.eyebrow")}</p>
         <p className={styles.text} data-cursor="text" data-cursor-label="Fraunces · 48pt">
           {words.map((word, i) => (
             <span key={i} className={styles.word}>

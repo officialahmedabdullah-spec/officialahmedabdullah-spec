@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router";
 import { useSmoothScroll } from "@/context/SmoothScrollContext";
+import { t } from "@/i18n";
 import { legacyTarget } from "@/pages/NotFoundPage";
 import PrintFilters from "@/components/ui/PrintFilters";
 import Cursor from "./Cursor";
@@ -50,7 +51,7 @@ export default function Workspace() {
   return (
     <>
       <a className="skip-link" href="#main">
-        Skip to content
+        {t("workspace.skip")}
       </a>
       <PrintFilters />
       <Topbar layersOpen={layersOpen} onToggleLayers={() => setLayersOpen((open) => !open)} />

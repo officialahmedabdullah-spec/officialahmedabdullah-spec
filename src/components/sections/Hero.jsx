@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useIntro } from "@/context/IntroContext";
 import { useSound } from "@/context/SoundContext";
 import { hero, site } from "@/data/portfolioData";
+import { isRtl, t } from "@/i18n";
 import { Draggable, gsap, useGSAP } from "@/lib/gsap";
 import { asset, cx, reducedMotion } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
@@ -67,15 +68,17 @@ export default function Hero() {
   );
 
   return (
-    <Artboard id="hero" name="Hero" file="hero.psd" sheetClassName={styles.sheet}>
-      <div ref={ref} className={styles.hero}>
-        <div className={styles.copy}>
+    <Artboard id="hero" name={t("layer.hero")} file="hero.psd" sheetClassName={styles.sheet}>
+      {/* the composition (copy, portrait, stickers) keeps its screen layout in
+          both languages; only the copy itself reads right-to-left in Arabic */}
+      <div ref={ref} className={styles.hero} dir="ltr">
+        <div className={styles.copy} dir={isRtl() ? "rtl" : "ltr"}>
           <p className={cx("eyebrow", "mono")} data-intro>
             {hero.eyebrow}
           </p>
-          <RevealText as="h1" className={cx("h-xl", styles.title)} play={ready} delay={0.2} data-cursor="pen" data-cursor-label="Headline · Bricolage 800">
+          <RevealText as="h1" className={cx("h-xl", styles.title)} play={ready} delay={0.2} data-cursor="pen" data-cursor-label={t("hero.headlineCursor")}>
             {hero.headline[0]}{" "}
-            <SelectionBox key="sel" label={`Layer · “${hero.headline[1]}”`} active={selected}>
+            <SelectionBox key="sel" label={t("hero.selection", { word: hero.headline[1] })} active={selected}>
               {hero.headline[1]}
             </SelectionBox>{" "}
             {hero.headline[2]}
@@ -93,28 +96,28 @@ export default function Hero() {
           </p>
         </div>
 
-        <figure className={styles.photo} data-cursor="view" data-cursor-label="Hi 👋">
-          <img src={asset(site.portrait)} alt={`${site.name}, graphic and web designer`} width="801" height="820" />
+        <figure className={styles.photo} data-cursor="view" data-cursor-label={t("hero.hi")}>
+          <img src={asset(site.portrait)} alt={t("hero.portraitAlt", { name: site.name })} width="801" height="820" />
           <span className={styles.halftone} aria-hidden="true" />
           <figcaption className={cx(styles.caption, "mono")}>portrait.jpg · placed</figcaption>
         </figure>
 
         <div className={styles.stickers} aria-hidden="true">
-          <div className={cx(styles.sticker, styles.stamp)} data-cursor="drag" data-cursor-label="Drag me">
+          <div className={cx(styles.sticker, styles.stamp)} data-cursor="drag" data-cursor-label={t("common.dragMe")}>
             <svg viewBox="0 0 100 100">
               <defs>
                 <path id="stamp-ring" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0" />
               </defs>
               <text>
                 <textPath href="#stamp-ring" textLength="236">
-                  OPEN FOR PROJECTS • WORLDWIDE • 2026 •
+                  {t("hero.stamp")}
                 </textPath>
               </text>
             </svg>
             <b>
-              Say
+              {t("hero.sayHello")[0]}
               <br />
-              hello
+              {t("hero.sayHello")[1]}
             </b>
           </div>
           <div className={cx(styles.sticker, styles.dd)} data-cursor="drag" data-cursor-label="Design Dynamo">
@@ -138,9 +141,9 @@ export default function Hero() {
           <div className={cx(styles.sticker, styles.app, styles.cdr)} data-cursor="drag" data-cursor-label="CorelDRAW">
             Cdr
           </div>
-          <div className={cx(styles.sticker, styles.note)} data-cursor="drag" data-cursor-label="Drag me">
-            4+ years, zero boring logos.
-            <small className="mono">sticky note · drag it</small>
+          <div className={cx(styles.sticker, styles.note)} data-cursor="drag" data-cursor-label={t("common.dragMe")}>
+            {t("hero.note")}
+            <small className="mono">{t("hero.noteSub")}</small>
           </div>
         </div>
       </div>

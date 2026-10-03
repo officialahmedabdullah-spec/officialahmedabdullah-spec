@@ -100,7 +100,7 @@
 
 .arrow {
   position: absolute;
-  right: 20px;
+  inset-inline-end: 20px;
   bottom: 20px;
   opacity: 0;
   transform: translate(-6px, 6px);

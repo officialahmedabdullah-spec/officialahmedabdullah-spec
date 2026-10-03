@@ -114,7 +114,7 @@
 }
 
 .price small {
-  margin-left: 8px;
+  margin-inline-start: 8px;
   font-size: .75rem;
   letter-spacing: .06em;
   opacity: .6;

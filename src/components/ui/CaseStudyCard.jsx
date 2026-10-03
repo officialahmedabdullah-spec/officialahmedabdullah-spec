@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { projectImage } from "@/data/projectImages";
+import { t } from "@/i18n";
 import { cx, pad } from "@/lib/utils";
 import CmykImage from "./CmykImage";
 import { Icon } from "./Icon";
@@ -16,7 +17,7 @@ export default function CaseStudyCard({ study, index, large = false }) {
       style={{ "--accent": study.accent }}
       data-cmyk-group
       data-cursor="view"
-      data-cursor-label="View case"
+      data-cursor-label={t("common.viewCase")}
     >
       <CmykImage src={large ? cover?.src : cover?.thumb} alt={`${study.client} — ${study.category}`} ratio={large ? "16 / 10" : "4 / 3"} />
       <div className={styles.meta}>

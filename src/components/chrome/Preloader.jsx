@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useIntro } from "@/context/IntroContext";
 import { useSmoothScroll } from "@/context/SmoothScrollContext";
 import { useSound } from "@/context/SoundContext";
+import { t } from "@/i18n";
 import { MARK_PATH } from "@/lib/brand";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { reducedMotion } from "@/lib/utils";
@@ -58,7 +59,7 @@ export default function Preloader() {
   if (gone) return null;
 
   return (
-    <div ref={ref} className={styles.preloader} role="status" aria-label="Loading">
+    <div ref={ref} className={styles.preloader} role="status" aria-label={t("preloader.loading")}>
       <div className={styles.box}>
         <svg className={styles.logo} viewBox="-30 -30 1470 1470" data-logo aria-hidden="true">
           <path className={styles.mark} data-mark d={MARK_PATH} pathLength="1" />
@@ -70,7 +71,7 @@ export default function Preloader() {
         <p className="mono">Design Dynamo · opening portfolio.psd</p>
       </div>
       <button type="button" className={styles.skip} onClick={() => timeline.current?.progress(1)}>
-        Skip intro
+        {t("preloader.skip")}
       </button>
     </div>
   );

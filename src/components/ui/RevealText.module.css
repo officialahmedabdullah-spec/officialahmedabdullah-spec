@@ -17,3 +17,10 @@
   transform-origin: 0 100%;
   will-change: transform;
 }
+
+/* Arabic ascenders and descenders reach further than Latin ones */
+:global(:root[lang="ar"]) .word {
+  overflow-clip-margin: .35em;
+  padding-bottom: .28em;
+  margin-bottom: -.28em;
+}

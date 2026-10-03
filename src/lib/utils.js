@@ -1,3 +1,5 @@
+import { locale, t } from "@/i18n";
+
 // join class names, skipping falsy values
 export const cx = (...names) => names.filter(Boolean).join(" ");
 
@@ -6,8 +8,7 @@ export const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//,
 
 export const pad = (n) => String(n).padStart(2, "0");
 
-// "just now", "5 min ago", "3 days ago", "2 months ago"
-const relative = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+// "just now", "5 min ago", "3 days ago", "2 months ago" — in the current language
 const UNITS = [
   ["year", 31536000],
   ["month", 2592000],
@@ -18,11 +19,12 @@ const UNITS = [
 ];
 export function timeAgo(date) {
   const seconds = (new Date(date).getTime() - Date.now()) / 1000;
-  if (Math.abs(seconds) < 60) return "just now";
+  if (Math.abs(seconds) < 60) return t("common.justNow");
+  const relative = new Intl.RelativeTimeFormat(locale(), { numeric: "auto" });
   for (const [unit, size] of UNITS) {
     if (Math.abs(seconds) >= size) return relative.format(Math.round(seconds / size), unit);
   }
-  return "just now";
+  return t("common.justNow");
 }
 
 export const reducedMotion = () =>

@@ -1,0 +1,269 @@
+/* Search palette — a panel in the app's chrome colours, near the top of the
+   screen where the eye already is; full screen on phones. */
+
+.dialog {
+  width: min(680px, calc(100vw - 32px));
+  max-height: min(640px, calc(100dvh - 120px));
+  margin: 12vh auto auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  border-radius: 16px;
+  background: var(--panel);
+  color: var(--text);
+  box-shadow: 0 40px 100px -30px rgb(0 0 0 / .7);
+}
+
+.dialog::backdrop {
+  background: rgb(18 17 15 / .6);
+  backdrop-filter: blur(4px);
+}
+
+.dialog[open] {
+  display: flex;
+  animation: drop .35s var(--ease-out);
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog[open] {
+    animation: none;
+  }
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.fieldIcon {
+  flex: none;
+  color: var(--blue);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 60px;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: 500 1.15rem/1 var(--f-display);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--text-dim);
+}
+
+/* the browser's own clear button clashes with Esc */
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.esc {
+  flex: none;
+  padding: 5px 8px;
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  background: var(--panel-2);
+  color: var(--text-dim);
+  font-size: .66rem;
+}
+
+.esc:hover {
+  color: var(--text);
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  padding: 8px 8px 12px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.groupLabel {
+  margin: 12px 10px 6px;
+  color: var(--text-dim);
+  font-size: .66rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.list,
+.list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.active {
+  background: var(--panel-2);
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+
+:root[dir="rtl"] .active {
+  box-shadow: inset -3px 0 0 var(--blue);
+}
+
+.icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--ws);
+  color: var(--text-dim);
+}
+
+.active .icon {
+  color: var(--blue);
+}
+
+.texts {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sub {
+  overflow: hidden;
+  color: var(--text-dim);
+  font-size: .84rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.option mark {
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--blue) 28%, transparent);
+  color: inherit;
+}
+
+.enter {
+  flex: none;
+  color: var(--text-dim);
+  opacity: 0;
+  transition: opacity .15s, transform .2s var(--ease-out);
+}
+
+.active .enter {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+:root[dir="rtl"] .enter {
+  transform: scaleX(-1);
+}
+
+:root[dir="rtl"] .active .enter {
+  transform: scaleX(-1) translateX(2px);
+}
+
+.suggest {
+  padding-bottom: 4px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 10px;
+}
+
+.chip {
+  padding: 7px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font-size: .84rem;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+
+.chip:hover,
+.chip:focus-visible {
+  border-color: var(--blue);
+  background: var(--panel-2);
+}
+
+.empty {
+  display: grid;
+  gap: 8px;
+  padding: 28px 10px 16px;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.empty .chips {
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.emptyTitle {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 10px 16px;
+  border-top: 1px solid var(--line);
+  color: var(--text-dim);
+  font-size: .66rem;
+}
+
+@media (max-width: 860px) {
+  .dialog {
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+  .foot {
+    display: none;
+  }
+}

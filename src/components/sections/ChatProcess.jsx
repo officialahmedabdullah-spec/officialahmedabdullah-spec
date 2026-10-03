@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useSound } from "@/context/SoundContext";
 import { chat } from "@/data/portfolioData";
+import { t } from "@/i18n";
 import { ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { cx, reducedMotion } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
@@ -54,23 +55,20 @@ export default function ChatProcess() {
   );
 
   return (
-    <Artboard id="process" name="Process" file="process-thread.psd">
+    <Artboard id="process" name={t("layer.process")} file="process-thread.psd">
       <div className={styles.layout}>
         <div>
-          <p className={cx("eyebrow", "mono")}>How it works</p>
-          <RevealText className="h-lg">No forms. One thread. Four days.</RevealText>
-          <p className={cx("lede", styles.lede)}>
-            You talk to the person actually designing it. First routes in days, revisions until it clicks, files that are
-            ready for the printer.
-          </p>
-          <p className={cx(styles.disclaimer, "mono")}>Illustrative thread — not a real client conversation.</p>
+          <p className={cx("eyebrow", "mono")}>{t("chat.eyebrow")}</p>
+          <RevealText className="h-lg">{t("chat.title")}</RevealText>
+          <p className={cx("lede", styles.lede)}>{t("chat.lede")}</p>
+          <p className={cx(styles.disclaimer, "mono")}>{t("chat.disclaimer")}</p>
         </div>
 
         <div ref={ref} className={styles.window}>
           <div className={styles.head}>
-            <strong>#your-brand × ahmad</strong>
+            <strong>{t("chat.channel")}</strong>
             <span className="mono">
-              <i className={styles.online} aria-hidden="true" /> 2 online
+              <i className={styles.online} aria-hidden="true" /> {t("chat.online")}
             </span>
           </div>
           <ol className={styles.thread} aria-live="polite">
@@ -82,11 +80,11 @@ export default function ChatProcess() {
               ) : (
                 <li key={i} className={cx(styles.msg, entry.from === "you" && styles.you)}>
                   <span className={styles.avatar} aria-hidden="true">
-                    {entry.from === "you" ? "Y" : "A"}
+                    {entry.from === "you" ? t("chat.youInitial") : t("chat.meInitial")}
                   </span>
                   <div className={styles.bubble}>
                     <span className={cx(styles.who, "mono")}>
-                      {entry.from === "you" ? "You" : "Ahmad"} · {entry.time}
+                      {entry.from === "you" ? t("chat.you") : t("chat.me")} · {entry.time}
                     </span>
                     <p>{entry.text}</p>
                     {entry.file && (
@@ -99,9 +97,9 @@ export default function ChatProcess() {
               )
             )}
             {typing && (
-              <li className={styles.msg} aria-label="Ahmad is typing">
+              <li className={styles.msg} aria-label={t("chat.typing")}>
                 <span className={styles.avatar} aria-hidden="true">
-                  A
+                  {t("chat.meInitial")}
                 </span>
                 <span className={styles.typing}>
                   <i />
