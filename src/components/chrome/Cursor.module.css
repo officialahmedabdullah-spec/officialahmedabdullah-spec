@@ -1,8 +1,18 @@
+/* Rendered as a manual popover so it lives in the browser's top layer,
+   above modal <dialog>s that no z-index can beat. The resets undo the
+   popover's default centred box. */
 .cursor {
   position: fixed;
   z-index: var(--z-cursor);
-  left: 0;
-  top: 0;
+  inset: 0 auto auto 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  overflow: visible;
+  color: inherit;
   pointer-events: none;
   opacity: 0;
   transition: opacity .2s;

@@ -75,10 +75,14 @@
   --gutter: clamp(16px, 4vw, 56px);
   --sheet-pad: clamp(24px, 5vw, 72px);
 
+  /* stacking order, low → high. The cursor is ALWAYS the top layer:
+     nothing may use a z-index at or above --z-cursor (see README →
+     Development rules). Modals use native <dialog>/popover, which sit in
+     the browser's top layer; the cursor re-promotes itself above those. */
   --z-chrome: 50;
-  --z-cursor: 90;
   --z-curtain: 80;
   --z-preloader: 100;
+  --z-cursor: 2147483647;
 }
 
 @media (max-width: 1180px) {

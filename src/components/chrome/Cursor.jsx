@@ -37,12 +37,35 @@ export default function Cursor() {
     const root = document.documentElement;
     root.classList.add("has-custom-cursor");
     const el = ref.current;
+
+    // Always on top: join the browser's top layer, and re-join it whenever
+    // a modal <dialog> or popover opens (the newest top-layer element wins).
+    const toTop = () => {
+      if (!el.showPopover) return;
+      try {
+        if (el.matches(":popover-open")) el.hidePopover();
+        el.showPopover();
+      } catch {
+        /* not connected yet */
+      }
+    };
+    toTop();
+    const layerWatch = new MutationObserver((records) => {
+      if (records.some((r) => r.target !== el && (r.target.open || r.target.matches?.(":popover-open")))) toTop();
+    });
+    layerWatch.observe(document.body, { subtree: true, attributes: true, attributeFilter: ["open", "popover"] });
+    const onToggle = (event) => event.target !== el && event.newState === "open" && toTop();
+    document.addEventListener("toggle", onToggle, true);
+
     const xTo = gsap.quickTo(el, "x", { duration: 0.16, ease: "power3" });
     const yTo = gsap.quickTo(el, "y", { duration: 0.16, ease: "power3" });
 
     let last = null;
 
     const onMove = (event) => {
+      // the browser can drop it from the top layer without an event (e.g.
+      // around a modal opening); put it back before it's needed
+      if (el.showPopover && !el.matches(":popover-open")) toTop();
       xTo(event.clientX);
       yTo(event.clientY);
       el.dataset.visible = "true";
@@ -79,6 +102,8 @@ export default function Cursor() {
     window.addEventListener("pointerup", onUp);
     return () => {
       root.classList.remove("has-custom-cursor");
+      layerWatch.disconnect();
+      document.removeEventListener("toggle", onToggle, true);
       window.removeEventListener("pointermove", onMove);
       document.removeEventListener("pointerover", onOver);
       document.documentElement.removeEventListener("pointerleave", onLeave);
@@ -88,7 +113,7 @@ export default function Cursor() {
   }, []);
 
   return (
-    <div ref={ref} className={styles.cursor} data-kind="default" data-visible="false" aria-hidden="true">
+    <div ref={ref} popover="manual" className={styles.cursor} data-kind="default" data-visible="false" aria-hidden="true">
       <span ref={dotRef} className={styles.dot} />
       <span ref={iconRef} className={styles.icon} data-icon="">
         {Object.entries(KINDS)

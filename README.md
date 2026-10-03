@@ -112,6 +112,22 @@ category folder, run `npm run images`. A new folder also needs an entry in
 - Everything works without animation: `prefers-reduced-motion` turns off smooth scroll,
   pinning, the custom cursor and the preloader, and shows finished states.
 
+## Development rules
+
+- **The cursor is always the top layer.** Nothing may cover the custom cursor:
+  not modals, popups, toasts, overlays, the preloader or the easter egg.
+  - Stacking uses the `--z-*` tokens in `src/styles/tokens.css`. Never write a
+    raw z-index at or above `--z-cursor` (the maximum, 2147483647); give new
+    overlays a token below it.
+  - Modals and popups use native `<dialog>` (`showModal()`) or the Popover API.
+    These render in the browser's top layer, which beats any z-index. The
+    cursor (`components/chrome/Cursor.jsx`) is a manual popover that
+    re-promotes itself whenever a dialog or popover opens. Don't build modals
+    another way (for example a portal with a huge z-index) without keeping
+    this guarantee.
+  - When adding a modal or popup, check with a mouse that the cursor is
+    visible above it and above its backdrop.
+
 ## Keyboard
 
 `V` Home · `H` Work · `P` Services · `T` About · `I` Contact (Photoshop shortcuts).

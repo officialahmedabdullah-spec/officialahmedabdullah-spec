@@ -113,7 +113,8 @@ main:focus {
 
 /* custom cursor (mouse only) replaces the system one, except in text fields */
 .has-custom-cursor,
-.has-custom-cursor * {
+.has-custom-cursor *,
+.has-custom-cursor ::backdrop {
   cursor: none !important;
 }
 
