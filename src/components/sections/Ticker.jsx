@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { ticker } from "@/data/portfolioData";
-import { getLang, t } from "@/i18n";
+import { getLang, isRtl, t } from "@/i18n";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { reducedMotion } from "@/lib/utils";
 import { Icon } from "@/components/ui/Icon";
@@ -14,7 +14,11 @@ export default function Ticker() {
   useGSAP(
     () => {
       if (reducedMotion()) return;
-      const loop = gsap.to(`.${styles.track}`, { xPercent: -50, duration: 40, ease: "none", repeat: -1 });
+      // words travel against the reading direction, so each one arrives
+      // start-first: leftwards in English, rightwards in Arabic
+      const loop = isRtl()
+        ? gsap.fromTo(`.${styles.track}`, { xPercent: -50 }, { xPercent: 0, duration: 40, ease: "none", repeat: -1 })
+        : gsap.to(`.${styles.track}`, { xPercent: -50, duration: 40, ease: "none", repeat: -1 });
       let direction = 1;
       ScrollTrigger.create({
         trigger: ref.current,
@@ -31,9 +35,12 @@ export default function Ticker() {
     { scope: ref }
   );
 
+  // in Arabic the list is laid out right-to-left so it reads in order as it moves
+  const items = isRtl() ? [...ticker].reverse() : ticker;
+
   const row = (copy) => (
     <div className={styles.row} key={copy} aria-hidden={copy > 0 || undefined}>
-      {ticker.map((item) => (
+      {items.map((item) => (
         <span className={styles.item} key={item}>
           {item}
           <Icon name="spark" size={16} className={styles.mark} />

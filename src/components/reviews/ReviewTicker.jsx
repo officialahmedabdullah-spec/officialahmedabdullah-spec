@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { t } from "@/i18n";
+import { isRtl, t } from "@/i18n";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cx, reducedMotion } from "@/lib/utils";
 import Stars from "./Stars";
@@ -11,12 +11,18 @@ const clip = (text, n = 90) => (text.length > n ? `${text.slice(0, n).trimEnd()}
    with a "just now" tag. Pauses on hover so a quote can be read. */
 export default function ReviewTicker({ reviews, freshIds }) {
   const ref = useRef(null);
-  const items = reviews.slice(0, 12);
+  const latest = reviews.slice(0, 12);
+  // laid out right-to-left in Arabic so the newest still comes first
+  const items = isRtl() ? [...latest].reverse() : latest;
 
   useGSAP(
     () => {
       if (reducedMotion() || items.length === 0) return undefined;
-      const tween = gsap.to(`.${styles.tickerTrack}`, { xPercent: -50, duration: Math.max(24, items.length * 9), ease: "none", repeat: -1 });
+      const duration = Math.max(24, items.length * 9);
+      // quotes arrive start-first: leftwards in English, rightwards in Arabic
+      const tween = isRtl()
+        ? gsap.fromTo(`.${styles.tickerTrack}`, { xPercent: -50 }, { xPercent: 0, duration, ease: "none", repeat: -1 })
+        : gsap.to(`.${styles.tickerTrack}`, { xPercent: -50, duration, ease: "none", repeat: -1 });
       const el = ref.current;
       const pause = () => tween.pause();
       const play = () => tween.play();

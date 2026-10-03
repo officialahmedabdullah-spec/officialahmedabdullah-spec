@@ -38,6 +38,19 @@
   color: var(--signal);
 }
 
+/* Arabic letters join, so a hollow outline draws seams through every word.
+   Alternate with a quieter solid colour instead, and give the script the
+   taller line it needs for its dots and descenders. */
+:global(:root[lang="ar"]) .item {
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+:global(:root[lang="ar"]) .item:nth-child(even) {
+  color: var(--text-dim);
+  -webkit-text-stroke: 0;
+}
+
 @media (max-width: 860px) {
   .ticker {
     margin: -24px auto 56px;
