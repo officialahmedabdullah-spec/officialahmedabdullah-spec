@@ -111,7 +111,7 @@ export default function Pricing() {
               </ul>
             </motion.div>
           </AnimatePresence>
-          <Button href={site.fiverrUrl} external>
+          <Button href={`${site.fiverrUrl}?pckg_id=${plan.fiverrPackage}`} external>
             {t("pricing.order", { name: plan.name })}
           </Button>
           <p className={cx(styles.small, "mono")}>{t("pricing.small")}</p>

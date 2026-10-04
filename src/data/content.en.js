@@ -572,6 +572,7 @@ export const packages = {
   plans: [
     {
       tier: "Basic",
+      fiverrPackage: 1, // pckg_id on the gig page — opens it with this package selected
       name: "Starter",
       min: 79,
       max: 199,
@@ -580,6 +581,7 @@ export const packages = {
     },
     {
       tier: "Standard",
+      fiverrPackage: 2,
       name: "Growth",
       min: 199,
       max: 499,
@@ -589,6 +591,7 @@ export const packages = {
     },
     {
       tier: "Premium",
+      fiverrPackage: 3,
       name: "Pro",
       min: 499,
       max: 999,
