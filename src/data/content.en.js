@@ -19,8 +19,8 @@ export const site = {
   phoneHref: "tel:+966598081132",
   location: "Riyadh, KSA",
   availability: "Open for projects · 2026",
-  // Paste your own profile link here, e.g. "https://www.fiverr.com/your-username".
-  fiverrUrl: "https://www.fiverr.com/",
+  // Fiverr gig with the Starter / Growth / Pro packages — opened by "Order" in the pricing section.
+  fiverrUrl: "https://www.fiverr.com/ahmedabdulla738/create-a-graphic-design-content-according-to-your-requirements",
   social: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/ahmedabdullahdesigner/" },
     { label: "Instagram", href: "https://www.instagram.com/designd_ynamo/" },
