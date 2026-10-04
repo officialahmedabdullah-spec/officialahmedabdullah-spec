@@ -19,8 +19,8 @@ export const site = {
   phoneHref: "tel:+966598081132",
   location: "Riyadh, KSA",
   availability: "Open for projects · 2026",
-  // Paste your own profile link here, e.g. "https://www.fiverr.com/your-username".
-  fiverrUrl: "https://www.fiverr.com/",
+  // Fiverr seller profile — the gig is ordered from here.
+  fiverrUrl: "https://www.fiverr.com/ahmedabdulla738",
   social: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/ahmedabdullahdesigner/" },
     { label: "Instagram", href: "https://www.instagram.com/designd_ynamo/" },
@@ -573,16 +573,16 @@ export const packages = {
     {
       tier: "Basic",
       name: "Starter",
-      min: 79,
-      max: 199,
+      min: 80,
+      max: 200,
       description: "For small businesses that need a steady flow of fresh, on-brand designs.",
       features: ["Up to 8 designs a month", "Social posts, covers & flyers", "Logo touch-ups & resizes", "2 revision rounds per design", "3–4 day delivery", "Print-ready PDF, PNG & JPG files"],
     },
     {
       tier: "Standard",
       name: "Growth",
-      min: 199,
-      max: 499,
+      min: 200,
+      max: 500,
       popular: true,
       description: "For growing brands that need print, social and packaging handled every month.",
       features: ["Up to 20 designs a month", "Labels, posters, infographics & social kits", "1 canvas or wall decal artwork a month", "Brand kit — logo files, colours & fonts", "3 revision rounds · 48-hour delivery", "Editable source files (AI, PSD, Figma)"],
@@ -590,8 +590,8 @@ export const packages = {
     {
       tier: "Premium",
       name: "Pro",
-      min: 499,
-      max: 999,
+      min: 500,
+      max: 1000,
       description: "For businesses that want one designer for everything — brand, print and web.",
       features: ["Up to 40 designs a month", "Full brand identity & guidelines", "UI / UX + 1 responsive web page a month", "Canvas & wall decal collections", "Unlimited revisions · 24-hour priority", "Monthly design call & priority support"],
     },
@@ -782,7 +782,7 @@ export const searchFacts = [
   { title: "Based in Riyadh, KSA", text: "Working with clients in Saudi Arabia and worldwide, remotely.", terms: "location address city country saudi arabia riyadh ksa where based", to: "/contact" },
   { title: "4+ years of design experience", text: "3 years in graphic design, 1 in web design — freelance since August 2021.", terms: "experience years how long since career", to: "/about" },
   { title: "Replies within a day", text: "Send a brief or an email — the answer comes from me, usually the same day.", terms: "response time how fast reply turnaround quick", to: "/contact" },
-  { title: "Monthly plans from $79", text: "Starter $79–199, Growth $199–499, Pro $499–999 a month, ordered through Fiverr.", terms: "price pricing cost rates budget how much fee plans subscription fiverr", to: "/services#pricing" },
+  { title: "Monthly plans from $80", text: "Starter $80–200, Growth $200–500, Pro $500–1,000 a month, ordered through Fiverr.", terms: "price pricing cost rates budget how much fee plans subscription fiverr", to: "/services#pricing" },
   { title: "Photoshop, Illustrator, Figma, CorelDRAW", text: "Plus HTML, CSS and JavaScript for websites.", terms: "tools software apps programs adobe ps ai figma corel code html css javascript", to: "/about#skills" },
   { title: "English and Urdu", text: "Professional English, native Urdu — and this site in Arabic.", terms: "languages speak english urdu arabic", to: "/about#skills" },
   { title: "Open for projects · 2026", text: "Taking on branding, print and web work now.", terms: "available availability hire freelance open now", to: "/contact" },
