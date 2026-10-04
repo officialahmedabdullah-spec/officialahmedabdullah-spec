@@ -1,12 +1,24 @@
+/* title beside the Layers panel, then the toolbox across both columns */
 .wrap {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(32px, 5vw, 72px);
+  gap: clamp(40px, 5vw, 64px) clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+/* same three columns and gap as .attributes, so the two rows line up */
+.toolbox {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px 24px;
   align-items: start;
+  padding-top: 32px;
+  border-top: 1px solid var(--ink-line);
 }
 
 .subhead {
-  margin: 36px 0 12px;
+  margin: 0 0 14px;
   color: var(--ink-dim);
 }
 
@@ -194,7 +206,13 @@
 }
 
 @media (max-width: 900px) {
-  .wrap,
+  .wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .toolbox,
   .attributes {
     grid-template-columns: 1fr;
   }

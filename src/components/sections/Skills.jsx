@@ -1,4 +1,4 @@
-import { Fragment, useId, useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { useSound } from "@/context/SoundContext";
 import { brandLogos } from "@/data/brandLogos";
 import { skills } from "@/data/portfolioData";
@@ -83,38 +83,6 @@ export default function Skills({ showAttributes = true }) {
         <div className={styles.intro}>
           <p className={cx("eyebrow", "mono")}>{t("skills.eyebrow")}</p>
           <RevealText className="h-lg">{t("skills.title")}</RevealText>
-
-          {[
-            ["skills.software", skills.software],
-            ["skills.ai", skills.ai],
-          ].map(([label, apps]) => (
-            <Fragment key={label}>
-              <p className={cx(styles.subhead, "mono")}>{t(label)}</p>
-              <ul className={styles.apps}>
-                {apps.map((app) => (
-                  <li
-                    key={app.id}
-                    className={styles.app}
-                    style={{ background: app.bg, color: Array.isArray(app.fg) ? app.fg[0] : app.fg }}
-                    title={app.name}
-                  >
-                    {brandLogos[app.id] ? <AppLogo id={app.id} colors={app.fg} /> : <span aria-hidden="true">{app.label}</span>}
-                    <span className="sr-only">{app.name}</span>
-                  </li>
-                ))}
-              </ul>
-            </Fragment>
-          ))}
-
-          <p className={cx(styles.subhead, "mono")}>{t("skills.languages")}</p>
-          <ul className={styles.langs}>
-            {skills.languages.map((language) => (
-              <li key={language.name}>
-                <strong>{language.name}</strong>
-                <span>{language.level}</span>
-              </li>
-            ))}
-          </ul>
         </div>
 
         <div className={styles.panel} role="group" aria-label={t("skills.levels")}>
@@ -154,6 +122,43 @@ export default function Skills({ showAttributes = true }) {
             <span>▢</span>
             <span>＋</span>
           </p>
+        </div>
+
+        {/* software · AI tools · languages — on the same three columns as the attributes below */}
+        <div className={styles.toolbox}>
+          {[
+            ["skills.software", skills.software],
+            ["skills.ai", skills.ai],
+          ].map(([label, apps]) => (
+            <div key={label}>
+              <p className={cx(styles.subhead, "mono")}>{t(label)}</p>
+              <ul className={styles.apps}>
+                {apps.map((app) => (
+                  <li
+                    key={app.id}
+                    className={styles.app}
+                    style={{ background: app.bg, color: Array.isArray(app.fg) ? app.fg[0] : app.fg }}
+                    title={app.name}
+                  >
+                    {brandLogos[app.id] ? <AppLogo id={app.id} colors={app.fg} /> : <span aria-hidden="true">{app.label}</span>}
+                    <span className="sr-only">{app.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          <div>
+            <p className={cx(styles.subhead, "mono")}>{t("skills.languages")}</p>
+            <ul className={styles.langs}>
+              {skills.languages.map((language) => (
+                <li key={language.name}>
+                  <strong>{language.name}</strong>
+                  <span>{language.level}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
