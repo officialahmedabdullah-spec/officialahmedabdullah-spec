@@ -1,5 +1,6 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useId, useRef, useState } from "react";
 import { useSound } from "@/context/SoundContext";
+import { brandLogos } from "@/data/brandLogos";
 import { skills } from "@/data/portfolioData";
 import { t } from "@/i18n";
 import { gsap, useGSAP } from "@/lib/gsap";
@@ -8,6 +9,26 @@ import Artboard from "@/components/ui/Artboard";
 import { Icon } from "@/components/ui/Icon";
 import RevealText from "@/components/ui/RevealText";
 import styles from "./Skills.module.css";
+
+// a tool's real mark; a list of colours becomes a diagonal gradient
+function AppLogo({ id, colors }) {
+  const gradient = useId();
+  const stops = Array.isArray(colors) ? colors : null;
+  return (
+    <svg className={styles.logo} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      {stops && (
+        <defs>
+          <linearGradient id={gradient} x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse">
+            {stops.map((color, i) => (
+              <stop key={color} offset={i / (stops.length - 1)} stopColor={color} />
+            ))}
+          </linearGradient>
+        </defs>
+      )}
+      <path d={brandLogos[id]} fill={stops ? `url(#${gradient})` : "currentColor"} />
+    </svg>
+  );
+}
 
 /* skills.psd — skill levels shown as a Photoshop Layers panel, where each
    skill is a layer and its level is the layer's opacity. Eye toggles work. */
@@ -71,8 +92,13 @@ export default function Skills({ showAttributes = true }) {
               <p className={cx(styles.subhead, "mono")}>{t(label)}</p>
               <ul className={styles.apps}>
                 {apps.map((app) => (
-                  <li key={app.id} className={styles.app} style={{ background: app.bg, color: app.fg }} title={app.name}>
-                    <span aria-hidden="true">{app.label}</span>
+                  <li
+                    key={app.id}
+                    className={styles.app}
+                    style={{ background: app.bg, color: Array.isArray(app.fg) ? app.fg[0] : app.fg }}
+                    title={app.name}
+                  >
+                    {brandLogos[app.id] ? <AppLogo id={app.id} colors={app.fg} /> : <span aria-hidden="true">{app.label}</span>}
                     <span className="sr-only">{app.name}</span>
                   </li>
                 ))}

@@ -30,6 +30,11 @@
   transform: translateY(-6px) rotate(-6deg);
 }
 
+.logo {
+  width: 30px;
+  height: 30px;
+}
+
 .langs {
   display: grid;
   gap: 10px;

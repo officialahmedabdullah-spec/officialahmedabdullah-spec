@@ -470,11 +470,12 @@ export const skills = {
     { id: "ai", label: "Ai", name: "Illustrator", bg: "#330000", fg: "#ff9a00" },
     { id: "fg", label: "Fg", name: "Figma", bg: "#1e1e1e", fg: "#a259ff" },
   ],
-  // AI assistants, in the same app-tile style as the software above
+  // AI assistants as app tiles with their real marks (see brandLogos.js);
+  // `fg` may be a list of colours, drawn as a gradient across the mark
   ai: [
-    { id: "gemini", label: "Ge", name: "Gemini", bg: "#0f1a33", fg: "#8ab4f8" },
-    { id: "chatgpt", label: "GPT", name: "ChatGPT", bg: "#0d2b23", fg: "#10a37f" },
-    { id: "claude", label: "Cl", name: "Claude", bg: "#2b1a12", fg: "#d97757" },
+    { id: "gemini", label: "Ge", name: "Gemini", bg: "#131314", fg: ["#4796e3", "#9177c7", "#ca6673"] },
+    { id: "chatgpt", label: "GPT", name: "ChatGPT", bg: "#000000", fg: "#ffffff" },
+    { id: "claude", label: "Cl", name: "Claude", bg: "#262624", fg: "#d97757" },
   ],
   attributes: [
     { icon: "spark", title: "Highly creative", text: "A strong passion for visual storytelling and design innovation." },
