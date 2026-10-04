@@ -21,11 +21,10 @@ export const site = {
   availability: "Open for projects · 2026",
   // Paste your own profile link here, e.g. "https://www.fiverr.com/your-username".
   fiverrUrl: "https://www.fiverr.com/",
-  // TODO: swap for the real profile urls
   social: [
-    { label: "Instagram", href: "https://www.instagram.com/" },
-    { label: "Behance", href: "https://www.behance.net/" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/ahmedabdullahdesigner/" },
+    { label: "Instagram", href: "https://www.instagram.com/designd_ynamo/" },
+    { label: "Behance", href: "https://www.behance.net/ahmadabdullah98" },
   ],
   logo: "images/logo.svg",
   portrait: "images/ahmad-portrait.jpeg",
