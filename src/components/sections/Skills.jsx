@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { useSound } from "@/context/SoundContext";
 import { skills } from "@/data/portfolioData";
 import { t } from "@/i18n";
@@ -26,15 +26,22 @@ export default function Skills({ showAttributes = true }) {
         ease: "expo.out",
         scrollTrigger: { trigger: `.${styles.panel}`, start: "top 80%", toggleActions: "play none none reverse" },
       });
-      gsap.from(`.${styles.app}`, {
-        y: 30,
-        rotate: -12,
-        opacity: 0,
-        duration: 0.9,
-        stagger: 0.1,
-        ease: "back.out(2)",
-        scrollTrigger: { trigger: `.${styles.apps}`, start: "top 90%" },
-      });
+      // explicit end values: the tiles' CSS hover transition on `transform`
+      // makes a plain .from() read its start pose back as the end pose
+      gsap.fromTo(
+        `.${styles.app}`,
+        { y: 30, rotate: -12, opacity: 0 },
+        {
+          y: 0,
+          rotate: 0,
+          opacity: 1,
+          duration: 0.9,
+          stagger: 0.1,
+          ease: "back.out(2)",
+          clearProps: "transform,translate,rotate,scale",
+          scrollTrigger: { trigger: `.${styles.apps}`, start: "top 90%" },
+        }
+      );
     },
     { scope: ref }
   );
@@ -56,15 +63,22 @@ export default function Skills({ showAttributes = true }) {
           <p className={cx("eyebrow", "mono")}>{t("skills.eyebrow")}</p>
           <RevealText className="h-lg">{t("skills.title")}</RevealText>
 
-          <p className={cx(styles.subhead, "mono")}>{t("skills.software")}</p>
-          <ul className={styles.apps}>
-            {skills.software.map((app) => (
-              <li key={app.id} className={styles.app} style={{ background: app.bg, color: app.fg }} title={app.name}>
-                <span aria-hidden="true">{app.label}</span>
-                <span className="sr-only">{app.name}</span>
-              </li>
-            ))}
-          </ul>
+          {[
+            ["skills.software", skills.software],
+            ["skills.ai", skills.ai],
+          ].map(([label, apps]) => (
+            <Fragment key={label}>
+              <p className={cx(styles.subhead, "mono")}>{t(label)}</p>
+              <ul className={styles.apps}>
+                {apps.map((app) => (
+                  <li key={app.id} className={styles.app} style={{ background: app.bg, color: app.fg }} title={app.name}>
+                    <span aria-hidden="true">{app.label}</span>
+                    <span className="sr-only">{app.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </Fragment>
+          ))}
 
           <p className={cx(styles.subhead, "mono")}>{t("skills.languages")}</p>
           <ul className={styles.langs}>

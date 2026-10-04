@@ -470,6 +470,12 @@ export const skills = {
     { id: "ai", label: "Ai", name: "Illustrator", bg: "#330000", fg: "#ff9a00" },
     { id: "fg", label: "Fg", name: "Figma", bg: "#1e1e1e", fg: "#a259ff" },
   ],
+  // AI assistants, in the same app-tile style as the software above
+  ai: [
+    { id: "gemini", label: "Ge", name: "Gemini", bg: "#0f1a33", fg: "#8ab4f8" },
+    { id: "chatgpt", label: "GPT", name: "ChatGPT", bg: "#0d2b23", fg: "#10a37f" },
+    { id: "claude", label: "Cl", name: "Claude", bg: "#2b1a12", fg: "#d97757" },
+  ],
   attributes: [
     { icon: "spark", title: "Highly creative", text: "A strong passion for visual storytelling and design innovation." },
     { icon: "target", title: "Problem solver", text: "A meticulous approach to both design and development." },
@@ -791,4 +797,5 @@ export const searchFacts = [
   { title: "Open for projects · 2026", text: "Taking on branding, print and web work now.", terms: "available availability hire freelance open now", to: "/contact" },
   { title: "Phone / WhatsApp +966 59 808 1132", text: "Calls and messages in KSA working hours.", terms: "phone whatsapp call number mobile contact", to: "/contact" },
   { title: "Email official.ahmedabdullah@gmail.com", text: "The fastest way to reach me.", terms: "email mail gmail contact write", to: "/contact" },
+  { title: "AI tools: Gemini, ChatGPT, Claude", text: "Used alongside Photoshop, Illustrator and Figma.", terms: "ai artificial intelligence tools gemini google chatgpt gpt openai claude anthropic", to: "/about#skills" },
 ];
