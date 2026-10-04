@@ -65,7 +65,7 @@ labels (buttons, headings, messages) live in `src/i18n/strings.js`.
 
 - **Case studies** — `caseStudies`. The brief / approach / result text is a **draft**
   written from the images; replace it with the real story.
-- **Fiverr link** — `site.fiverrUrl` (seller profile). **Social links** — `site.social`.
+- **Fiverr link** — `site.fiverrUrl`. **Social links** — `site.social` (placeholders).
 - **Search quick answers** — `searchFacts` ("where are you based", "price"…).
 
 ## Contact brief (sent to the site's own server)
