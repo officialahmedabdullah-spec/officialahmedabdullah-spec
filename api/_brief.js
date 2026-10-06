@@ -12,6 +12,7 @@
    Briefs are stored even when email isn't configured, so nothing is lost. */
 import { createHash } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
+import { briefEmail } from "./_briefEmail.js";
 
 const OWNER_EMAIL = "official.ahmedabdullah@gmail.com";
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -19,9 +20,6 @@ const WINDOW_MINUTES = 10;
 const MAX_PER_WINDOW = 3;
 
 const text = (value, max) => (typeof value === "string" ? value.trim().slice(0, max) : "");
-
-const escapeHtml = (value) =>
-  String(value).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
 function clean(body) {
   const needs = Array.isArray(body?.needs) ? body.needs.map((n) => text(n, 60)).filter(Boolean).slice(0, 12) : [];
@@ -51,21 +49,7 @@ function database(env) {
 
 async function sendEmail(brief, env) {
   if (!env.RESEND_API_KEY) return false;
-  const rows = [
-    ["Name", brief.name || "Not given"],
-    ["Email", brief.email],
-    ["Needs", brief.needs.join(", ") || "—"],
-    ["Budget", brief.budget || "—"],
-    ["When", brief.timeline || "—"],
-    ["Language", brief.lang === "ar" ? "Arabic" : "English"],
-  ];
-  const html = `
-    <h2 style="font-family:sans-serif">New project brief</h2>
-    <table style="font-family:sans-serif;border-collapse:collapse">
-      ${rows.map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#666">${k}</td><td style="padding:4px 0"><strong>${escapeHtml(v)}</strong></td></tr>`).join("")}
-    </table>
-    ${brief.message ? `<p style="font-family:sans-serif;white-space:pre-wrap;border-left:3px solid #ff5b2e;padding-left:12px">${escapeHtml(brief.message)}</p>` : ""}
-    <p style="font-family:sans-serif;color:#666">Reply to this email to answer ${escapeHtml(brief.name || "them")} directly.</p>`;
+  const { subject, html, text } = briefEmail(brief);
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -74,8 +58,9 @@ async function sendEmail(brief, env) {
       from: env.BRIEF_FROM_EMAIL || "Design Dynamo <onboarding@resend.dev>",
       to: [env.BRIEF_TO_EMAIL || OWNER_EMAIL],
       reply_to: brief.email,
-      subject: `New project brief${brief.needs.length ? ` — ${brief.needs[0]}` : ""}${brief.name ? ` from ${brief.name}` : ""}`,
+      subject,
       html,
+      text,
     }),
   });
   return response.ok;
