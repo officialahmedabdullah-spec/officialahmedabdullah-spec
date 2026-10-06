@@ -1,3 +1,6 @@
+/* footer.psd on the ink artboard. Light-on-dark text uses --art at reduced
+   opacity for secondary copy; every interactive row is at least 44px tall. */
+
 .top {
   display: flex;
   flex-wrap: wrap;
@@ -18,84 +21,226 @@
   padding-bottom: 8px;
 }
 
-.mail {
+/* ---------- availability: status next to the decision ---------- */
+
+.status {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 16px;
-  margin-top: 48px;
-  padding: 26px 0;
-  border-top: 1px solid rgb(245 241 232 / .14);
-  border-bottom: 1px solid rgb(245 241 232 / .14);
+  gap: 6px 10px;
+  margin-top: 28px;
+  color: rgb(245 241 232 / .7);
 }
 
-.mailLink {
-  font: 400 clamp(1.4rem, 3.4vw, 2.6rem)/1.1 var(--f-serif);
-  text-decoration: none;
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #34c759;
+  box-shadow: 0 0 0 0 rgb(52 199 89 / .55);
+  animation: pulse 2.4s var(--ease-out) infinite;
+}
+
+@keyframes pulse {
+  to {
+    box-shadow: 0 0 0 9px rgb(52 199 89 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation: none;
+  }
+}
+
+.sep {
+  color: rgb(245 241 232 / .3);
+}
+
+.clock {
+  color: var(--art);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- three ways to reach me ------------------------------ */
+
+.contacts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  grid-template-areas:
+    "icon kicker"
+    "icon value"
+    ". action";
+  align-items: center;
+  gap: 4px 14px;
+  padding: 20px;
+  border: 1px solid rgb(245 241 232 / .14);
+  border-radius: 18px;
+  background: rgb(245 241 232 / .03);
+  transition: border-color .3s, background .3s, transform .5s var(--ease-spring);
+}
+
+/* the whole card reacts when its main link is hovered or focused */
+.card:hover,
+.card:focus-within {
+  border-color: rgb(255 91 46 / .6);
+  background: rgb(255 91 46 / .06);
+  transform: translateY(-3px);
+}
+
+.cardIcon {
+  grid-area: icon;
+  align-self: start;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgb(245 241 232 / .08);
+  color: var(--art);
+}
+
+.whatsapp {
+  background: #25d366;
+  color: #ffffff;
+}
+
+.cardKicker {
+  grid-area: kicker;
+  color: rgb(245 241 232 / .5);
+}
+
+.cardValue {
+  grid-area: value;
+  font: 600 1.02rem/1.35 var(--f-display);
   overflow-wrap: anywhere;
-  background: linear-gradient(var(--signal), var(--signal)) no-repeat left bottom / 0 2px;
-  transition: background-size .6s var(--ease-out);
 }
 
-.mailLink:hover {
-  background-size: 100% 2px;
+.emailValue {
+  font-size: .94rem;
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  text-decoration: none;
+}
+
+/* stretch the main link over the card so the whole card is one big target */
+.cardLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.cardArrow {
+  flex: none;
+  color: var(--signal);
+  transition: transform .4s var(--ease-spring);
+}
+
+.card:hover .cardArrow {
+  transform: translate(2px, -2px);
+}
+
+.cardNote {
+  grid-area: action;
+  color: rgb(245 241 232 / .5);
 }
 
 .copy {
+  grid-area: action;
+  /* sits above the stretched link so it stays its own button */
+  position: relative;
+  z-index: 1;
+  justify-self: start;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   height: 36px;
+  margin-top: 6px;
   padding: 0 14px;
   border: 1px solid rgb(245 241 232 / .25);
   border-radius: 999px;
   background: none;
+  color: inherit;
 }
 
 .copy:hover {
+  border-color: var(--signal);
   background: rgb(245 241 232 / .08);
 }
 
-.eggRow {
-  margin-top: 48px;
-  padding: clamp(24px, 4vw, 44px);
-  border: 1.5px dashed rgb(245 241 232 / .22);
-  border-radius: 20px;
-}
+/* ---------- site map -------------------------------------------- */
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 32px;
-  margin-top: 40px;
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid rgb(245 241 232 / .14);
 }
 
 .title {
-  margin-bottom: 14px;
+  margin-bottom: 8px;
   color: rgb(245 241 232 / .5);
 }
 
 .list {
   display: grid;
-  gap: 8px;
 }
 
-.list a,
-.meta a {
+.list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
   text-decoration: none;
   transition: color .25s;
 }
 
-.list a:hover,
-.meta a:hover {
+.list a:hover {
   color: var(--signal);
 }
 
+.social {
+  flex: none;
+  opacity: .85;
+}
+
+.external {
+  color: rgb(245 241 232 / .4);
+  transition: color .25s, transform .4s var(--ease-spring);
+}
+
+.list a:hover .external {
+  color: var(--signal);
+  transform: translate(2px, -2px);
+}
+
 .meta {
+  padding-top: 12px;
   line-height: 1.7;
 }
 
-/* Design Dynamo: the DD mark + the night (white / lime) wordmark */
+.metaDim {
+  color: rgb(245 241 232 / .55);
+}
+
+/* ---------- Design Dynamo: the DD mark + the night wordmark ------ */
+
 .brand {
   display: flex;
   align-items: center;
@@ -134,6 +279,8 @@
   height: auto;
 }
 
+/* ---------- small print ----------------------------------------- */
+
 .legal {
   display: flex;
   flex-wrap: wrap;
@@ -148,22 +295,31 @@
 
 .legalLinks {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 4px 20px;
 }
 
 .legalLinks a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   text-decoration: none;
 }
 
 .legalLinks a:hover,
-.top2:hover {
+.toTop:hover {
   color: var(--art);
 }
 
-.top2 {
+.egg {
+  color: var(--art);
+}
+
+.toTop {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-height: 44px;
   padding: 0;
   border: 0;
   background: none;
@@ -174,13 +330,23 @@
 }
 
 @media (max-width: 860px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .contacts {
+    grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+  /* pages and socials side by side, studio underneath */
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .studio {
+    grid-column: 1 / -1;
+  }
+
+  .legal {
+    justify-content: flex-start;
   }
 }

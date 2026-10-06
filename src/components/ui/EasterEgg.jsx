@@ -75,7 +75,7 @@ function burst(drops, splats, x, y, count, power) {
  * liquid paint; the fourth floods the screen. Anticipation (the pressure
  * meter), payoff (the splash), and a delight near the end (Peak–End rule).
  */
-export default function EasterEgg() {
+export default function EasterEgg({ compact = false }) {
   const [pokes, setPokes] = useState(0);
   const [finale, setFinale] = useState(false);
   const buttonRef = useRef(null);
@@ -123,9 +123,11 @@ export default function EasterEgg() {
   };
 
   const line = { text: t("egg.lines")[pokes], color: LINE_COLORS[pokes] };
+  // the small version stays quiet until someone actually presses it
+  const showLine = !compact || pokes > 0;
 
   return (
-    <div className={styles.egg}>
+    <div className={cx(styles.egg, compact && styles.compact)}>
       <div className={styles.stage}>
         <button ref={buttonRef} type="button" className={styles.button} onClick={press} data-cursor="drag" data-cursor-label={t("egg.cursor")}>
           {t("egg.button")}
@@ -141,16 +143,18 @@ export default function EasterEgg() {
 
       <div className={styles.messageBox} aria-live="polite">
         <AnimatePresence mode="wait" initial={false}>
-          <motion.p
-            key={pokes}
-            className={styles.message}
-            style={{ color: line.color }}
-            initial={{ opacity: 0, y: 26, rotate: -3, scale: 0.92 }}
-            animate={{ opacity: 1, y: 0, rotate: 0, scale: 1, transition: { type: "spring", stiffness: 420, damping: 16 } }}
-            exit={{ opacity: 0, y: -14, transition: { duration: 0.15 } }}
-          >
-            {line.text}
-          </motion.p>
+          {showLine && (
+            <motion.p
+              key={pokes}
+              className={styles.message}
+              style={{ color: line.color }}
+              initial={{ opacity: 0, y: 26, rotate: -3, scale: 0.92 }}
+              animate={{ opacity: 1, y: 0, rotate: 0, scale: 1, transition: { type: "spring", stiffness: 420, damping: 16 } }}
+              exit={{ opacity: 0, y: -14, transition: { duration: 0.15 } }}
+            >
+              {line.text}
+            </motion.p>
+          )}
         </AnimatePresence>
       </div>
 

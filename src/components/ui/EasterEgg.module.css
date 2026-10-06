@@ -44,8 +44,8 @@
   color: rgb(245 241 232 / .55);
 }
 
-.meter .mono {
-  margin-left: 6px;
+.meter :global(.mono) {
+  margin-inline-start: 6px;
   font-size: .6rem;
 }
 
@@ -121,5 +121,40 @@
   .egg {
     grid-template-columns: 1fr;
   }
+}
+
+/* ---------- compact: a small pill for the footer's legal row ----- */
+
+.compact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.compact .stage {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.compact .button {
+  height: 32px;
+  padding: 0 12px;
+  font-size: .72rem;
+}
+
+.compact .meter :global(.mono) {
+  display: none;
+}
+
+.compact .cell {
+  width: 10px;
+  height: 13px;
+}
+
+.compact .messageBox {
+  min-height: 0;
+  font-size: .9rem;
 }
 

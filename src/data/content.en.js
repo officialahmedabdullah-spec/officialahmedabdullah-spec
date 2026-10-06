@@ -17,14 +17,18 @@ export const site = {
   email: "official.ahmedabdullah@gmail.com",
   phone: "+966 59 808 1132",
   phoneHref: "tel:+966598081132",
+  // opens a WhatsApp chat with the number above
+  whatsappHref: "https://wa.me/966598081132",
+  timeZone: "Asia/Riyadh",
   location: "Riyadh, KSA",
   availability: "Open for projects · 2026",
   // Fiverr gig with the Starter / Growth / Pro packages — opened by "Order" in the pricing section.
   fiverrUrl: "https://www.fiverr.com/ahmedabdulla738/create-a-graphic-design-content-according-to-your-requirements",
   social: [
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/ahmedabdullahdesigner/" },
-    { label: "Instagram", href: "https://www.instagram.com/designd_ynamo/" },
-    { label: "Behance", href: "https://www.behance.net/ahmadabdullah98" },
+    // `id` picks the logo in brandLogos.js
+    { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/ahmedabdullahdesigner/" },
+    { id: "instagram", label: "Instagram", href: "https://www.instagram.com/designd_ynamo/" },
+    { id: "behance", label: "Behance", href: "https://www.behance.net/ahmadabdullah98" },
   ],
   logo: "images/logo.svg",
   portrait: "images/ahmad-portrait.jpeg",
