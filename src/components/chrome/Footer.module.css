@@ -1,5 +1,5 @@
-/* footer.psd on the ink artboard. Light-on-dark text uses --art at reduced
-   opacity for secondary copy; every interactive row is at least 44px tall. */
+/* footer.psd on the ink artboard — four rows split by hairlines, no boxes.
+   Links and buttons keep a 44px hit area even where they look small. */
 
 .top {
   display: flex;
@@ -17,235 +17,107 @@
   color: var(--signal);
 }
 
-.cta {
-  padding-bottom: 8px;
+/* ---------- how to reach me -------------------------------------- */
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  margin-top: clamp(40px, 6vw, 64px);
+  padding: 28px 0;
+  border-block: 1px solid rgb(245 241 232 / .14);
 }
 
-/* ---------- availability: status next to the decision ---------- */
+.mailRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mail {
+  font: 400 clamp(1.3rem, 2.6vw, 1.85rem)/1.15 var(--f-serif);
+  text-decoration: none;
+  background: linear-gradient(var(--signal), var(--signal)) no-repeat left bottom / 0 2px;
+  transition: background-size .6s var(--ease-out);
+}
+
+.mail:hover,
+.mail:focus-visible {
+  background-size: 100% 2px;
+}
+
+.copy {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgb(245 241 232 / .2);
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+  transition: border-color .25s, color .25s;
+}
+
+.copy:hover {
+  border-color: var(--signal);
+  color: var(--signal);
+}
 
 .status {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 6px 10px;
-  margin-top: 28px;
-  color: rgb(245 241 232 / .7);
+  gap: 8px;
+  margin-top: 10px;
+  color: rgb(245 241 232 / .55);
 }
 
 .dot {
+  flex: none;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: #34c759;
-  box-shadow: 0 0 0 0 rgb(52 199 89 / .55);
-  animation: pulse 2.4s var(--ease-out) infinite;
-}
-
-@keyframes pulse {
-  to {
-    box-shadow: 0 0 0 9px rgb(52 199 89 / 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dot {
-    animation: none;
-  }
-}
-
-.sep {
-  color: rgb(245 241 232 / .3);
 }
 
 .clock {
   color: var(--art);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-/* ---------- three ways to reach me ------------------------------ */
+.profiles {
+  display: flex;
+  gap: 10px;
+}
 
-.contacts {
+.profile {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 28px;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgb(245 241 232 / .2);
+  border-radius: 50%;
+  color: var(--art);
+  transition: background .25s, border-color .25s, color .25s, transform .4s var(--ease-spring);
 }
 
-.card {
-  position: relative;
-  display: grid;
-  grid-template-columns: 44px minmax(0, 1fr);
-  grid-template-areas:
-    "icon kicker"
-    "icon value"
-    ". action";
-  align-items: center;
-  gap: 4px 14px;
-  padding: 20px;
-  border: 1px solid rgb(245 241 232 / .14);
-  border-radius: 18px;
-  background: rgb(245 241 232 / .03);
-  transition: border-color .3s, background .3s, transform .5s var(--ease-spring);
-}
-
-/* the whole card reacts when its main link is hovered or focused */
-.card:hover,
-.card:focus-within {
-  border-color: rgb(255 91 46 / .6);
-  background: rgb(255 91 46 / .06);
+.profile:hover,
+.profile:focus-visible {
+  border-color: var(--signal);
+  background: var(--signal);
+  color: var(--ink);
   transform: translateY(-3px);
 }
 
-.cardIcon {
-  grid-area: icon;
-  align-self: start;
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgb(245 241 232 / .08);
-  color: var(--art);
-}
-
-.whatsapp {
-  background: #25d366;
-  color: #ffffff;
-}
-
-.cardKicker {
-  grid-area: kicker;
-  color: rgb(245 241 232 / .5);
-}
-
-.cardValue {
-  grid-area: value;
-  font: 600 1.02rem/1.35 var(--f-display);
-  overflow-wrap: anywhere;
-}
-
-.emailValue {
-  font-size: .94rem;
-}
-
-.cardLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 32px;
-  text-decoration: none;
-}
-
-/* stretch the main link over the card so the whole card is one big target */
-.cardLink::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-}
-
-.cardArrow {
-  flex: none;
-  color: var(--signal);
-  transition: transform .4s var(--ease-spring);
-}
-
-.card:hover .cardArrow {
-  transform: translate(2px, -2px);
-}
-
-.cardNote {
-  grid-area: action;
-  color: rgb(245 241 232 / .5);
-}
-
-.copy {
-  grid-area: action;
-  /* sits above the stretched link so it stays its own button */
-  position: relative;
-  z-index: 1;
-  justify-self: start;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  height: 36px;
-  margin-top: 6px;
-  padding: 0 14px;
-  border: 1px solid rgb(245 241 232 / .25);
-  border-radius: 999px;
-  background: none;
-  color: inherit;
-}
-
-.copy:hover {
-  border-color: var(--signal);
-  background: rgb(245 241 232 / .08);
-}
-
-/* ---------- site map -------------------------------------------- */
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 32px;
-  margin-top: 56px;
-  padding-top: 40px;
-  border-top: 1px solid rgb(245 241 232 / .14);
-}
-
-.title {
-  margin-bottom: 8px;
-  color: rgb(245 241 232 / .5);
-}
-
-.list {
-  display: grid;
-}
-
-.list a {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  text-decoration: none;
-  transition: color .25s;
-}
-
-.list a:hover {
-  color: var(--signal);
-}
-
-.social {
-  flex: none;
-  opacity: .85;
-}
-
-.external {
-  color: rgb(245 241 232 / .4);
-  transition: color .25s, transform .4s var(--ease-spring);
-}
-
-.list a:hover .external {
-  color: var(--signal);
-  transform: translate(2px, -2px);
-}
-
-.meta {
-  padding-top: 12px;
-  line-height: 1.7;
-}
-
-.metaDim {
-  color: rgb(245 241 232 / .55);
-}
-
-/* ---------- Design Dynamo: the DD mark + the night wordmark ------ */
+/* ---------- Design Dynamo: the DD mark + the night wordmark ------- */
 
 .brand {
   display: flex;
   align-items: center;
   gap: clamp(16px, 3vw, 40px);
-  margin-top: 64px;
+  margin-top: clamp(40px, 6vw, 64px);
 }
 
 .brandMark {
@@ -279,34 +151,59 @@
   height: auto;
 }
 
-/* ---------- small print ----------------------------------------- */
+/* ---------- site map + small print ------------------------------- */
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 32px;
+  margin-top: clamp(32px, 5vw, 48px);
+  padding-top: 12px;
+  border-top: 1px solid rgb(245 241 232 / .14);
+}
+
+.pages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 22px;
+}
+
+.pages a,
+.legal a,
+.toTop {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: none;
+  transition: color .25s;
+}
+
+.pages a {
+  font-weight: 500;
+}
+
+.pages a:hover {
+  color: var(--signal);
+}
 
 .legal {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px 24px;
-  margin-top: 32px;
-  padding-top: 20px;
-  border-top: 1px solid rgb(245 241 232 / .14);
+  gap: 0 28px;
   color: rgb(245 241 232 / .55);
 }
 
-.legalLinks {
+.group {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 20px;
-}
-
-.legalLinks a {
-  display: inline-flex;
   align-items: center;
-  min-height: 44px;
-  text-decoration: none;
+  gap: 0 18px;
 }
 
-.legalLinks a:hover,
+.legal a:hover,
 .toTop:hover {
   color: var(--art);
 }
@@ -316,10 +213,7 @@
 }
 
 .toTop {
-  display: inline-flex;
-  align-items: center;
   gap: 6px;
-  min-height: 44px;
   padding: 0;
   border: 0;
   background: none;
@@ -329,24 +223,23 @@
   text-transform: inherit;
 }
 
-@media (max-width: 860px) {
-  .contacts {
+@media (max-width: 640px) {
+  .contact {
     grid-template-columns: 1fr;
   }
-}
 
-@media (max-width: 600px) {
-  /* pages and socials side by side, studio underneath */
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-  }
-
-  .studio {
-    grid-column: 1 / -1;
-  }
-
+  /* small print as two tidy lines: © + legal, then egg + back to top */
   .legal {
-    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .group {
+    gap: 0 16px;
+  }
+
+  /* the copyright gets its own line so Privacy · Terms · Cookies fit on one */
+  .group:first-child > span:first-child {
+    flex-basis: 100%;
   }
 }
