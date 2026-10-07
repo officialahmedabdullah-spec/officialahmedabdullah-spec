@@ -25,9 +25,13 @@ import { SoundProvider } from "./context/SoundContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { ToastProvider } from "./context/ToastContext";
 import { LanguageProvider } from "./i18n/LanguageContext";
+import { watchStaleAssets } from "./lib/staleAssets";
 
 // scroll position is managed by the page transition
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
+// a tab left open across a deploy reloads instead of showing broken images
+watchStaleAssets();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

@@ -137,3 +137,9 @@ main:focus {
     scroll-behavior: auto !important;
   }
 }
+
+/* an image that failed to load (see lib/staleAssets.js): hide the browser's
+   broken-image icon and alt text so the tile's own background shows */
+img[data-broken] {
+  visibility: hidden;
+}

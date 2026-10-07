@@ -151,6 +151,11 @@
   background: var(--art-2);
 }
 
+/* an image that couldn't load keeps a calm, post-sized tile */
+.tile:has(img[data-broken]) {
+  aspect-ratio: 4 / 5;
+}
+
 .tile img {
   width: 100%;
   height: auto;
