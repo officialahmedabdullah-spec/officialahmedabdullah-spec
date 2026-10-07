@@ -23,7 +23,11 @@ export default function Archive() {
   const archive = useMemo(getArchive, []);
 
   const items = useMemo(
-    () => (filter === ALL ? archive.flatMap((c) => c.items) : archive.find((c) => c.id === filter)?.items ?? []),
+    () =>
+      filter === ALL
+        ? // an image listed in two categories shows once under All
+          [...new Map(archive.flatMap((c) => c.items).map((item) => [item.key, item])).values()]
+        : archive.find((c) => c.id === filter)?.items ?? [],
     [filter, archive]
   );
 

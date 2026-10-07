@@ -616,7 +616,7 @@ export const packages = {
 
 // Folders in media-source/projects (lower-cased after `npm run images`).
 export const archiveCategories = [
-  { id: "logo-branding", title: "Logo & Branding" },
+  { id: "logo-branding", title: "Logo & Branding", also: ["codesparkwork/code-spark-logo"] },
   { id: "codesparkwork", title: "CodeSpark Solutions" },
   { id: "canvas-design", title: "Canvas Design" },
   { id: "custom-wall-decals", title: "Wall Decals" },

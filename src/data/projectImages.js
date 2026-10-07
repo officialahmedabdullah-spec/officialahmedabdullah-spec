@@ -33,12 +33,17 @@ export const projectImage = (key) => withTitle(index.get(key));
 
 export const folderImages = (folder) => images.filter((image) => image.folder === folder).map(withTitle);
 
-// grouped for the archive, in archiveCategories order
+// grouped for the archive, in archiveCategories order; a category can also
+// borrow images from another folder (`also`), e.g. a client's logo shown
+// under Logo & Branding as well as under the client
 export const getArchive = () =>
   archiveCategories
     .map((category) => ({
       ...category,
-      items: folderImages(category.id).map((image) => ({ ...image, category: category.title })),
+      items: [...folderImages(category.id), ...(category.also ?? []).map(projectImage).filter(Boolean)].map((image) => ({
+        ...image,
+        category: category.title,
+      })),
     }))
     .filter((category) => category.items.length > 0);
 
