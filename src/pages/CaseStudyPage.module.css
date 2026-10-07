@@ -52,28 +52,80 @@
   margin-bottom: 32px;
 }
 
-/* key brand pieces: large, one per row, alternating a little narrower */
+/* key brand pieces on one grid: `wide` pieces take the full row, the rest
+   pair up at equal size. Every piece sits in the same mat, so white artwork
+   keeps an edge on the cream page and all edges line up. */
 .features {
   display: grid;
-  gap: clamp(32px, 5vw, 64px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(36px, 5vw, 56px) clamp(16px, 2.4vw, 28px);
+  align-items: start;
 }
 
-.feature:nth-child(even) {
-  width: min(100%, 86%);
-  margin-inline-start: auto;
+.wide {
+  grid-column: 1 / -1;
+}
+
+.mat {
+  display: block;
+  width: 100%;
+  padding: clamp(10px, 1.6vw, 20px);
+  overflow: hidden;
+  border: 1px solid var(--ink-line);
+  border-radius: 6px;
+  background: var(--art-2);
+  transition: border-color .3s;
+}
+
+.mat img {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-shadow: 0 18px 36px -24px rgb(0 0 0 / .45);
+  transition: transform .9s var(--ease-out);
+}
+
+.mat:hover {
+  border-color: var(--accent, var(--ink));
+}
+
+.mat:hover img {
+  transform: scale(1.02);
 }
 
 .featureCaption {
-  display: flex;
-  align-items: baseline;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 12px;
   margin-top: 14px;
-  font: 400 1.05rem/1.45 var(--f-serif);
+}
+
+.featureN {
+  padding-top: 3px;
+  color: var(--accent, var(--ink));
+}
+
+.featureName {
+  display: block;
+  font: 700 1.02rem/1.3 var(--f-display);
+  color: var(--ink);
+}
+
+.featureDetail {
+  display: block;
+  margin-top: 2px;
+  font: 400 .98rem/1.45 var(--f-serif);
   color: var(--ink-dim);
 }
 
-.featureCaption .mono {
-  color: var(--accent, var(--ink));
+.featureDetail::first-letter {
+  text-transform: uppercase;
+}
+
+@media (max-width: 720px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
 }
 
 .gallery {

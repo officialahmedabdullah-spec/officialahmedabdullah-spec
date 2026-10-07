@@ -648,10 +648,11 @@ export const caseStudies = [
     tools: ["Illustrator", "Photoshop"],
     accent: "#2a5bd7",
     cover: "codesparkwork/code-spark-logo",
-    // the brand pieces, shown large before the gallery of posts
+    // the brand pieces, shown large before the gallery of posts; `wide` spans
+    // the full row, the rest pair up two by two (e.g. brochure outside + inside)
     features: [
-      { key: "codesparkwork/code-spark-logo", caption: "Logo — construction, colour variations and concept" },
-      { key: "codesparkwork/business-card", caption: "Business card — front, and a back styled as a code editor" },
+      { key: "codesparkwork/code-spark-logo", caption: "Logo — construction, colour variations and concept", wide: true },
+      { key: "codesparkwork/business-card", caption: "Business card — front, and a back styled as a code editor", wide: true },
       { key: "codesparkwork/code-spark-broushre-outsid-back", caption: "Tri-fold brochure — outside: about, contact and cover" },
       { key: "codesparkwork/code-spark-broushre-inside-front", caption: "Tri-fold brochure — inside: services, process and training" },
     ],

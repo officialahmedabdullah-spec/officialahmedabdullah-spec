@@ -30,7 +30,7 @@ export default function CaseStudyPage() {
   const features = (study?.features ?? [])
     .map((item) => {
       const image = projectImage(item.key);
-      return image && { ...image, caption: item.caption };
+      return image && { ...image, caption: item.caption, wide: item.wide };
     })
     .filter(Boolean);
   const rest = images.filter((image) => !featureKeys.includes(image.key));
@@ -119,17 +119,24 @@ export default function CaseStudyPage() {
           <p className={cx("eyebrow", "mono")}>{t("caseStudy.appliedEyebrow")}</p>
           <RevealText className={cx("h-lg", styles.compareTitle)}>{t("caseStudy.appliedTitle")}</RevealText>
           <ol className={styles.features}>
-            {features.map((image, i) => (
-              <li key={image.key} className={styles.feature}>
-                <button type="button" className={styles.tile} onClick={() => setOpen(i)} data-cursor="view" data-cursor-label={t("common.zoom")}>
-                  <img src={image.src} alt={image.title} loading="lazy" decoding="async" />
-                </button>
-                <p className={styles.featureCaption}>
-                  <span className="mono">{pad(i + 1)}</span>
-                  {image.caption}
-                </p>
-              </li>
-            ))}
+            {features.map((image, i) => {
+              // "Business card — front, and a back…" → a title and a detail line
+              const [name, ...detail] = image.caption.split(" — ");
+              return (
+                <li key={image.key} className={cx(styles.feature, image.wide && styles.wide)}>
+                  <button type="button" className={styles.mat} onClick={() => setOpen(i)} data-cursor="view" data-cursor-label={t("common.zoom")}>
+                    <img src={image.src} alt={image.title} loading="lazy" decoding="async" />
+                  </button>
+                  <p className={styles.featureCaption}>
+                    <span className={cx(styles.featureN, "mono")}>{pad(i + 1)}</span>
+                    <span>
+                      <strong className={styles.featureName}>{name}</strong>
+                      {detail.length > 0 && <span className={styles.featureDetail}>{detail.join(" — ")}</span>}
+                    </span>
+                  </p>
+                </li>
+              );
+            })}
           </ol>
         </Artboard>
       )}
