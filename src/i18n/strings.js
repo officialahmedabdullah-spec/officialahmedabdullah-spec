@@ -163,7 +163,7 @@ const en = {
     splash: "Splash!",
     splashSub: "Told you it does nothing.",
   },
-  lightbox: { viewer: "Image viewer", close: "Close viewer", prev: "Previous image", next: "Next image" },
+  lightbox: { viewer: "Image viewer", close: "Close viewer", prev: "Previous image", next: "Next image", story: "About this piece", goal: "Goal", idea: "Idea", process: "Process", tools: "Tools" },
   brief: {
     eyebrow: "Start here · 30 seconds",
     title: "Build your brief in a few taps.",
@@ -501,7 +501,7 @@ const ar = {
     splash: "طرطشة!",
     splashSub: "قلت لك إنه لا يفعل شيئًا.",
   },
-  lightbox: { viewer: "عارض الصور", close: "إغلاق العارض", prev: "الصورة السابقة", next: "الصورة التالية" },
+  lightbox: { viewer: "عارض الصور", close: "إغلاق العارض", prev: "الصورة السابقة", next: "الصورة التالية", story: "عن هذا العمل", goal: "الهدف", idea: "الفكرة", process: "الخطوات", tools: "الأدوات" },
   brief: {
     eyebrow: "ابدأ هنا · 30 ثانية",
     title: "اكتب موجزك ببضع نقرات.",
