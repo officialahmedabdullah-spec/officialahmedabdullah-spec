@@ -499,6 +499,21 @@ export const achievements = [
   "Built and optimized a website that enhanced user experience and resulted in a 20% increase in online conversions.",
 ];
 
+// Courses completed — the PDF and its preview live in public/certificates
+export const certificates = [
+  {
+    id: "hp-life-critical-thinking-ai",
+    title: "Critical Thinking in the AI Era",
+    issuer: "HP LIFE · HP Foundation",
+    date: "October 2026",
+    file: "/certificates/hp-life-critical-thinking-ai-era.pdf",
+    image: "/certificates/hp-life-critical-thinking-ai-era.webp",
+    serial: "d0cc4e92-f4c5-4c66-8462-4b49c5420c5b",
+    skills: ["Critical thinking", "Fact-checking AI content", "Bias-aware decisions"],
+    text: "Using critical thinking to make better decisions: spotting where AI-generated content distorts the truth, countering bias and fact-checking information.",
+  },
+];
+
 // Experience & education as Photoshop's History panel, oldest first
 export const history = [
   {

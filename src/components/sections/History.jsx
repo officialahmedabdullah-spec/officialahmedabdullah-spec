@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { useSound } from "@/context/SoundContext";
-import { achievements, history } from "@/data/portfolioData";
+import { achievements, certificates, history } from "@/data/portfolioData";
 import { t } from "@/i18n";
 import { cx } from "@/lib/utils";
 import Artboard from "@/components/ui/Artboard";
@@ -81,6 +81,36 @@ export default function History({ showAchievements = true }) {
               </li>
             ))}
           </ol>
+        </div>
+      )}
+
+      {showAchievements && certificates.length > 0 && (
+        <div className={styles.achievements}>
+          <p className={cx("eyebrow", "mono")}>{t("history.certificates")}</p>
+          <ul className={styles.certs}>
+            {certificates.map((cert) => (
+              <li key={cert.id} className={styles.cert}>
+                <a href={cert.file} target="_blank" rel="noopener" className={styles.certImage} aria-label={`${t("history.viewCertificate")}: ${cert.title}`}>
+                  <img src={cert.image} alt="" width="900" height="636" loading="lazy" decoding="async" />
+                </a>
+                <div className={styles.certBody}>
+                  <p className="mono">
+                    {cert.issuer} · {cert.date}
+                  </p>
+                  <h3 className="h-md">{cert.title}</h3>
+                  <p>{cert.text}</p>
+                  <ul className={styles.certSkills}>
+                    {cert.skills.map((skill) => (
+                      <li key={skill}>{skill}</li>
+                    ))}
+                  </ul>
+                  <a href={cert.file} target="_blank" rel="noopener" className={cx("mono", styles.certLink)}>
+                    {t("history.viewCertificate")} ↗
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </Artboard>

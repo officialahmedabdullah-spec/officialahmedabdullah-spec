@@ -105,7 +105,7 @@ const en = {
     layers: "Layers",
     opacity: "Opacity",
   },
-  history: { eyebrow: "Experience & education", title: "Every step is saved in the history panel.", panel: "History", achievements: "Achievements" },
+  history: { eyebrow: "Experience & education", title: "Every step is saved in the history panel.", panel: "History", achievements: "Achievements", certificates: "Certificates", viewCertificate: "View certificate", serial: "Serial" },
   chat: {
     eyebrow: "How it works",
     title: "No forms. One thread. Four days.",
@@ -449,7 +449,7 @@ const ar = {
     layers: "الطبقات",
     opacity: "الشفافية",
   },
-  history: { eyebrow: "الخبرة والتعليم", title: "كل خطوة محفوظة في لوحة السجل.", panel: "السجل", achievements: "الإنجازات" },
+  history: { eyebrow: "الخبرة والتعليم", title: "كل خطوة محفوظة في لوحة السجل.", panel: "السجل", achievements: "الإنجازات", certificates: "الشهادات", viewCertificate: "عرض الشهادة", serial: "الرقم التسلسلي" },
   chat: {
     eyebrow: "كيف أعمل",
     title: "بلا نماذج. محادثة واحدة. أربعة أيام.",

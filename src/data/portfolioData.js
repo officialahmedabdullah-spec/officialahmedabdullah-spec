@@ -38,6 +38,7 @@ export let logoBuild = EN.logoBuild;
 export let aboutIntro = EN.aboutIntro;
 export let skills = EN.skills;
 export let achievements = EN.achievements;
+export let certificates = EN.certificates;
 export let history = EN.history;
 export let chat = EN.chat;
 export let packages = EN.packages;
@@ -65,6 +66,7 @@ export function setContentLanguage(lang) {
   aboutIntro = c.aboutIntro;
   skills = c.skills;
   achievements = c.achievements;
+  certificates = c.certificates;
   history = c.history;
   chat = c.chat;
   packages = c.packages;
