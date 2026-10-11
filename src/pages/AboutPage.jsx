@@ -1,4 +1,4 @@
-import { aboutIntro, mailto, site } from "@/data/portfolioData";
+import { aboutIntro, site } from "@/data/portfolioData";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { t } from "@/i18n";
 import { asset, cx } from "@/lib/utils";
@@ -29,8 +29,8 @@ export default function AboutPage() {
       >
         <div className={styles.actions}>
           <Button to="/contact">{t("about.workWithMe")}</Button>
-          <Button href={mailto(t("about.cvSubject"))} variant="ghost" icon={null}>
-            {t("about.requestCv")}
+          <Button href={asset("/cv/Ahmad_Abdullah_Graphic_Designer_CV.pdf")} download="Ahmad_Abdullah_Graphic_Designer_CV.pdf" variant="ghost" icon="download">
+            {t("about.downloadCv")}
           </Button>
         </div>
       </PageHeader>

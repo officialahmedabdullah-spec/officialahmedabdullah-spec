@@ -68,6 +68,7 @@ const PATHS = {
   ),
   expand: <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />,
   up: <path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" />,
+  download: <path d="M12 4v11M6.5 10 12 15.5 17.5 10M5 20h14" />,
   mail: (
     <>
       <rect width="20" height="16" x="2" y="4" rx="2" />

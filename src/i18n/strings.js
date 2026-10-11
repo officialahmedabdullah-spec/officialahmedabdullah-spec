@@ -256,7 +256,7 @@ const en = {
     eyebrow: "About · {location}",
     photoCursor: "That's me",
     workWithMe: "Work with me",
-    requestCv: "Request full CV",
+    downloadCv: "Download CV",
     cvSubject: "CV request",
   },
   caseStudy: {
@@ -594,7 +594,7 @@ const ar = {
     eyebrow: "نبذة · {location}",
     photoCursor: "هذا أنا",
     workWithMe: "اعمل معي",
-    requestCv: "اطلب السيرة الذاتية كاملة",
+    downloadCv: "تحميل السيرة الذاتية",
     cvSubject: "طلب السيرة الذاتية",
   },
   caseStudy: {
