@@ -17,9 +17,15 @@
   display: grid;
   justify-items: center;
   gap: 10px;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding-inline: 20px;
   color: var(--text);
-  font: 800 clamp(2.6rem, 8vw, 6.5rem)/.9 var(--f-display);
+  font: 800 clamp(2rem, 8vw, 6.5rem)/.95 var(--f-display);
   letter-spacing: -.04em;
+  text-align: center;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .curtainLabel span {
