@@ -211,7 +211,11 @@
 
 @media (max-width: 900px) {
   .layout:has(.split) { height: auto; min-height: 100%; }
-  .dialog { overflow-y: auto; }
+  .dialog {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
   .split { flex-direction: column; }
   .split .stage { min-height: 62dvh; padding-bottom: 64px; }
   .split .image { max-height: 58dvh; }

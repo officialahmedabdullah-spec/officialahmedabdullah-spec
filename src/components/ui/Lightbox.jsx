@@ -49,6 +49,7 @@ export default function Lightbox({ items, index, onNavigate, onClose }) {
     <dialog
       ref={dialogRef}
       className={styles.dialog}
+      data-lenis-prevent
       aria-label={item ? item.title : t("lightbox.viewer")}
       onClose={onClose}
       onClick={closeOnBackdrop}

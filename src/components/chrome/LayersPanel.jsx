@@ -40,7 +40,7 @@ export default function LayersPanel({ open, onClose }) {
         <span className="mono">{t("layersPanel.count", { n: sorted.length })}</span>
       </div>
 
-      <ol className={styles.list}>
+      <ol className={styles.list} data-lenis-prevent>
         {sorted.map((layer, i) => {
           const isHidden = hidden.has(layer.id);
           return (

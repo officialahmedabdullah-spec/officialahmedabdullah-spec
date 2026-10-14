@@ -171,6 +171,7 @@
   gap: 28px;
   padding: 28px 20px 32px;
   overflow-y: auto;
+  overscroll-behavior: contain;
   background: var(--panel);
 }
 

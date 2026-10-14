@@ -21,7 +21,7 @@ export default function ReviewDialog({ open, onClose, initialProject }) {
   }, [open, stop, start]);
 
   return (
-    <dialog ref={ref} className={styles.dialog} aria-labelledby="review-dialog-title" onClose={onClose} onClick={(e) => e.target === e.currentTarget && onClose()}>
+    <dialog ref={ref} className={styles.dialog} data-lenis-prevent aria-labelledby="review-dialog-title" onClose={onClose} onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className={styles.dialogPanel}>
         <div className={styles.dialogHead}>
           <div>

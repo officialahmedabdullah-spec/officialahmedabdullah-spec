@@ -149,6 +149,7 @@ export default function Topbar({ layersOpen, onToggleLayers }) {
           <motion.div
             id="mobile-menu"
             className={styles.sheet}
+            data-lenis-prevent
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)", transition: { duration: 0.6, ease: [0.65, 0, 0.35, 1] } }}
             exit={{ clipPath: "inset(0 0 100% 0)", transition: { duration: 0.4, ease: [0.65, 0, 0.35, 1] } }}
