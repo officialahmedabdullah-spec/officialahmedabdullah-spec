@@ -1,10 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { caseStudies, getCaseStudy } from "@/data/portfolioData";
 import { folderImages, projectImage } from "@/data/projectImages";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { getLang, t } from "@/i18n";
-import { cx, pad } from "@/lib/utils";
+import { asset, cx, pad } from "@/lib/utils";
 import ProjectReviews from "@/components/reviews/ProjectReviews";
 import PageHeader from "@/components/sections/PageHeader";
 import Artboard from "@/components/ui/Artboard";
@@ -33,7 +33,11 @@ export default function CaseStudyPage() {
       return image && { ...image, caption: item.caption, wide: item.wide };
     })
     .filter(Boolean);
-  const rest = images.filter((image) => !featureKeys.includes(image.key));
+  // the full-length panorama has its own scroller, so it stays out of the gallery
+  const panorama = study?.panorama ? projectImage(study.panorama.key) : null;
+  const rest = images.filter((image) => !featureKeys.includes(image.key) && image.key !== study?.panorama?.key);
+  const scroller = useRef(null);
+  const drag = useRef(null);
   const gallery = [...features, ...rest];
   const step = useCallback((dir) => setOpen((i) => (i == null ? i : (i + dir + gallery.length) % gallery.length)), [gallery.length]);
   const close = useCallback(() => setOpen(null), []);
@@ -99,6 +103,35 @@ export default function CaseStudyPage() {
         </div>
       </Artboard>
 
+      {panorama && (
+        <Artboard id="panorama" name={t("layer.panorama")} file="full-wall.psd">
+          <p className={cx("eyebrow", "mono")}>{study.panorama.label}</p>
+          <RevealText className={cx("h-lg", styles.compareTitle)}>{t("caseStudy.panoramaTitle")}</RevealText>
+          <div
+            ref={scroller}
+            className={styles.panorama}
+            dir="ltr"
+            tabIndex={0}
+            role="region"
+            aria-label={study.panorama.label}
+            data-lenis-prevent
+            data-cursor="drag"
+            onPointerDown={(event) => {
+              drag.current = { x: event.clientX, left: scroller.current.scrollLeft };
+              scroller.current.setPointerCapture(event.pointerId);
+            }}
+            onPointerMove={(event) => {
+              if (drag.current) scroller.current.scrollLeft = drag.current.left - (event.clientX - drag.current.x);
+            }}
+            onPointerUp={() => (drag.current = null)}
+            onPointerCancel={() => (drag.current = null)}
+          >
+            <img src={panorama.src} alt={panorama.title} draggable="false" decoding="async" />
+          </div>
+          <p className={cx("mono", styles.panoramaHint)}>{t("caseStudy.panoramaHint")}</p>
+        </Artboard>
+      )}
+
       {study.compare && (
         <Artboard id="compare" name={t("layer.compare")} file="compare.psd">
           <p className={cx("eyebrow", "mono")}>{t("caseStudy.dragCompare")}</p>
@@ -117,7 +150,7 @@ export default function CaseStudyPage() {
       {features.length > 0 && (
         <Artboard id="brand" name={t("layer.brandPieces")} file="brand-applications.psd">
           <p className={cx("eyebrow", "mono")}>{t("caseStudy.appliedEyebrow")}</p>
-          <RevealText className={cx("h-lg", styles.compareTitle)}>{t("caseStudy.appliedTitle")}</RevealText>
+          <RevealText className={cx("h-lg", styles.compareTitle)}>{study.featuresTitle ?? t("caseStudy.appliedTitle")}</RevealText>
           <ol className={styles.features}>
             {features.map((image, i) => {
               // "Business card — front, and a back…" → a title and a detail line
@@ -159,6 +192,17 @@ export default function CaseStudyPage() {
               </li>
             ))}
           </ul>
+        </Artboard>
+      )}
+
+      {study.video && (
+        <Artboard id="on-site" name={t("layer.onSite")} file="on-site.mp4">
+          <p className={cx("eyebrow", "mono")}>{t("caseStudy.onSiteEyebrow")}</p>
+          <RevealText className={cx("h-lg", styles.compareTitle)}>{t("caseStudy.onSiteTitle")}</RevealText>
+          <figure className={styles.video}>
+            <video src={asset(study.video.src)} poster={projectImage(study.video.poster)?.src} controls playsInline muted preload="none" />
+            <figcaption className="mono">{study.video.caption}</figcaption>
+          </figure>
         </Artboard>
       )}
 

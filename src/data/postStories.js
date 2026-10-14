@@ -23,6 +23,8 @@ const S = {
     illus: ["Rough thumbnail of the scene", "Flat vector shapes with layered depth", "Limited palette for one mood"],
     product: ["Cut out the product and set it on a stage", "Added light, glow and a bold sale headline", "Placed price, offer and order button"],
     board: ["Collected the posters of one industry", "Laid them out on a single presentation board", "Added a title and a consistent grid"],
+    hoarding: ["Planned five scenes along the 49.5 m wall", "Graded every photo to one sepia-and-gold look", "Built at full size and split into print panels"],
+    site: ["Printed in panels and mounted on the site hoarding", "Checked how the gold reads under street lights", "Filmed on site at night"],
   },
   ar: {
     canvas: ["رسمت الشخصية ووضعيتها", "بنيت أشكالًا مسطحة بألوان دافئة", "أضفت ملمس الورق وجرّبتها على جدار"],
@@ -37,11 +39,13 @@ const S = {
     illus: ["رسم مبدئي للمشهد", "أشكال مسطحة بطبقات للعمق", "ألوان محدودة لمزاج واحد"],
     product: ["قصصت المنتج ووضعته على منصة", "أضفت الإضاءة وعنوان العرض", "السعر والعرض وزر الطلب"],
     board: ["جمعت ملصقات مجال واحد", "رتبتها على لوحة عرض واحدة", "عنوان وشبكة موحدة"],
+    hoarding: ["خططت خمسة مشاهد على طول 49.5 م", "وحّدت الصور بتدرّج بني وذهبي واحد", "صممت بالمقاس الكامل ثم قسّمت لألواح طباعة"],
+    site: ["طُبع على ألواح ورُكّب على سياج الموقع", "تأكدت من وضوح الذهبي تحت إنارة الشارع", "صُوّر في الموقع ليلًا"],
   },
 };
 
 const TOOLS = {
-  canvas: [AI, PS], mockup: [PS], countdown: [PS], course: [PS, AI], module: [PS, FIG], hiring: [PS],
+  canvas: [AI, PS], mockup: [PS], hoarding: [AI, PS], site: [PS], countdown: [PS], course: [PS, AI], module: [PS, FIG], hiring: [PS],
   services: [PS, AI], brand: [AI, PS], decal: [AI], illus: [AI], product: [PS], board: [PS, AI],
 };
 
@@ -114,6 +118,15 @@ const STORIES = {
     "recent-projects/poster-designs-4": ["board", "Show my product posters in one view.", "Sale posts for watches, perfume, headphones and sneakers."],
     "recent-projects/poster-designs-5": ["board", "Show my real estate posters in one view.", "Black and orange with house photos: 'We build the best home'."],
     "recent-projects/poster-designs-6": ["board", "Show my mobile repair posters in one view.", "Hexagon photo frames for a repair shop."],
+    "wadi-safar-commercial-banner-50-m/panels/00-logo-lockup": ["hoarding", "Make the logo the hero of the wall.", "WADI SAFAR and وادي صفار side by side in gold over the running herd."],
+    "wadi-safar-commercial-banner-50-m/panels/01-canyon": ["hoarding", "Open the wall with the place itself.", "A wide canyon view with the Arabic name set huge in gold."],
+    "wadi-safar-commercial-banner-50-m/panels/02-white-horse": ["hoarding", "Bring movement into the middle of the wall.", "One white Arabian horse, cropped tight so its stride fills 10 m."],
+    "wadi-safar-commercial-banner-50-m/panels/03-logo-horses": ["hoarding", "The centre panel that carries the brand.", "The bilingual logo over a herd of running horses."],
+    "wadi-safar-commercial-banner-50-m/panels/04-heritage": ["hoarding", "Add a heritage chapter.", "A robed figure in front of carved stone, kept dark so the gold stands out."],
+    "wadi-safar-commercial-banner-50-m/panels/05-silk": ["hoarding", "Close the wall softly.", "Flowing silk with WADI and SAFAR split across it."],
+    "wadi-safar-commercial-banner-50-m/on-site/night-logo": ["site", "Show the hoarding installed.", "The logo panel on site, lit by street lights."],
+    "wadi-safar-commercial-banner-50-m/on-site/night-wall": ["site", "Show the scale on site.", "The wall running along the site at night."],
+    "wadi-safar-commercial-banner-50-m/on-site/night-detail": ["site", "Show the print up close.", "The Arabic name at full size beside the trees."],
   },
   ar: {
     "canvas-design/01/01": ["canvas", "لوحة حائط مرحة لغرفة معيشة عصرية.", "إوزة بنظارة شمسية بخلفية طينية هادئة."],
@@ -182,6 +195,15 @@ const STORIES = {
     "recent-projects/poster-designs-4": ["board", "عرض ملصقات المنتجات معًا.", "عروض لساعات وعطور وسماعات وأحذية."],
     "recent-projects/poster-designs-5": ["board", "عرض ملصقات العقارات معًا.", "أسود وبرتقالي مع صور المنازل."],
     "recent-projects/poster-designs-6": ["board", "عرض ملصقات صيانة الهواتف معًا.", "إطارات سداسية لمحل صيانة."],
+    "wadi-safar-commercial-banner-50-m/panels/00-logo-lockup": ["hoarding", "جعل الشعار بطل الجدار.", "WADI SAFAR ووادي صفار جنبًا إلى جنب بالذهبي فوق الخيل."],
+    "wadi-safar-commercial-banner-50-m/panels/01-canyon": ["hoarding", "افتتاح الجدار بالمكان نفسه.", "منظر واسع للوادي مع الاسم العربي بخط ذهبي ضخم."],
+    "wadi-safar-commercial-banner-50-m/panels/02-white-horse": ["hoarding", "إدخال الحركة في منتصف الجدار.", "حصان عربي أبيض بقصّ قريب تملأ خطوته 10 أمتار."],
+    "wadi-safar-commercial-banner-50-m/panels/03-logo-horses": ["hoarding", "اللوح الأوسط الذي يحمل العلامة.", "الشعار بلغتين فوق قطيع خيل راكض."],
+    "wadi-safar-commercial-banner-50-m/panels/04-heritage": ["hoarding", "إضافة فصل التراث.", "شخص بالرداء أمام حجر منقوش، داكن ليبرز الذهبي."],
+    "wadi-safar-commercial-banner-50-m/panels/05-silk": ["hoarding", "ختام هادئ للجدار.", "حرير منساب وكلمتا WADI وSAFAR موزعتان عليه."],
+    "wadi-safar-commercial-banner-50-m/on-site/night-logo": ["site", "عرض السياج بعد التركيب.", "لوح الشعار في الموقع تحت إنارة الشارع."],
+    "wadi-safar-commercial-banner-50-m/on-site/night-wall": ["site", "إظهار الحجم في الموقع.", "الجدار ممتد على طول الموقع ليلًا."],
+    "wadi-safar-commercial-banner-50-m/on-site/night-detail": ["site", "إظهار الطباعة عن قرب.", "الاسم العربي بالمقاس الكامل بجانب الأشجار."],
   },
 };
 

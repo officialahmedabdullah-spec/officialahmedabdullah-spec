@@ -638,6 +638,7 @@ export const archiveCategories = [
   { id: "recent-projects", title: "Poster Collections" },
   { id: "my-prduct-post-practice-work", title: "Product Posts" },
   { id: "illustration", title: "Illustration" },
+  { id: "wadi-safar-commercial-banner-50-m", title: "Large-Format Hoarding" },
 ];
 
 // Display titles for images whose file names are typos or unclear.
@@ -647,6 +648,16 @@ export const imageTitles = {
   "codesparkwork/business-card": "CodeSpark business card",
   "codesparkwork/code-spark-broushre-outsid-back": "CodeSpark brochure — outside",
   "codesparkwork/code-spark-broushre-inside-front": "CodeSpark brochure — inside",
+  "wadi-safar-commercial-banner-50-m/new-waddi-safar": "Wadi Safar hoarding — full 49.5 m",
+  "wadi-safar-commercial-banner-50-m/panels/00-logo-lockup": "Wadi Safar — logo lock-up",
+  "wadi-safar-commercial-banner-50-m/panels/01-canyon": "Panel 1 — the canyon",
+  "wadi-safar-commercial-banner-50-m/panels/02-white-horse": "Panel 2 — the white horse",
+  "wadi-safar-commercial-banner-50-m/panels/03-logo-horses": "Panel 3 — logo and horses",
+  "wadi-safar-commercial-banner-50-m/panels/04-heritage": "Panel 4 — heritage",
+  "wadi-safar-commercial-banner-50-m/panels/05-silk": "Panel 5 — silk",
+  "wadi-safar-commercial-banner-50-m/on-site/night-logo": "On site — the logo at night",
+  "wadi-safar-commercial-banner-50-m/on-site/night-wall": "On site — the hoarding at night",
+  "wadi-safar-commercial-banner-50-m/on-site/night-detail": "On site — close up",
 };
 
 /* Case studies, built from the archive.
@@ -726,6 +737,32 @@ export const caseStudies = [
     brief: "Decals have to be beautiful and cuttable: every shape needs to survive a vinyl plotter and a nervous first application.",
     approach: "Simple silhouettes, a warm limited palette and shapes that separate cleanly into colour layers.",
     outcome: "A series of decal designs with cut-ready vector files.",
+  },
+  {
+    slug: "wadi-safar-hoarding",
+    client: "Wadi Safar",
+    title: "Fifty metres of desert, horses and gold.",
+    category: "Large-format hoarding",
+    tags: ["49.5 × 2.8 m hoarding", "5 print panels", "Bilingual logo lock-ups", "Print-ready files"],
+    tools: ["Illustrator", "Photoshop"],
+    accent: "#b08a52",
+    cover: "wadi-safar-commercial-banner-50-m/panels/00-logo-lockup",
+    // the whole wall, scrolled sideways at real proportions
+    featuresTitle: "Five panels, ten metres each.",
+    panorama: { key: "wadi-safar-commercial-banner-50-m/new-waddi-safar", label: "The full hoarding · 49.5 m × 2.8 m" },
+    features: [
+      { key: "wadi-safar-commercial-banner-50-m/panels/01-canyon", caption: "Panel 1 — the canyon, with the Arabic name set large", wide: true },
+      { key: "wadi-safar-commercial-banner-50-m/panels/02-white-horse", caption: "Panel 2 — a white Arabian horse, cropped to its stride", wide: true },
+      { key: "wadi-safar-commercial-banner-50-m/panels/03-logo-horses", caption: "Panel 3 — the bilingual logo over the running herd", wide: true },
+      { key: "wadi-safar-commercial-banner-50-m/panels/04-heritage", caption: "Panel 4 — robe and carved stone: the heritage chapter", wide: true },
+      { key: "wadi-safar-commercial-banner-50-m/panels/05-silk", caption: "Panel 5 — flowing silk, with the English name split across it", wide: true },
+    ],
+    folder: "wadi-safar-commercial-banner-50-m",
+    video: { src: "videos/wadi-safar-on-site.mp4", poster: "wadi-safar-commercial-banner-50-m/on-site/night-logo", caption: "Installed on site, filmed at night" },
+    summary: "A 49.5-metre construction hoarding for Wadi Safar: five scenes of canyon, Arabian horses, heritage and silk, tied together by one warm, dark-gold grade and the bilingual logo.",
+    brief: "Wrap a 49.5 × 2.8 m site hoarding so it reads as one premium story from a moving car, and still holds up when someone walks right past it — in Arabic and English.",
+    approach: "I split the wall into five scenes that each work alone and flow into each other: the canyon, a white horse, the logo over a running herd, a heritage panel, and silk. One sepia-and-gold colour grade ties the photos together, and the Arabic and English names are set in the brand's gold, large enough to read from across the road. The artwork was built at full size and split into print panels.",
+    outcome: "Five print-ready panels making up the 49.5 m hoarding, now installed on site and lit at night.",
   },
 ];
 

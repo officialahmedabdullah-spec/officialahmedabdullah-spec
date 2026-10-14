@@ -64,9 +64,14 @@ for (const file of sources) {
       continue;
     }
     await mkdir(path.dirname(target), { recursive: true });
+    // very wide pieces (hoardings, banners) keep their height: a 2000px-wide
+    // version of a 50 m banner would be a 100px sliver
+    const meta = await sharp(file, { limitInputPixels: false }).metadata();
+    const wide = meta.width / meta.height > 5;
+    const box = wide ? { width: 16000, height: size.dir === "full" ? 900 : 240, fit: "inside" } : { width: size.max, height: size.max, fit: "inside" };
     await sharp(file, { limitInputPixels: false, failOn: "none" })
       .rotate()
-      .resize({ width: size.max, height: size.max, fit: "inside", withoutEnlargement: true })
+      .resize({ ...box, withoutEnlargement: true })
       .webp({ quality: size.quality, effort: 5 })
       .toFile(target);
     made++;

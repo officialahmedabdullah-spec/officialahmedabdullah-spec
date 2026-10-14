@@ -51,6 +51,8 @@ const en = {
   preloader: { loading: "Loading", skip: "Skip intro" },
   transition: { opening: "opening" },
   layer: {
+    panorama: "Full wall",
+    onSite: "On site",
     hero: "Hero",
     statement: "Statement",
     services: "Services",
@@ -260,6 +262,10 @@ const en = {
     cvSubject: "CV request",
   },
   caseStudy: {
+    panoramaTitle: "Drag along the whole wall.",
+    panoramaHint: "Drag or scroll sideways →",
+    onSiteEyebrow: "On site",
+    onSiteTitle: "Printed, installed, lit.",
     eyebrow: "Case study {n} · {category}",
     client: "Client",
     discipline: "Discipline",
@@ -395,6 +401,8 @@ const ar = {
   preloader: { loading: "جارٍ التحميل", skip: "تخطَّ المقدمة" },
   transition: { opening: "جارٍ فتح" },
   layer: {
+    panorama: "الجدار كاملًا",
+    onSite: "في الموقع",
     hero: "الواجهة",
     statement: "البيان",
     services: "الخدمات",
@@ -598,6 +606,10 @@ const ar = {
     cvSubject: "طلب السيرة الذاتية",
   },
   caseStudy: {
+    panoramaTitle: "اسحب على طول الجدار.",
+    panoramaHint: "اسحب أو مرّر جانبيًا ←",
+    onSiteEyebrow: "في الموقع",
+    onSiteTitle: "طُبع، ورُكّب، وأُضيء.",
     eyebrow: "دراسة حالة {n} · {category}",
     client: "العميل",
     discipline: "المجال",
