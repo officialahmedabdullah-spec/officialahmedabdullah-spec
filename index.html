@@ -38,6 +38,44 @@
     <meta name="twitter:description" content="Graphic &amp; web designer in Riyadh designing logos, brand identity, packaging and websites end to end. www.designdynamo.art" />
     <meta name="twitter:image" content="https://www.designdynamo.art/og-image-v2.jpg" />
     <meta name="twitter:image:alt" content="Ahmad Abdullah, graphic and web designer in Riyadh — designdynamo.art" />
+
+    <!-- tells Google which person, photo and profiles this site belongs to,
+         so search panels use his own LinkedIn and portrait, not a namesake's -->
+    <link rel="me" href="https://www.linkedin.com/in/ahmedabdullahdesigner/" />
+    <link rel="me" href="https://www.behance.net/ahmadabdullah98" />
+    <link rel="me" href="https://www.instagram.com/designd_ynamo/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.designdynamo.art/#ahmad",
+            "name": "Ahmad Abdullah",
+            "jobTitle": "Graphic & Web Designer",
+            "url": "https://www.designdynamo.art/",
+            "image": "https://www.designdynamo.art/images/ahmad-portrait.jpeg",
+            "email": "mailto:official.ahmedabdullah@gmail.com",
+            "address": { "@type": "PostalAddress", "addressLocality": "Riyadh", "addressCountry": "SA" },
+            "knowsLanguage": ["en", "ar"],
+            "sameAs": [
+              "https://www.linkedin.com/in/ahmedabdullahdesigner/",
+              "https://www.behance.net/ahmadabdullah98",
+              "https://www.instagram.com/designd_ynamo/"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.designdynamo.art/#website",
+            "name": "Design Dynamo",
+            "url": "https://www.designdynamo.art/",
+            "image": "https://www.designdynamo.art/og-image-v2.jpg",
+            "author": { "@id": "https://www.designdynamo.art/#ahmad" },
+            "publisher": { "@id": "https://www.designdynamo.art/#ahmad" }
+          }
+        ]
+      }
+    </script>
     <!-- dark workspace by default; apply saved choices (theme, language and
          reading direction) before first paint so nothing flips on load -->
     <script>
