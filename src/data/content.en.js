@@ -259,7 +259,7 @@ export const services = [
     heading: ["Web", "Design"],
     lead: "I design and build responsive websites in plain HTML, CSS and JavaScript — no framework debt, no plugin to keep alive. Fast on a mid-range phone, easy for you to edit, and honest about what your business does.",
     promise: "HTML, CSS, JavaScript — fast on a mid-range phone.",
-    image: "images/ui-web-design-sample.jpg",
+    image: "images/web-design-sample.jpg",
     caption: "Built to the grid, tested at 360px and 2560px",
     secondary: relatedWork,
     deliverables: [
