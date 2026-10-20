@@ -99,7 +99,7 @@ export default function Hero() {
         <figure className={styles.photo} data-cursor="view" data-cursor-label={t("hero.hi")}>
           <img src={asset(site.portrait)} alt={t("hero.portraitAlt", { name: site.name })} width="801" height="820" />
           <span className={styles.halftone} aria-hidden="true" />
-          <figcaption className={cx(styles.caption, "mono")}>portrait.jpg · placed</figcaption>
+          <figcaption className={cx(styles.caption, "mono")}>Ahmad Abdullah · Designer</figcaption>
         </figure>
 
         <div className={styles.stickers} aria-hidden="true">
