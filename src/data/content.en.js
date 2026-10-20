@@ -31,8 +31,8 @@ export const site = {
     { id: "behance", label: "Behance", href: "https://www.behance.net/ahmadabdullah98" },
   ],
   logo: "images/logo.svg",
-  portrait: "images/ahmad-portrait.jpeg",
-  aboutPhoto: "images/ahmad-abdullah-2026.jpg",
+  portrait: "images/ahmad-abdullah-2026.jpg",
+  aboutPhoto: "images/ahmad-portrait.jpeg",
 };
 
 /* ---------- Pages ---------------------------------------------- */
