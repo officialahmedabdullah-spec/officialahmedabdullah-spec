@@ -406,7 +406,7 @@ export const hero = {
   eyebrow: "Ahmad Abdullah · Graphic & Web Designer",
   // the middle word gets the selection box
   headline: ["Designs that", "refuse", "to be scrolled past."],
-  lede: "Four years of logos, labels, posters and websites — built in Photoshop, Illustrator and code, for brands that want people to stop and look.",
+  lede: "Five years of logos, labels, posters and websites — built in Photoshop, Illustrator and code, for brands that want people to stop and look.",
   primary: { label: "Start a project", to: "/contact" },
   secondary: { label: "See the work", to: "/work" },
 };
@@ -424,9 +424,9 @@ export const ticker = [
 ];
 
 export const statement = {
-  text: "I make the kind of work people stop for — then make sure it actually works. Three years deep in logos, labels, flyers, posters, social covers and infographics, one more building responsive websites in HTML, CSS and JavaScript.",
+  text: "I make the kind of work people stop for — then make sure it actually works. Five years deep in logos, labels, flyers, posters, social covers and infographics — and since 2023, building responsive websites in HTML, CSS and JavaScript.",
   metrics: [
-    { value: 4, suffix: "+", label: "Years of design work" },
+    { value: 5, suffix: "+", label: "Years of design work" },
     { value: 50, suffix: "%", label: "Lift in a client's brand awareness" },
     { value: 25, suffix: "%", label: "More people at an event, from flyers and posters" },
     { value: 20, suffix: "%", label: "More online conversions after a rebuild" },
@@ -456,7 +456,7 @@ export const logoBuild = [
 export const aboutIntro = {
   title: "Designer first. Developer when it helps.",
   summary:
-    "Creative and technically skilled Graphic and Web Designer with 4 years of professional experience, including 3 years focused on graphic design and 1 year in web design. My expertise spans logo creation, product labeling, flyers, posters, social media covers and infographics, combined with a solid foundation in web technologies including JavaScript, CSS and HTML. I am dedicated to delivering visually compelling and functional designs that meet client needs and enhance user experiences.",
+    "Creative and technically skilled Graphic and Web Designer with 5 years of professional experience in graphic design, and responsive web design since 2023. My expertise spans logo creation, product labeling, flyers, posters, social media covers and infographics, combined with a solid foundation in web technologies including JavaScript, CSS and HTML. I am dedicated to delivering visually compelling and functional designs that meet client needs and enhance user experiences.",
 };
 
 export const skills = {
@@ -847,7 +847,7 @@ export const footer = {
 // match; `to` is where the result opens.
 export const searchFacts = [
   { title: "Based in Riyadh, KSA", text: "Working with clients in Saudi Arabia and worldwide, remotely.", terms: "location address city country saudi arabia riyadh ksa where based", to: "/contact" },
-  { title: "4+ years of design experience", text: "3 years in graphic design, 1 in web design — freelance since August 2021.", terms: "experience years how long since career", to: "/about" },
+  { title: "5+ years of design experience", text: "Freelance graphic design since August 2021, and responsive web design since June 2023.", terms: "experience years how long since career", to: "/about" },
   { title: "Replies within a day", text: "Send a brief or an email — the answer comes from me, usually the same day.", terms: "response time how fast reply turnaround quick", to: "/contact" },
   { title: "Monthly plans from $49", text: "Starter $49–149, Growth $149–349, Pro $349–699 a month, ordered through Fiverr.", terms: "price pricing cost rates budget how much fee plans subscription fiverr", to: "/services#pricing" },
   { title: "Photoshop, Illustrator, Figma, CorelDRAW", text: "Plus HTML, CSS and JavaScript for websites.", terms: "tools software apps programs adobe ps ai figma corel code html css javascript", to: "/about#skills" },
