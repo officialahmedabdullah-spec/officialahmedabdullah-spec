@@ -50,8 +50,10 @@ export default function Ticker() {
   );
 
   return (
-    <div ref={ref} className={styles.ticker}>
-      <p className="sr-only">{t("ticker.label", { list: ticker.join(getLang() === "ar" ? "، " : ", ") })}</p>
+    // laid out left-to-right in both languages: in an RTL box the over-wide
+    // track would hang off the right edge and the loop would slide it out of view
+    <div ref={ref} className={styles.ticker} dir="ltr">
+      <p className="sr-only" dir="auto">{t("ticker.label", { list: ticker.join(getLang() === "ar" ? "، " : ", ") })}</p>
       {/* the marquee moves in screen direction regardless of language */}
       <div className={styles.track} aria-hidden="true" dir="ltr">
         {[0, 1].map(row)}
