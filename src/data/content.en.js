@@ -32,7 +32,7 @@ export const site = {
   ],
   logo: "images/logo.svg",
   portrait: "images/ahmad-portrait.jpeg",
-  aboutPhoto: "images/ahmad-abdullah.jpg",
+  aboutPhoto: "images/ahmad-abdullah-2026.jpg",
 };
 
 /* ---------- Pages ---------------------------------------------- */
