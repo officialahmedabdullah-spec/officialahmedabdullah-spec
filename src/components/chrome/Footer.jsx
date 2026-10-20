@@ -1,3 +1,4 @@
+import { isLinkOn } from "@/data/features";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useSmoothScroll } from "@/context/SmoothScrollContext";
@@ -101,7 +102,7 @@ export default function Footer() {
       <div className={styles.bottom}>
         <nav aria-label={t("footer.nav")}>
           <ul className={styles.pages}>
-            {footer.links.map((link) => (
+            {footer.links.filter((link) => isLinkOn(link.to)).map((link) => (
               <li key={link.to}>
                 <Link to={link.to}>{link.label}</Link>
               </li>

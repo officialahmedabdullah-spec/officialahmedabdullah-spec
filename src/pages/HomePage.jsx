@@ -5,6 +5,7 @@ import Hero from "@/components/sections/Hero";
 import History from "@/components/sections/History";
 import LogoBuild from "@/components/sections/LogoBuild";
 import Pricing from "@/components/sections/Pricing";
+import { features } from "@/data/features";
 import ServicesPan from "@/components/sections/ServicesPan";
 import Skills from "@/components/sections/Skills";
 import Statement from "@/components/sections/Statement";
@@ -26,7 +27,7 @@ export default function HomePage() {
       <History />
       <ChatProcess />
       <ReviewsSection />
-      <Pricing />
+      {features.pricing && <Pricing />}
     </>
   );
 }

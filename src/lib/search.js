@@ -10,6 +10,7 @@
    to match (filler words like "the", "how", «في» are ignored); if that finds
    nothing, results matching most of the words are shown instead. A hit in a
    title counts more than one in a tag, which counts more than body text. */
+import { features, isLinkOn } from "@/data/features";
 import {
   achievements,
   archiveCategories,
@@ -126,6 +127,7 @@ export function buildIndex() {
   };
 
   searchFacts.forEach((fact, i) =>
+    isLinkOn(fact.to) &&
     add("facts", { title: fact.title, text: fact.text, keys: fact.terms, altKeys: `${other.searchFacts[i]?.title} ${other.searchFacts[i]?.terms}`, to: fact.to, icon: "spark" })
   );
 
@@ -177,7 +179,7 @@ export function buildIndex() {
   );
   achievements.forEach((text, i) => add("about", { title: clip(text, 80), text: t("history.achievements"), body: text, altKeys: other.achievements[i], to: "/about#history", icon: "target" }));
 
-  packages.plans.forEach((plan, i) => {
+  if (features.pricing) packages.plans.forEach((plan, i) => {
     const e = other.packages.plans[i];
     add("pricing", {
       title: `${plan.name} · $${plan.min}–$${plan.max}`,

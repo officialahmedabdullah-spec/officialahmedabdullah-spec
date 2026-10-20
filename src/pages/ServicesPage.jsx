@@ -5,6 +5,7 @@ import { t } from "@/i18n";
 import { cx } from "@/lib/utils";
 import PageHeader from "@/components/sections/PageHeader";
 import Pricing from "@/components/sections/Pricing";
+import { features } from "@/data/features";
 import Steps from "@/components/sections/Steps";
 import Artboard from "@/components/ui/Artboard";
 import { Icon } from "@/components/ui/Icon";
@@ -43,7 +44,7 @@ export default function ServicesPage() {
         </ul>
       </Artboard>
 
-      <Pricing />
+      {features.pricing && <Pricing />}
       <Steps title={t("servicesPage.stepsTitle")} steps={workProcess.steps} eyebrow={t("servicesPage.stepsEyebrow")} />
     </>
   );
