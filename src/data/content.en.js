@@ -639,11 +639,14 @@ export const archiveCategories = [
   { id: "my-prduct-post-practice-work", title: "Product Posts" },
   { id: "illustration", title: "Illustration" },
   { id: "wadi-safar-commercial-banner-50-m", title: "Large-Format Hoarding" },
+  { id: "certificats", title: "Certificate Design" },
 ];
 
 // Display titles for images whose file names are typos or unclear.
 // Key = path below media-source/projects, lower-cased, without extension.
 export const imageTitles = {
+  "certificats/al-safwa-certificate-girls": "Al-Safwa Center excellence certificate — girls",
+  "certificats/al-safwa-certificate-boys": "Al-Safwa Center excellence certificate — boys",
   "codesparkwork/code-spark-logo": "CodeSpark logo",
   "codesparkwork/business-card": "CodeSpark business card",
   "codesparkwork/code-spark-broushre-outsid-back": "CodeSpark brochure — outside",

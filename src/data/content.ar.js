@@ -460,9 +460,12 @@ export default {
     { title: "منشورات المنتجات" },
     { title: "الرسم التوضيحي" },
     { title: "لوحات إعلانية كبيرة" },
+    { title: "تصميم الشهادات" },
   ],
 
   imageTitles: {
+    "certificats/al-safwa-certificate-girls": "شهادة امتياز الصفوة سنتر — البنات",
+    "certificats/al-safwa-certificate-boys": "شهادة امتياز الصفوة سنتر — الأولاد",
     "codesparkwork/code-spark-logo": "شعار CodeSpark",
     "codesparkwork/business-card": "بطاقة عمل CodeSpark",
     "codesparkwork/code-spark-broushre-outsid-back": "بروشور CodeSpark — من الخارج",
