@@ -767,6 +767,26 @@ export const caseStudies = [
     approach: "I split the wall into five scenes that each work alone and flow into each other: the canyon, a white horse, the logo over a running herd, a heritage panel, and silk. One sepia-and-gold colour grade ties the photos together, and the Arabic and English names are set in the brand's gold, large enough to read from across the road. The artwork was built at full size and split into print panels.",
     outcome: "Five print-ready panels making up the 49.5 m hoarding, now installed on site and lit at night.",
   },
+  {
+    slug: "al-safwa-certificates",
+    client: "Al-Safwa Center",
+    title: "Two certificates kids want to take home.",
+    category: "Certificate design",
+    tags: ["Excellence certificates", "Arabic typography", "Girls & boys versions", "Print-ready files"],
+    tools: ["Illustrator", "Photoshop"],
+    accent: "#1f8aa6",
+    cover: "certificats/al-safwa-certificate-boys",
+    featuresTitle: "One layout, two worlds.",
+    features: [
+      { key: "certificats/al-safwa-certificate-girls", caption: "Girls — pink clouds, a crown, a hot-air balloon and a winking girl with her book", wide: true },
+      { key: "certificats/al-safwa-certificate-boys", caption: "Boys — a starry night sky, a rocket and a boy flying on a jetpack", wide: true },
+    ],
+    folder: "certificats",
+    summary: "A pair of Arabic excellence certificates (شهادة امتياز) for Al-Safwa Center: one layout, told twice — a pink, playful version for girls and a space-adventure version for boys.",
+    brief: "Al-Safwa Center wanted certificates that reward a child's effort, behaviour and results — something a kid is proud to carry home, not a plain form — with matching versions for girls and boys.",
+    approach: "Both share one structure: a bold Arabic title, the center's name on a ribbon, a dotted line for the child's name, a short line of praise, an encouraging banner, and the date, supervisor and stamp along the bottom. Around that, each version gets its own character and colour world — pink, crowns and a balloon for the girls; navy sky, a rocket and a gold rosette for the boys — so they feel like a set without being copies.",
+    outcome: "Two print-ready certificates with a blank name line, ready to fill in and hand out.",
+  },
 ];
 
 /* ---------- Contact -------------------------------------------- */

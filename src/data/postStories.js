@@ -25,6 +25,7 @@ const S = {
     board: ["Collected the posters of one industry", "Laid them out on a single presentation board", "Added a title and a consistent grid"],
     hoarding: ["Planned five scenes along the 49.5 m wall", "Graded every photo to one sepia-and-gold look", "Built at full size and split into print panels"],
     site: ["Printed in panels and mounted on the site hoarding", "Checked how the gold reads under street lights", "Filmed on site at night"],
+    certificate: ["Built one layout for the title, name line, praise and signatures", "Gave each version its own character and colour world", "Left the name line blank and exported print-ready"],
   },
   ar: {
     canvas: ["رسمت الشخصية ووضعيتها", "بنيت أشكالًا مسطحة بألوان دافئة", "أضفت ملمس الورق وجرّبتها على جدار"],
@@ -41,11 +42,12 @@ const S = {
     board: ["جمعت ملصقات مجال واحد", "رتبتها على لوحة عرض واحدة", "عنوان وشبكة موحدة"],
     hoarding: ["خططت خمسة مشاهد على طول 49.5 م", "وحّدت الصور بتدرّج بني وذهبي واحد", "صممت بالمقاس الكامل ثم قسّمت لألواح طباعة"],
     site: ["طُبع على ألواح ورُكّب على سياج الموقع", "تأكدت من وضوح الذهبي تحت إنارة الشارع", "صُوّر في الموقع ليلًا"],
+    certificate: ["تخطيط واحد للعنوان وسطر الاسم والثناء والتواقيع", "لكل نسخة شخصيتها وعالمها اللوني", "سطر الاسم فارغ وملف جاهز للطباعة"],
   },
 };
 
 const TOOLS = {
-  canvas: [AI, PS], mockup: [PS], hoarding: [AI, PS], site: [PS], countdown: [PS], course: [PS, AI], module: [PS, FIG], hiring: [PS],
+  canvas: [AI, PS], mockup: [PS], hoarding: [AI, PS], site: [PS], certificate: [AI, PS], countdown: [PS], course: [PS, AI], module: [PS, FIG], hiring: [PS],
   services: [PS, AI], brand: [AI, PS], decal: [AI], illus: [AI], product: [PS], board: [PS, AI],
 };
 
@@ -127,6 +129,8 @@ const STORIES = {
     "wadi-safar-commercial-banner-50-m/on-site/night-logo": ["site", "Show the hoarding installed.", "The logo panel on site, lit by street lights."],
     "wadi-safar-commercial-banner-50-m/on-site/night-wall": ["site", "Show the scale on site.", "The wall running along the site at night."],
     "wadi-safar-commercial-banner-50-m/on-site/night-detail": ["site", "Show the print up close.", "The Arabic name at full size beside the trees."],
+    "certificats/al-safwa-certificate-girls": ["certificate", "An excellence certificate for the girls at Al-Safwa Center.", "Pink clouds, a crown, a balloon and a winking girl with her book."],
+    "certificats/al-safwa-certificate-boys": ["certificate", "An excellence certificate for the boys at Al-Safwa Center.", "Night sky, a rocket and a boy flying on a jetpack, with a gold rosette."],
   },
   ar: {
     "canvas-design/01/01": ["canvas", "لوحة حائط مرحة لغرفة معيشة عصرية.", "إوزة بنظارة شمسية بخلفية طينية هادئة."],
@@ -204,6 +208,8 @@ const STORIES = {
     "wadi-safar-commercial-banner-50-m/on-site/night-logo": ["site", "عرض السياج بعد التركيب.", "لوح الشعار في الموقع تحت إنارة الشارع."],
     "wadi-safar-commercial-banner-50-m/on-site/night-wall": ["site", "إظهار الحجم في الموقع.", "الجدار ممتد على طول الموقع ليلًا."],
     "wadi-safar-commercial-banner-50-m/on-site/night-detail": ["site", "إظهار الطباعة عن قرب.", "الاسم العربي بالمقاس الكامل بجانب الأشجار."],
+    "certificats/al-safwa-certificate-girls": ["certificate", "شهادة امتياز لطالبات الصفوة سنتر.", "غيوم وردية وتاج ومنطاد وفتاة تغمز وتحمل كتابها."],
+    "certificats/al-safwa-certificate-boys": ["certificate", "شهادة امتياز لطلاب الصفوة سنتر.", "سماء ليلية وصاروخ وولد يطير بحقيبة نفاثة، مع وسام ذهبي."],
   },
 };
 
