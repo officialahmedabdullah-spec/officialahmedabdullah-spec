@@ -195,7 +195,7 @@
 
 .note {
   right: 2%;
-  bottom: 4%;
+  bottom: calc(4% + 64px); /* clears the photo caption */
   width: 176px;
   padding: 14px 16px 12px;
   background: var(--yellow);
