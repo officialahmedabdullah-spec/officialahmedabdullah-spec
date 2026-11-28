@@ -1,0 +1,190 @@
+.studio {
+  display: grid;
+  gap: 14px;
+}
+
+/* options bar, like Photoshop's: tools, variants, size, colours, history */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding: 8px;
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--art);
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.end {
+  margin-inline-start: auto;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: inherit;
+  font: 500 13px/1 var(--f-display);
+  opacity: .8;
+  transition: background .15s, opacity .15s;
+}
+
+.btn:hover:not(:disabled) {
+  background: rgb(255 255 255 / .1);
+  opacity: 1;
+}
+
+.btn:disabled {
+  opacity: .3;
+}
+
+.on,
+.on:hover:not(:disabled) {
+  background: var(--blue);
+  color: var(--on-blue);
+  opacity: 1;
+}
+
+.wide {
+  padding: 0 12px;
+  background: rgb(255 255 255 / .08);
+}
+
+.size {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.size input {
+  width: 110px;
+  accent-color: var(--blue);
+}
+
+.size output {
+  min-width: 2ch;
+}
+
+.chip {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin: 0 3px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / .35);
+}
+
+.chip input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+/* the artboard: a fixed 1600×1000 bitmap scaled to the sheet's width */
+.stage {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  box-shadow: 0 0 0 1px var(--ink-line), 0 24px 48px -28px rgb(0 0 0 / .35);
+  background: #fff;
+}
+
+.canvas,
+.preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.canvas {
+  touch-action: none; /* finger drawing instead of scrolling */
+}
+
+.preview {
+  pointer-events: none;
+}
+
+/* the system cursor comes back on the canvas: precision beats the custom one */
+:global(.has-custom-cursor) .canvas {
+  cursor: crosshair !important;
+}
+
+:global(.has-custom-cursor) .canvas[data-tool="text"] {
+  cursor: text !important;
+}
+
+.text {
+  position: absolute;
+  min-width: 8ch;
+  padding: 0;
+  border: 1px dashed var(--blue);
+  background: transparent;
+  font-family: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  font-weight: 600;
+  line-height: 1.15;
+  resize: none;
+  overflow: hidden;
+  outline: none;
+}
+
+.hint {
+  margin: 0;
+  color: var(--ink-dim);
+  font-size: 11px;
+}
+
+.send {
+  margin-top: 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink-line);
+}
+
+.closed {
+  margin: 12px 0 0;
+  color: var(--ink-dim);
+}
+
+@media (max-width: 700px) {
+  .end {
+    margin-inline-start: 0;
+  }
+}
+
+/* approved designs */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 24px var(--col-gap);
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery img {
+  width: 100%;
+  height: auto;
+  box-shadow: 0 0 0 1px var(--ink-line);
+}
+
+.gallery p {
+  margin: 8px 0 0;
+  color: var(--ink-dim);
+  font-size: 11px;
+}

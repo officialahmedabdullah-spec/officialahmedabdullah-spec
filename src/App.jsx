@@ -9,6 +9,7 @@ import NotFoundPage from "@/pages/NotFoundPage";
 import ReviewPage from "@/pages/ReviewPage";
 import ServiceDetailPage from "@/pages/ServiceDetailPage";
 import ServicesPage from "@/pages/ServicesPage";
+import StudioPage from "@/pages/StudioPage";
 import WorkPage from "@/pages/WorkPage";
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="contact" element={<ContactPage />} />
         <Route path="legal" element={<LegalPage />} />
         <Route path="review" element={<ReviewPage />} />
+        <Route path="studio" element={<StudioPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

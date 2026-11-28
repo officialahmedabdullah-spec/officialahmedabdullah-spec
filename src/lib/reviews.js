@@ -16,9 +16,10 @@ import { createClient } from "@supabase/supabase-js";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const MOCK = import.meta.env.DEV && import.meta.env.VITE_REVIEWS_MOCK === "true";
+export const MOCK = import.meta.env.DEV && import.meta.env.VITE_REVIEWS_MOCK === "true";
 
-const supabase =
+// also used by lib/designs.js (studio submissions)
+export const supabase =
   SUPABASE_URL && SUPABASE_KEY ? createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false } }) : null;
 
 export const reviewsConfigured = Boolean(supabase) || MOCK;

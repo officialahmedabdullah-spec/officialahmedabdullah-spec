@@ -130,3 +130,8 @@
   font-weight: 600;
   transform: translate(-50%, -50%);
 }
+
+/* studio canvas shows the system crosshair instead */
+.cursor[data-kind="native"] {
+  visibility: hidden;
+}

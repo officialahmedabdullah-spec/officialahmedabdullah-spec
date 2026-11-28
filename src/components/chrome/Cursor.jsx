@@ -13,6 +13,7 @@ const KINDS = {
   drag: { icon: "drag", tool: "drag" },
   text: { icon: "type", tool: "type" },
   view: { tool: "zoom" },
+  native: { tool: "none" }, // studio canvas: system crosshair, no palette highlight
 };
 
 const INTERACTIVE = "a, button, [role='button'], label, select, summary";
