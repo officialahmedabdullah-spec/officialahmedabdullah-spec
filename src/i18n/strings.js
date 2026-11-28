@@ -304,7 +304,7 @@ const en = {
     tool: { brush: "Brush", eraser: "Eraser", shape: "Shapes", text: "Text", fill: "Paint bucket", picker: "Eyedropper", image: "Place image" },
     variant: { brush: "Soft brush", pencil: "Pencil", rect: "Rectangle", ellipse: "Ellipse", line: "Line", arrow: "Arrow" },
     hint: {
-      brush: "Drag to paint. Pick pencil for hard edges.",
+      brush: "Drag to paint. Pick pencil for hard edges. [ and ] change the size.",
       eraser: "Drag to erase with the background colour.",
       shape: "Drag to draw. Hold Shift for squares, circles and straight angles.",
       text: "Click where the text goes, type, then press Enter.",
@@ -313,6 +313,7 @@ const en = {
       image: "Click where the image goes, then choose one from your device.",
     },
     size: "Size",
+    filled: "Filled",
     fg: "Foreground colour",
     bg: "Background colour",
     swap: "Swap colours",
@@ -694,7 +695,7 @@ const ar = {
     tool: { brush: "فرشاة", eraser: "ممحاة", shape: "أشكال", text: "نص", fill: "دلو الطلاء", picker: "القطّارة", image: "إدراج صورة" },
     variant: { brush: "فرشاة ناعمة", pencil: "قلم رصاص", rect: "مستطيل", ellipse: "شكل بيضاوي", line: "خط", arrow: "سهم" },
     hint: {
-      brush: "اسحب للرسم. اختر قلم الرصاص لحواف حادة.",
+      brush: "اسحب للرسم. اختر قلم الرصاص لحواف حادة. المفتاحان [ و ] يغيّران الحجم.",
       eraser: "اسحب للمسح بلون الخلفية.",
       shape: "اسحب للرسم. اضغط Shift لمربعات ودوائر وزوايا مستقيمة.",
       text: "انقر مكان النص، اكتب، ثم اضغط Enter.",
@@ -703,6 +704,7 @@ const ar = {
       image: "انقر مكان الصورة، ثم اختر صورة من جهازك.",
     },
     size: "الحجم",
+    filled: "معبّأ",
     fg: "اللون الأمامي",
     bg: "لون الخلفية",
     swap: "تبديل الألوان",

@@ -60,7 +60,7 @@ export default function ToolPalette() {
           key={page.to}
           to={page.to}
           end={page.to === "/"}
-          className={({ isActive }) => cx(styles.tool, isActive && styles.current, active === page.tool && styles.holding)}
+          className={({ isActive }) => cx(styles.tool, isActive && styles.current, !inStudio && active === page.tool && styles.holding)}
           aria-label={`${page.label} (${page.key})`}
           onClick={() => play("tick")}
         >

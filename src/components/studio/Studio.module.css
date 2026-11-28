@@ -188,3 +188,22 @@
   color: var(--ink-dim);
   font-size: 11px;
 }
+
+/* brush / eraser size preview that follows the pointer */
+.ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid rgb(255 255 255 / .9);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / .55);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.fillIcon {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: currentColor;
+}

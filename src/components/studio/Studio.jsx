@@ -12,7 +12,8 @@ import styles from "./Studio.module.css";
 const W = 1600;
 const H = 1000;
 const PAPER = "#ffffff";
-const HISTORY = 20; // undo steps (each is a full 6 MB snapshot)
+// undo steps; each is a full 6.4 MB snapshot, so phones keep fewer
+const HISTORY = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches ? 8 : 20;
 const DRAFT = "dd:studio-draft";
 const MAX_UPLOAD = 15 * 1024 * 1024;
 
@@ -60,7 +61,7 @@ export function floodFill(data, width, height, x, y, color, tolerance = 40) {
   return true;
 }
 
-function drawShape(ctx, kind, a, b, color, size) {
+function drawShape(ctx, kind, a, b, color, size, filled = false) {
   ctx.strokeStyle = color;
   ctx.fillStyle = color;
   ctx.lineWidth = size;
@@ -73,7 +74,8 @@ function drawShape(ctx, kind, a, b, color, size) {
     ctx.moveTo(a.x, a.y);
     ctx.lineTo(b.x, b.y);
   }
-  ctx.stroke();
+  if (filled && (kind === "rect" || kind === "ellipse")) ctx.fill();
+  else ctx.stroke();
   if (kind === "arrow") {
     const angle = Math.atan2(b.y - a.y, b.x - a.x);
     const head = Math.max(14, size * 3);
@@ -175,10 +177,17 @@ export default function Studio() {
     return () => clearTimeout(saveTimer.current);
   }, [commit]);
 
-  // Ctrl+Z / Ctrl+Shift+Z / Ctrl+Y
+  // Ctrl+Z / Ctrl+Shift+Z / Ctrl+Y, and [ ] for brush size
   useEffect(() => {
     const onKey = (event) => {
-      if (!(event.ctrlKey || event.metaKey) || event.target.closest?.("input, textarea")) return;
+      if (event.target.closest?.("input, textarea")) return;
+      if (!(event.ctrlKey || event.metaKey)) {
+        if (event.key === "[" || event.key === "]") {
+          const step = Math.max(1, Math.round(studio.size * 0.15));
+          setStudio({ size: Math.min(60, Math.max(1, studio.size + (event.key === "]" ? step : -step))) });
+        }
+        return;
+      }
       const key = event.key.toLowerCase();
       if (key === "z" && !event.shiftKey) undo();
       else if (key === "y" || (key === "z" && event.shiftKey)) redo();
@@ -225,6 +234,19 @@ export default function Studio() {
   };
 
   // Enter, click-away and blur can all fire for one edit: only the first draws
+  // size ring for brush and eraser, like Photoshop's brush cursor
+  const ringRef = useRef(null);
+  const moveRing = (event, scale) => {
+    const ring = ringRef.current;
+    if (!ring || event.pointerType === "touch") return;
+    const { tool, size, pen } = studio;
+    const width = tool === "eraser" ? size * 2 : tool === "brush" ? (pen === "pencil" ? Math.max(1, size / 3) : size) : 0;
+    const d = Math.max(4, width * scale);
+    const r = canvasRef.current.getBoundingClientRect();
+    ring.style.cssText = `width:${d}px;height:${d}px;transform:translate(${event.clientX - r.left - d / 2}px,${event.clientY - r.top - d / 2}px);opacity:${width ? 1 : 0}`;
+  };
+  const hideRing = () => ringRef.current && (ringRef.current.style.opacity = 0);
+
   const commitText = () => {
     const text = textRef.current;
     if (!text) return;
@@ -242,7 +264,7 @@ export default function Studio() {
   };
 
   const onDown = (event) => {
-    if (event.button !== 0) return;
+    if (event.button !== 0 || !event.isPrimary) return; // a second finger (pinch) never draws
     const p = point(event);
     const { tool, size, fg, bg, pen, shape } = studio;
 
@@ -289,9 +311,11 @@ export default function Studio() {
   };
 
   const onMove = (event) => {
+    if (!event.isPrimary) return;
+    const p = point(event);
+    moveRing(event, p.scale);
     const s = stroke.current;
     if (!s) return;
-    const p = point(event);
     if (s.free) {
       const c = ctx();
       const mid = { x: (s.last.x + p.x) / 2, y: (s.last.y + p.y) / 2 };
@@ -320,7 +344,7 @@ export default function Studio() {
     s.end = end;
     const preview = previewRef.current.getContext("2d");
     preview.clearRect(0, 0, W, H);
-    drawShape(preview, s.shape, s.start, end, studio.fg, studio.size);
+    drawShape(preview, s.shape, s.start, end, studio.fg, studio.size, studio.filled);
   };
 
   const onUp = () => {
@@ -330,7 +354,7 @@ export default function Studio() {
     if (!s.free) {
       previewRef.current.getContext("2d").clearRect(0, 0, W, H);
       if (!s.end) return;
-      drawShape(ctx(), s.shape, s.start, s.end, studio.fg, studio.size);
+      drawShape(ctx(), s.shape, s.start, s.end, studio.fg, studio.size, studio.filled);
     }
     commit();
   };
@@ -386,15 +410,28 @@ export default function Studio() {
           </div>
         )}
 
+        {studio.tool === "shape" && (studio.shape === "rect" || studio.shape === "ellipse") && (
+          <button type="button" className={cx(styles.btn, styles.wide, studio.filled && styles.on)} aria-pressed={studio.filled} onClick={() => setStudio({ filled: !studio.filled })}>
+            <span className={styles.fillIcon} aria-hidden="true" /> {t("studio.filled")}
+          </button>
+        )}
+
         {studio.tool === "image" && (
-          <button type="button" className={cx(styles.btn, styles.wide)} onClick={() => fileRef.current.click()}>
+          <button
+            type="button"
+            className={cx(styles.btn, styles.wide)}
+            onClick={() => {
+              imageAt.current = null; // a cancelled click-to-place must not decide where this one lands
+              fileRef.current.click();
+            }}
+          >
             <Icon name="image" size={16} /> {t("studio.chooseImage")}
           </button>
         )}
 
         <label className={cx(styles.size, "mono")}>
           {t("studio.size")}
-          <input type="range" min="1" max="60" step="1" value={studio.size} onChange={(event) => setStudio({ size: Number(event.target.value) })} />
+          <input title="[ ]" type="range" min="1" max="60" step="1" value={studio.size} onChange={(event) => setStudio({ size: Number(event.target.value) })} />
           <output>{studio.size}</output>
         </label>
 
@@ -445,7 +482,9 @@ export default function Studio() {
           onPointerMove={onMove}
           onPointerUp={onUp}
           onPointerCancel={onUp}
+          onPointerLeave={hideRing}
         />
+        <span ref={ringRef} className={styles.ring} aria-hidden="true" />
         <canvas ref={previewRef} width={W} height={H} className={styles.preview} aria-hidden="true" />
         {text && (
           <textarea
@@ -468,7 +507,7 @@ export default function Studio() {
         )}
       </div>
       <input ref={fileRef} type="file" accept="image/*" className="sr-only" tabIndex={-1} onChange={(event) => placeImage(event.target.files?.[0])} />
-      <p className={cx(styles.hint, "mono")} role="status">
+      <p className={cx(styles.hint, "mono")} role="status" dir="auto">
         {notice || t(`studio.hint.${studio.tool}`)}
       </p>
 

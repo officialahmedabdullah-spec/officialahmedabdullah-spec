@@ -13,7 +13,7 @@ export const STUDIO_TOOLS = [
   { id: "image", icon: "image", key: "M" },
 ];
 
-let state = { tool: "brush", pen: "brush", shape: "rect", size: 8, fg: "#1a1814", bg: "#ffffff" };
+let state = { tool: "brush", pen: "brush", shape: "rect", filled: false, size: 8, fg: "#1a1814", bg: "#ffffff" };
 const listeners = new Set();
 
 export function setStudio(patch) {
