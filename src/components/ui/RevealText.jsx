@@ -4,14 +4,20 @@ import { cx, reducedMotion } from "@/lib/utils";
 import styles from "./RevealText.module.css";
 
 /**
- * Heading whose words rise out of a mask one after another.
+ * Heading whose lines rise out of a mask one after another.
  * Strings are split into word spans by React; elements in children
  * (e.g. a <SelectionBox>) are kept whole as a single "word".
  *
  *   <RevealText as="h2" className="h-lg">Watch the mark get made.</RevealText>
  *   <RevealText play={ready}>…</RevealText>   // controlled: waits for `play`
  */
-export default function RevealText({ as: Tag = "h2", children, className, play, delay = 0, stagger = 0.05, ...props }) {
+// words that share a line rise together, each line a beat after the last
+const byLine = (stagger) => (i, word, words) => {
+  const tops = [...new Set(words.map((w) => Math.round(w.parentElement.offsetTop)))].sort((a, b) => a - b);
+  return tops.indexOf(Math.round(word.parentElement.offsetTop)) * stagger;
+};
+
+export default function RevealText({ as: Tag = "h2", children, className, play, delay = 0, stagger = 0.12, ...props }) {
   const ref = useRef(null);
   const controlled = play !== undefined;
 
@@ -23,15 +29,16 @@ export default function RevealText({ as: Tag = "h2", children, className, play, 
     () => {
       if (reducedMotion()) return;
       const words = gsap.utils.toArray(`.${styles.inner}`, ref.current);
-      const from = { yPercent: 110, rotate: 4, opacity: 0 };
+      const from = { yPercent: 115 };
       if (controlled) {
         gsap.set(words, from);
         return;
       }
       gsap.from(words, {
         ...from,
-        duration: 1.1,
-        stagger,
+        duration: 1,
+        ease: "power4.out",
+        stagger: byLine(stagger),
         delay,
         scrollTrigger: { trigger: ref.current, start: "top 88%", toggleActions: "play none none reverse" },
       });
@@ -44,10 +51,9 @@ export default function RevealText({ as: Tag = "h2", children, className, play, 
       if (!controlled || !play || reducedMotion()) return;
       gsap.to(gsap.utils.toArray(`.${styles.inner}`, ref.current), {
         yPercent: 0,
-        rotate: 0,
-        opacity: 1,
-        duration: 1.15,
-        stagger,
+        duration: 1.1,
+        ease: "power4.out",
+        stagger: byLine(stagger),
         delay,
       });
     },

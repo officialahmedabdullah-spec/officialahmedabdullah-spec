@@ -20,13 +20,18 @@ export default function Ticker() {
         ? gsap.fromTo(`.${styles.track}`, { xPercent: -50 }, { xPercent: 0, duration: 40, ease: "none", repeat: -1 })
         : gsap.to(`.${styles.track}`, { xPercent: -50, duration: 40, ease: "none", repeat: -1 });
       let direction = 1;
+      const rows = gsap.utils.toArray(`.${styles.row}`, ref.current);
       ScrollTrigger.create({
         trigger: ref.current,
         start: "top bottom",
         end: "bottom top",
         onUpdate: (self) => {
           direction = self.direction;
-          const boost = Math.min(6, 1 + Math.abs(self.getVelocity()) / 400);
+          const velocity = self.getVelocity();
+          const boost = Math.min(6, 1 + Math.abs(velocity) / 400);
+          // lean into the scroll, then stand back up
+          gsap.to(rows, { skewX: gsap.utils.clamp(-12, 12, -velocity / 300), duration: 0.3, overwrite: true });
+          gsap.to(rows, { skewX: 0, duration: 1, delay: 0.3, ease: "elastic.out(1, 0.5)", overwrite: false });
           gsap.to(loop, { timeScale: boost * direction, duration: 0.2, overwrite: true });
           gsap.to(loop, { timeScale: direction, duration: 1.2, delay: 0.2, overwrite: false });
         },

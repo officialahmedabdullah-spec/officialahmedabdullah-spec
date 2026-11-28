@@ -9,6 +9,7 @@ import LayersPanel from "./LayersPanel";
 import PageTransition from "./PageTransition";
 import Preloader from "./Preloader";
 import Rulers from "./Rulers";
+import Spotlight from "./Spotlight";
 import StatusBar from "./StatusBar";
 import ToolPalette from "./ToolPalette";
 import Topbar from "./Topbar";
@@ -59,6 +60,7 @@ export default function Workspace() {
       <ToolPalette />
       <LayersPanel open={layersOpen} onClose={closeLayers} />
       <main id="main" className={styles.canvas} tabIndex={-1}>
+        <Spotlight />
         <PageTransition />
       </main>
       <StatusBar />

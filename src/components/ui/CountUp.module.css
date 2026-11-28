@@ -1,0 +1,34 @@
+/* cyan and magenta copies of the number slip off-register on hover */
+.ink {
+  position: relative;
+  display: inline-block;
+}
+
+.ink::before,
+.ink::after {
+  content: attr(data-t);
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .45s cubic-bezier(.3, 1.6, .5, 1), opacity .25s;
+}
+
+.ink::before { color: var(--cyan); }
+.ink::after { color: var(--magenta); }
+
+:is([data-cmyk-group]:hover, [data-cmyk-group]:focus-within) .ink::before {
+  opacity: .9;
+  transform: translate(-.05em, .03em);
+}
+
+:is([data-cmyk-group]:hover, [data-cmyk-group]:focus-within) .ink::after {
+  opacity: .9;
+  transform: translate(.05em, -.03em);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink::before,
+  .ink::after { transition: none; }
+}

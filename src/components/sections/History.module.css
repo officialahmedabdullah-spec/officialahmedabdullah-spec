@@ -5,8 +5,8 @@
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
-  gap: clamp(28px, 4vw, 56px);
+  grid-template-columns: minmax(0, var(--span-5)) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 56px) var(--col-gap);
   align-items: start;
 }
 

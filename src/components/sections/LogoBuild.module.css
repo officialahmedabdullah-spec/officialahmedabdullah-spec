@@ -1,7 +1,7 @@
 .build {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(28px, 5vw, 64px);
+  grid-template-columns: minmax(0, var(--span-6)) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 64px) var(--col-gap);
   align-items: center;
   min-height: calc(100vh - 260px);
   background: var(--art);

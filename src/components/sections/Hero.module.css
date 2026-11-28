@@ -4,8 +4,8 @@
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr);
-  gap: clamp(28px, 4vw, 56px);
+  grid-template-columns: minmax(0, var(--span-8)) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 56px) var(--col-gap);
   align-items: end;
   min-height: min(72vh, 720px);
 }

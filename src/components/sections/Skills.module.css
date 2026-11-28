@@ -1,8 +1,8 @@
 /* title beside the Layers panel, then the toolbox across both columns */
 .wrap {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(40px, 5vw, 64px) clamp(32px, 5vw, 72px);
+  grid-template-columns: minmax(0, var(--span-6)) minmax(0, 1fr);
+  gap: clamp(40px, 5vw, 64px) var(--col-gap);
   align-items: center;
 }
 

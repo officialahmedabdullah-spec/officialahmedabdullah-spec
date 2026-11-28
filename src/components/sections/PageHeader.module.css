@@ -4,7 +4,8 @@
 }
 
 .withAside {
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr);
+  grid-template-columns: minmax(0, var(--span-8)) minmax(0, 1fr);
+  column-gap: var(--col-gap);
   align-items: end;
 }
 

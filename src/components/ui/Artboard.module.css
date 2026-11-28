@@ -1,6 +1,6 @@
 .artboard {
   max-width: 1180px;
-  margin: 0 auto 104px;
+  margin: 0 auto var(--space-section);
   scroll-margin-top: calc(var(--bar-h) + var(--ruler) + 24px);
 }
 

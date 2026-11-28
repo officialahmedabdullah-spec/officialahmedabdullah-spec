@@ -12,6 +12,8 @@
   max-width: none;
   height: calc(100% + 28px);
   object-fit: cover;
+  /* --py: scroll parallax set by the card (transform belongs to the hover) */
+  object-position: 50% var(--py, 50%);
   mix-blend-mode: multiply;
   will-change: transform;
 }

@@ -44,10 +44,10 @@ export default function Statement() {
 
         <dl className={styles.metrics}>
           {statement.metrics.map((metric) => (
-            <div key={metric.label} className={styles.metric}>
+            <div key={metric.label} className={styles.metric} data-cmyk-group>
               <dt className={cx(styles.label, "mono")}>{metric.label}</dt>
               <dd className={styles.value}>
-                <CountUp value={metric.value} suffix={metric.suffix} />
+                <CountUp value={metric.value} suffix={metric.suffix} ink />
               </dd>
             </div>
           ))}

@@ -1,7 +1,7 @@
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(32px, 5vw, 72px);
+  grid-template-columns: minmax(0, var(--span-6)) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px) var(--col-gap);
   align-items: start;
 }
 

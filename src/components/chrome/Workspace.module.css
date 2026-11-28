@@ -7,6 +7,26 @@
     calc(var(--status-h) + 72px)
     calc(var(--tools-w) + var(--ruler) + var(--gutter));
   overflow-x: clip;
+  isolation: isolate;
+}
+
+/* pointer light: sits under the artboards, moved by transform only */
+.spot {
+  position: fixed;
+  top: -300px;
+  left: -300px;
+  z-index: -1;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--spot), transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .6s;
+}
+
+.spot[data-on="true"] {
+  opacity: 1;
 }
 
 @media (max-width: 860px) {

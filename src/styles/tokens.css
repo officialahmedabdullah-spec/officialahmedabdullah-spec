@@ -16,6 +16,7 @@
   --blue: #31a8ff;             /* selection, focus, UI accents */
   --on-blue: #06121d;
   --sheet-shadow: 0 40px 80px -40px rgb(0 0 0 / .75);
+  --spot: rgb(255 255 255 / .06);
   /* brand mark in the workspace: the lime-on-black variant */
   --mark: var(--brand-lime);
   --mark-tile: var(--brand-black);
@@ -33,6 +34,7 @@
   --blue: #0a74cc;
   --on-blue: #ffffff;
   --sheet-shadow: 0 30px 60px -36px rgb(0 0 0 / .35);
+  --spot: rgb(255 255 255 / .7);
   /* brand mark in the light UI: burgundy on cream */
   --mark: var(--brand-burgundy);
   --mark-tile: var(--brand-cream);
@@ -76,6 +78,16 @@
   --status-h: 28px;
   --gutter: clamp(16px, 4vw, 56px);
   --sheet-pad: clamp(24px, 5vw, 72px);
+
+  /* one 12-column grid inside every sheet: two-column sections use
+     var(--span-N) 1fr so their edges land on the same columns */
+  --col-gap: clamp(20px, 3vw, 40px);
+  --col: calc((100% - 11 * var(--col-gap)) / 12);
+  --span-4: calc(var(--col) * 4 + var(--col-gap) * 3);
+  --span-5: calc(var(--col) * 5 + var(--col-gap) * 4);
+  --span-6: calc(var(--col) * 6 + var(--col-gap) * 5);
+  --span-8: calc(var(--col) * 8 + var(--col-gap) * 7);
+  --space-section: clamp(64px, 9vw, 120px);
 
   /* stacking order, low → high. The cursor is ALWAYS the top layer:
      nothing may use a z-index at or above --z-cursor (see README →

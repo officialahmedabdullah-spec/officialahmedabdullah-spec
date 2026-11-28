@@ -25,6 +25,24 @@ export function SmoothScrollProvider({ children }) {
     };
   }, []);
 
+  // lazy images, fonts and late sections grow the page after triggers are
+  // measured; re-measure once it settles or every scroll scene fires late
+  useEffect(() => {
+    let timer = 0;
+    let height = document.body.offsetHeight;
+    const observer = new ResizeObserver(() => {
+      if (document.body.offsetHeight === height) return;
+      height = document.body.offsetHeight;
+      clearTimeout(timer);
+      timer = setTimeout(() => ScrollTrigger.refresh(), 200);
+    });
+    observer.observe(document.body);
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, []);
+
   const scrollTo = useCallback((target, { immediate = false, offset } = {}) => {
     const lenis = lenisRef.current;
     const top = offset ?? -chromeTop();
